@@ -138,7 +138,7 @@ int main()
 
   // Initialize PacketHandler instance
   // Set the protocol version
-  // Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
+  // Get methods and members of ProtocolPacketHandler
   mercury::PacketHandler *packetHandler = mercury::PacketHandler::getPacketHandler(PROTOCOL_VERSION);
 
   // Initialize GroupBulkWrite instance

@@ -129,7 +129,7 @@ class WINDECLSPEC GroupBulkWrite
   /// @brief The function that transmits the Bulk Write instruction packet which might be constructed by GroupBulkWrite::addParam function
   /// @return COMM_NOT_AVAILABLE
   /// @return   when the list for Bulk Write is empty
-  /// @return   when Protocol1.0 has been used
+  /// @return   when Protocol.0 has been used
   /// @return or the other communication results which come from PacketHandler::bulkWriteTxOnly
   ////////////////////////////////////////////////////////////////////////////////
   int     txPacket();

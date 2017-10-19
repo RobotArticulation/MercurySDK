@@ -145,7 +145,7 @@ int main()
 
   // Initialize PacketHandler instance
   // Set the protocol version
-  // Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
+  // Get methods and members of ProtocolPacketHandler
   mercury::PacketHandler *packetHandler1 = mercury::PacketHandler::getPacketHandler(PROTOCOL_VERSION1);
   mercury::PacketHandler *packetHandler2 = mercury::PacketHandler::getPacketHandler(PROTOCOL_VERSION2);
 

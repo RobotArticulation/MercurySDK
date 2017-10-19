@@ -67,11 +67,11 @@
 
 using namespace mercury;
 
-Protocol1PacketHandler *Protocol1PacketHandler::unique_instance_ = new Protocol1PacketHandler();
+ProtocolPacketHandler *ProtocolPacketHandler::unique_instance_ = new ProtocolPacketHandler();
 
-Protocol1PacketHandler::Protocol1PacketHandler() { }
+ProtocolPacketHandler::ProtocolPacketHandler() { }
 
-const char *Protocol1PacketHandler::getTxRxResult(int result)
+const char *ProtocolPacketHandler::getTxRxResult(int result)
 {
   switch(result)
   {
@@ -107,7 +107,7 @@ const char *Protocol1PacketHandler::getTxRxResult(int result)
   }
 }
 
-void Protocol1PacketHandler::printTxRxResult(int result)
+void ProtocolPacketHandler::printTxRxResult(int result)
 {
 #if defined(ARDUINO) || defined(__OPENCR__) || defined(__OPENCM904__)
   Serial.println("This function is deprecated. Use 'Serial.print()' and 'getRxPacketError()' instead");
@@ -118,7 +118,7 @@ void Protocol1PacketHandler::printTxRxResult(int result)
 #endif
 }
 
-const char *Protocol1PacketHandler::getRxPacketError(uint8_t error)
+const char *ProtocolPacketHandler::getRxPacketError(uint8_t error)
 {
   if (error & ERRBIT_VOLTAGE)
     return "[RxPacketError] Input voltage error!";
@@ -144,7 +144,7 @@ const char *Protocol1PacketHandler::getRxPacketError(uint8_t error)
   return "";
 }
 
-void Protocol1PacketHandler::printRxPacketError(uint8_t error)
+void ProtocolPacketHandler::printRxPacketError(uint8_t error)
 {
 #if defined(ARDUINO) || defined(__OPENCR__) || defined(__OPENCM904__)
   Serial.println("This function is deprecated. Use 'Serial.print()' and 'getRxPacketError()' instead");
@@ -155,7 +155,7 @@ void Protocol1PacketHandler::printRxPacketError(uint8_t error)
 #endif
 }
 
-int Protocol1PacketHandler::txPacket(PortHandler *port, uint8_t *txpacket)
+int ProtocolPacketHandler::txPacket(PortHandler *port, uint8_t *txpacket)
 {
   uint8_t checksum               = 0;
   uint8_t total_packet_length    = txpacket[PKT_LENGTH] + 4; // 4: HEADER0 HEADER1 ID LENGTH
@@ -193,7 +193,7 @@ int Protocol1PacketHandler::txPacket(PortHandler *port, uint8_t *txpacket)
   return COMM_SUCCESS;
 }
 
-int Protocol1PacketHandler::rxPacket(PortHandler *port, uint8_t *rxpacket)
+int ProtocolPacketHandler::rxPacket(PortHandler *port, uint8_t *rxpacket)
 {
   int     result         = COMM_TX_FAIL;
 
@@ -305,7 +305,7 @@ int Protocol1PacketHandler::rxPacket(PortHandler *port, uint8_t *rxpacket)
 }
 
 // NOT for BulkRead instruction
-int Protocol1PacketHandler::txRxPacket(PortHandler *port, uint8_t *txpacket, uint8_t *rxpacket, uint8_t *error)
+int ProtocolPacketHandler::txRxPacket(PortHandler *port, uint8_t *txpacket, uint8_t *rxpacket, uint8_t *error)
 {
   int result = COMM_TX_FAIL;
 
@@ -350,12 +350,12 @@ int Protocol1PacketHandler::txRxPacket(PortHandler *port, uint8_t *txpacket, uin
   return result;
 }
 
-int Protocol1PacketHandler::ping(PortHandler *port, uint8_t id, uint8_t *error)
+int ProtocolPacketHandler::ping(PortHandler *port, uint8_t id, uint8_t *error)
 {
   return ping(port, id, 0, error);
 }
 
-int Protocol1PacketHandler::ping(PortHandler *port, uint8_t id, uint16_t *model_number, uint8_t *error)
+int ProtocolPacketHandler::ping(PortHandler *port, uint8_t id, uint16_t *model_number, uint8_t *error)
 {
   int result                 = COMM_TX_FAIL;
 
@@ -380,12 +380,12 @@ int Protocol1PacketHandler::ping(PortHandler *port, uint8_t id, uint16_t *model_
   return result;
 }
 
-int Protocol1PacketHandler::broadcastPing(PortHandler *port, std::vector<uint8_t> &id_list)
+int ProtocolPacketHandler::broadcastPing(PortHandler *port, std::vector<uint8_t> &id_list)
 {
   return COMM_NOT_AVAILABLE;
 }
 
-int Protocol1PacketHandler::action(PortHandler *port, uint8_t id)
+int ProtocolPacketHandler::action(PortHandler *port, uint8_t id)
 {
   uint8_t txpacket[6]         = {0};
 
@@ -396,12 +396,12 @@ int Protocol1PacketHandler::action(PortHandler *port, uint8_t id)
   return txRxPacket(port, txpacket, 0);
 }
 
-int Protocol1PacketHandler::reboot(PortHandler *port, uint8_t id, uint8_t *error)
+int ProtocolPacketHandler::reboot(PortHandler *port, uint8_t id, uint8_t *error)
 {
   return COMM_NOT_AVAILABLE;
 }
 
-int Protocol1PacketHandler::factoryReset(PortHandler *port, uint8_t id, uint8_t option, uint8_t *error)
+int ProtocolPacketHandler::factoryReset(PortHandler *port, uint8_t id, uint8_t option, uint8_t *error)
 {
   uint8_t txpacket[6]         = {0};
   uint8_t rxpacket[6]         = {0};
@@ -413,7 +413,7 @@ int Protocol1PacketHandler::factoryReset(PortHandler *port, uint8_t id, uint8_t 
   return txRxPacket(port, txpacket, rxpacket, error);
 }
 
-int Protocol1PacketHandler::readTx(PortHandler *port, uint8_t id, uint16_t address, uint16_t length)
+int ProtocolPacketHandler::readTx(PortHandler *port, uint8_t id, uint16_t address, uint16_t length)
 {
   int result                 = COMM_TX_FAIL;
 
@@ -437,7 +437,7 @@ int Protocol1PacketHandler::readTx(PortHandler *port, uint8_t id, uint16_t addre
   return result;
 }
 
-int Protocol1PacketHandler::readRx(PortHandler *port, uint8_t id, uint16_t length, uint8_t *data, uint8_t *error)
+int ProtocolPacketHandler::readRx(PortHandler *port, uint8_t id, uint16_t length, uint8_t *data, uint8_t *error)
 {
   int result                  = COMM_TX_FAIL;
   uint8_t *rxpacket           = (uint8_t *)malloc(RXPACKET_MAX_LEN); //(length+6);
@@ -465,7 +465,7 @@ int Protocol1PacketHandler::readRx(PortHandler *port, uint8_t id, uint16_t lengt
   return result;
 }
 
-int Protocol1PacketHandler::readTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error)
+int ProtocolPacketHandler::readTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error)
 {
   int result = COMM_TX_FAIL;
 
@@ -500,11 +500,11 @@ int Protocol1PacketHandler::readTxRx(PortHandler *port, uint8_t id, uint16_t add
   return result;
 }
 
-int Protocol1PacketHandler::read1ByteTx(PortHandler *port, uint8_t id, uint16_t address)
+int ProtocolPacketHandler::read1ByteTx(PortHandler *port, uint8_t id, uint16_t address)
 {
   return readTx(port, id, address, 1);
 }
-int Protocol1PacketHandler::read1ByteRx(PortHandler *port, uint8_t id, uint8_t *data, uint8_t *error)
+int ProtocolPacketHandler::read1ByteRx(PortHandler *port, uint8_t id, uint8_t *data, uint8_t *error)
 {
   uint8_t data_read[1] = {0};
   int result = readRx(port, id, 1, data_read, error);
@@ -512,7 +512,7 @@ int Protocol1PacketHandler::read1ByteRx(PortHandler *port, uint8_t id, uint8_t *
     *data = data_read[0];
   return result;
 }
-int Protocol1PacketHandler::read1ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint8_t *data, uint8_t *error)
+int ProtocolPacketHandler::read1ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint8_t *data, uint8_t *error)
 {
   uint8_t data_read[1] = {0};
   int result = readTxRx(port, id, address, 1, data_read, error);
@@ -521,11 +521,11 @@ int Protocol1PacketHandler::read1ByteTxRx(PortHandler *port, uint8_t id, uint16_
   return result;
 }
 
-int Protocol1PacketHandler::read2ByteTx(PortHandler *port, uint8_t id, uint16_t address)
+int ProtocolPacketHandler::read2ByteTx(PortHandler *port, uint8_t id, uint16_t address)
 {
   return readTx(port, id, address, 2);
 }
-int Protocol1PacketHandler::read2ByteRx(PortHandler *port, uint8_t id, uint16_t *data, uint8_t *error)
+int ProtocolPacketHandler::read2ByteRx(PortHandler *port, uint8_t id, uint16_t *data, uint8_t *error)
 {
   uint8_t data_read[2] = {0};
   int result = readRx(port, id, 2, data_read, error);
@@ -533,7 +533,7 @@ int Protocol1PacketHandler::read2ByteRx(PortHandler *port, uint8_t id, uint16_t 
     *data = DXL_MAKEWORD(data_read[0], data_read[1]);
   return result;
 }
-int Protocol1PacketHandler::read2ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t *data, uint8_t *error)
+int ProtocolPacketHandler::read2ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t *data, uint8_t *error)
 {
   uint8_t data_read[2] = {0};
   int result = readTxRx(port, id, address, 2, data_read, error);
@@ -542,11 +542,11 @@ int Protocol1PacketHandler::read2ByteTxRx(PortHandler *port, uint8_t id, uint16_
   return result;
 }
 
-int Protocol1PacketHandler::read4ByteTx(PortHandler *port, uint8_t id, uint16_t address)
+int ProtocolPacketHandler::read4ByteTx(PortHandler *port, uint8_t id, uint16_t address)
 {
   return readTx(port, id, address, 4);
 }
-int Protocol1PacketHandler::read4ByteRx(PortHandler *port, uint8_t id, uint32_t *data, uint8_t *error)
+int ProtocolPacketHandler::read4ByteRx(PortHandler *port, uint8_t id, uint32_t *data, uint8_t *error)
 {
   uint8_t data_read[4] = {0};
   int result = readRx(port, id, 4, data_read, error);
@@ -554,7 +554,7 @@ int Protocol1PacketHandler::read4ByteRx(PortHandler *port, uint8_t id, uint32_t 
     *data = DXL_MAKEDWORD(DXL_MAKEWORD(data_read[0], data_read[1]), DXL_MAKEWORD(data_read[2], data_read[3]));
   return result;
 }
-int Protocol1PacketHandler::read4ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint32_t *data, uint8_t *error)
+int ProtocolPacketHandler::read4ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint32_t *data, uint8_t *error)
 {
   uint8_t data_read[4] = {0};
   int result = readTxRx(port, id, address, 4, data_read, error);
@@ -563,7 +563,7 @@ int Protocol1PacketHandler::read4ByteTxRx(PortHandler *port, uint8_t id, uint16_
   return result;
 }
 
-int Protocol1PacketHandler::writeTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data)
+int ProtocolPacketHandler::writeTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data)
 {
   int result                 = COMM_TX_FAIL;
 
@@ -587,7 +587,7 @@ int Protocol1PacketHandler::writeTxOnly(PortHandler *port, uint8_t id, uint16_t 
   return result;
 }
 
-int Protocol1PacketHandler::writeTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error)
+int ProtocolPacketHandler::writeTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error)
 {
   int result                 = COMM_TX_FAIL;
 
@@ -611,40 +611,40 @@ int Protocol1PacketHandler::writeTxRx(PortHandler *port, uint8_t id, uint16_t ad
   return result;
 }
 
-int Protocol1PacketHandler::write1ByteTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint8_t data)
+int ProtocolPacketHandler::write1ByteTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint8_t data)
 {
   uint8_t data_write[1] = { data };
   return writeTxOnly(port, id, address, 1, data_write);
 }
-int Protocol1PacketHandler::write1ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint8_t data, uint8_t *error)
+int ProtocolPacketHandler::write1ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint8_t data, uint8_t *error)
 {
   uint8_t data_write[1] = { data };
   return writeTxRx(port, id, address, 1, data_write, error);
 }
 
-int Protocol1PacketHandler::write2ByteTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint16_t data)
+int ProtocolPacketHandler::write2ByteTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint16_t data)
 {
   uint8_t data_write[2] = { DXL_LOBYTE(data), DXL_HIBYTE(data) };
   return writeTxOnly(port, id, address, 2, data_write);
 }
-int Protocol1PacketHandler::write2ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t data, uint8_t *error)
+int ProtocolPacketHandler::write2ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t data, uint8_t *error)
 {
   uint8_t data_write[2] = { DXL_LOBYTE(data), DXL_HIBYTE(data) };
   return writeTxRx(port, id, address, 2, data_write, error);
 }
 
-int Protocol1PacketHandler::write4ByteTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint32_t data)
+int ProtocolPacketHandler::write4ByteTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint32_t data)
 {
   uint8_t data_write[4] = { DXL_LOBYTE(DXL_LOWORD(data)), DXL_HIBYTE(DXL_LOWORD(data)), DXL_LOBYTE(DXL_HIWORD(data)), DXL_HIBYTE(DXL_HIWORD(data)) };
   return writeTxOnly(port, id, address, 4, data_write);
 }
-int Protocol1PacketHandler::write4ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint32_t data, uint8_t *error)
+int ProtocolPacketHandler::write4ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint32_t data, uint8_t *error)
 {
   uint8_t data_write[4] = { DXL_LOBYTE(DXL_LOWORD(data)), DXL_HIBYTE(DXL_LOWORD(data)), DXL_LOBYTE(DXL_HIWORD(data)), DXL_HIBYTE(DXL_HIWORD(data)) };
   return writeTxRx(port, id, address, 4, data_write, error);
 }
 
-int Protocol1PacketHandler::regWriteTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data)
+int ProtocolPacketHandler::regWriteTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data)
 {
   int result                 = COMM_TX_FAIL;
 
@@ -668,7 +668,7 @@ int Protocol1PacketHandler::regWriteTxOnly(PortHandler *port, uint8_t id, uint16
   return result;
 }
 
-int Protocol1PacketHandler::regWriteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error)
+int ProtocolPacketHandler::regWriteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error)
 {
   int result                 = COMM_TX_FAIL;
 
@@ -692,12 +692,12 @@ int Protocol1PacketHandler::regWriteTxRx(PortHandler *port, uint8_t id, uint16_t
   return result;
 }
 
-int Protocol1PacketHandler::syncReadTx(PortHandler *port, uint16_t start_address, uint16_t data_length, uint8_t *param, uint16_t param_length)
+int ProtocolPacketHandler::syncReadTx(PortHandler *port, uint16_t start_address, uint16_t data_length, uint8_t *param, uint16_t param_length)
 {
   return COMM_NOT_AVAILABLE;
 }
 
-int Protocol1PacketHandler::syncWriteTxOnly(PortHandler *port, uint16_t start_address, uint16_t data_length, uint8_t *param, uint16_t param_length)
+int ProtocolPacketHandler::syncWriteTxOnly(PortHandler *port, uint16_t start_address, uint16_t data_length, uint8_t *param, uint16_t param_length)
 {
   int result                 = COMM_TX_FAIL;
 
@@ -722,7 +722,7 @@ int Protocol1PacketHandler::syncWriteTxOnly(PortHandler *port, uint16_t start_ad
   return result;
 }
 
-int Protocol1PacketHandler::bulkReadTx(PortHandler *port, uint8_t *param, uint16_t param_length)
+int ProtocolPacketHandler::bulkReadTx(PortHandler *port, uint8_t *param, uint16_t param_length)
 {
   int result                 = COMM_TX_FAIL;
 
@@ -753,7 +753,7 @@ int Protocol1PacketHandler::bulkReadTx(PortHandler *port, uint8_t *param, uint16
   return result;
 }
 
-int Protocol1PacketHandler::bulkWriteTxOnly(PortHandler *port, uint8_t *param, uint16_t param_length)
+int ProtocolPacketHandler::bulkWriteTxOnly(PortHandler *port, uint8_t *param, uint16_t param_length)
 {
   return COMM_NOT_AVAILABLE;
 }
