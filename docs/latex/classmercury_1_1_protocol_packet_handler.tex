@@ -11,8 +11,7 @@ The class for control Mercury by using Protocol.\+0.
 
 
 
-Inheritance diagram for mercury\+:\+:Protocol\+Packet\+Handler\+:
-\nopagebreak
+Inheritance diagram for mercury\+:\+:Protocol\+Packet\+Handler\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -21,8 +20,7 @@ Inheritance diagram for mercury\+:\+:Protocol\+Packet\+Handler\+:
 \end{figure}
 
 
-Collaboration diagram for mercury\+:\+:Protocol\+Packet\+Handler\+:
-\nopagebreak
+Collaboration diagram for mercury\+:\+:Protocol\+Packet\+Handler\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -36,12 +34,8 @@ float \hyperlink{classmercury_1_1_protocol_packet_handler_a79099f3c0ebc35a9198ca
 \begin{DoxyCompactList}\small\item\em The function that returns Protocol version used in \hyperlink{classmercury_1_1_protocol_packet_handler}{Protocol\+Packet\+Handler} (1.\+0) \end{DoxyCompactList}\item 
 const char $\ast$ \hyperlink{classmercury_1_1_protocol_packet_handler_a9c963a7033794c15b4d51ccf7455897f}{get\+Tx\+Rx\+Result} (int result)
 \begin{DoxyCompactList}\small\item\em The function that gets description of communication result. \end{DoxyCompactList}\item 
-void \hyperlink{classmercury_1_1_protocol_packet_handler_a24cb94d59c1a0f1fcb70a85e1a8465b2}{print\+Tx\+Rx\+Result} (int result)
-\begin{DoxyCompactList}\small\item\em The function that prints out description of communication result. \end{DoxyCompactList}\item 
 const char $\ast$ \hyperlink{classmercury_1_1_protocol_packet_handler_a0567896a3552cd6bea62e81f2b42741e}{get\+Rx\+Packet\+Error} (uint8\+\_\+t error)
 \begin{DoxyCompactList}\small\item\em The function that gets description of hardware error. \end{DoxyCompactList}\item 
-void \hyperlink{classmercury_1_1_protocol_packet_handler_ac4a6d381c2222446cfa558a9fb675c1c}{print\+Rx\+Packet\+Error} (uint8\+\_\+t error)
-\begin{DoxyCompactList}\small\item\em The function that prints out description of hardware error. \end{DoxyCompactList}\item 
 int \hyperlink{classmercury_1_1_protocol_packet_handler_a245f01395d9684bc58788e8a06de3ffc}{tx\+Packet} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t $\ast$txpacket)
 \begin{DoxyCompactList}\small\item\em The function that transmits the instruction packet txpacket via \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} port.  The function clears the port buffer by \hyperlink{classmercury_1_1_port_handler_accf37c8838c1ce3042a0127ceeb89c48}{Port\+Handler\+::clear\+Port()} function,  then transmits txpacket by \hyperlink{classmercury_1_1_port_handler_ad26c3a106d6b668b6fae3d2f0afeab9e}{Port\+Handler\+::write\+Port()} function.  The function activates only when the port is not busy and when the packet is already written on the port buffer. \end{DoxyCompactList}\item 
 int \hyperlink{classmercury_1_1_protocol_packet_handler_a4d124ca43f6a2178497eaaabb9e5907b}{rx\+Packet} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t $\ast$rxpacket)
@@ -409,50 +403,6 @@ or the other communication results which come from \hyperlink{classmercury_1_1_p
 
 
 Implements \hyperlink{classmercury_1_1_packet_handler_a10c18ef1d19f531f71c3996f10b6426d}{mercury\+::\+Packet\+Handler}.
-
-\index{mercury\+::\+Protocol\+Packet\+Handler@{mercury\+::\+Protocol\+Packet\+Handler}!print\+Rx\+Packet\+Error@{print\+Rx\+Packet\+Error}}
-\index{print\+Rx\+Packet\+Error@{print\+Rx\+Packet\+Error}!mercury\+::\+Protocol\+Packet\+Handler@{mercury\+::\+Protocol\+Packet\+Handler}}
-\subsubsection[{\texorpdfstring{print\+Rx\+Packet\+Error(uint8\+\_\+t error)}{printRxPacketError(uint8_t error)}}]{\setlength{\rightskip}{0pt plus 5cm}void mercury\+::\+Protocol\+Packet\+Handler\+::print\+Rx\+Packet\+Error (
-\begin{DoxyParamCaption}
-\item[{uint8\+\_\+t}]{error}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{classmercury_1_1_protocol_packet_handler_ac4a6d381c2222446cfa558a9fb675c1c}{}\label{classmercury_1_1_protocol_packet_handler_ac4a6d381c2222446cfa558a9fb675c1c}
-
-
-The function that prints out description of hardware error. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em error} & Mercury hardware error which might be gotten by the tx rx functions \\
-\hline
-\end{DoxyParams}
-\begin{DoxyRefDesc}{Todo}
-\item[\hyperlink{todo__todo000004}{Todo}]This function is deprecated (removed in Mercury\+S\+DK ver. 3.\+6.\+1) \end{DoxyRefDesc}
-
-
-Implements \hyperlink{classmercury_1_1_packet_handler_a63da34ba48010ef1836972484b46da4e}{mercury\+::\+Packet\+Handler}.
-
-\index{mercury\+::\+Protocol\+Packet\+Handler@{mercury\+::\+Protocol\+Packet\+Handler}!print\+Tx\+Rx\+Result@{print\+Tx\+Rx\+Result}}
-\index{print\+Tx\+Rx\+Result@{print\+Tx\+Rx\+Result}!mercury\+::\+Protocol\+Packet\+Handler@{mercury\+::\+Protocol\+Packet\+Handler}}
-\subsubsection[{\texorpdfstring{print\+Tx\+Rx\+Result(int result)}{printTxRxResult(int result)}}]{\setlength{\rightskip}{0pt plus 5cm}void mercury\+::\+Protocol\+Packet\+Handler\+::print\+Tx\+Rx\+Result (
-\begin{DoxyParamCaption}
-\item[{int}]{result}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{classmercury_1_1_protocol_packet_handler_a24cb94d59c1a0f1fcb70a85e1a8465b2}{}\label{classmercury_1_1_protocol_packet_handler_a24cb94d59c1a0f1fcb70a85e1a8465b2}
-
-
-The function that prints out description of communication result. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em result} & Communication result which might be gotten by the tx rx functions \\
-\hline
-\end{DoxyParams}
-\begin{DoxyRefDesc}{Todo}
-\item[\hyperlink{todo__todo000003}{Todo}]This function is deprecated (removed in Mercury\+S\+DK ver. 3.\+6.\+1) \end{DoxyRefDesc}
-
-
-Implements \hyperlink{classmercury_1_1_packet_handler_aa87d54e892b2ef2bbb5136e95ed00e0c}{mercury\+::\+Packet\+Handler}.
 
 \index{mercury\+::\+Protocol\+Packet\+Handler@{mercury\+::\+Protocol\+Packet\+Handler}!read1\+Byte\+Rx@{read1\+Byte\+Rx}}
 \index{read1\+Byte\+Rx@{read1\+Byte\+Rx}!mercury\+::\+Protocol\+Packet\+Handler@{mercury\+::\+Protocol\+Packet\+Handler}}

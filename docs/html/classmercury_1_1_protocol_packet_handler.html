@@ -39,7 +39,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -126,15 +125,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9c963a7033794c15b4d51ccf7455897f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_protocol_packet_handler.html#a9c963a7033794c15b4d51ccf7455897f">getTxRxResult</a> (int result)</td></tr>
 <tr class="memdesc:a9c963a7033794c15b4d51ccf7455897f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that gets description of communication result.  <a href="#a9c963a7033794c15b4d51ccf7455897f">More...</a><br /></td></tr>
 <tr class="separator:a9c963a7033794c15b4d51ccf7455897f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24cb94d59c1a0f1fcb70a85e1a8465b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_protocol_packet_handler.html#a24cb94d59c1a0f1fcb70a85e1a8465b2">printTxRxResult</a> (int result)</td></tr>
-<tr class="memdesc:a24cb94d59c1a0f1fcb70a85e1a8465b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that prints out description of communication result.  <a href="#a24cb94d59c1a0f1fcb70a85e1a8465b2">More...</a><br /></td></tr>
-<tr class="separator:a24cb94d59c1a0f1fcb70a85e1a8465b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0567896a3552cd6bea62e81f2b42741e"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_protocol_packet_handler.html#a0567896a3552cd6bea62e81f2b42741e">getRxPacketError</a> (uint8_t error)</td></tr>
 <tr class="memdesc:a0567896a3552cd6bea62e81f2b42741e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that gets description of hardware error.  <a href="#a0567896a3552cd6bea62e81f2b42741e">More...</a><br /></td></tr>
 <tr class="separator:a0567896a3552cd6bea62e81f2b42741e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4a6d381c2222446cfa558a9fb675c1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_protocol_packet_handler.html#ac4a6d381c2222446cfa558a9fb675c1c">printRxPacketError</a> (uint8_t error)</td></tr>
-<tr class="memdesc:ac4a6d381c2222446cfa558a9fb675c1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that prints out description of hardware error.  <a href="#ac4a6d381c2222446cfa558a9fb675c1c">More...</a><br /></td></tr>
-<tr class="separator:ac4a6d381c2222446cfa558a9fb675c1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a245f01395d9684bc58788e8a06de3ffc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_protocol_packet_handler.html#a245f01395d9684bc58788e8a06de3ffc">txPacket</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t *txpacket)</td></tr>
 <tr class="memdesc:a245f01395d9684bc58788e8a06de3ffc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits the instruction packet txpacket via <a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> port.  The function clears the port buffer by <a class="el" href="classmercury_1_1_port_handler.html#accf37c8838c1ce3042a0127ceeb89c48" title="The function that clears the port  The function clears the port. ">PortHandler::clearPort()</a> function,  then transmits txpacket by <a class="el" href="classmercury_1_1_port_handler.html#ad26c3a106d6b668b6fae3d2f0afeab9e" title="The function that writes bytes on the port buffer  The function writes bytes on the port buffer...">PortHandler::writePort()</a> function.  The function activates only when the port is not busy and when the packet is already written on the port buffer.  <a href="#a245f01395d9684bc58788e8a06de3ffc">More...</a><br /></td></tr>
 <tr class="separator:a245f01395d9684bc58788e8a06de3ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -753,76 +746,6 @@ when it succeeds to ping Mercury and get model_number from it </dd>
 or the other communication results which come from <a class="el" href="classmercury_1_1_protocol_packet_handler.html#a68b02f23af616886d0795ea12debd613" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">ProtocolPacketHandler::txRxPacket()</a> and <a class="el" href="classmercury_1_1_protocol_packet_handler.html#a368325ca9c0c783b1e88ef32a4544e51" title="The function that transmits INST_READ instruction packet, and read data from received packet  The fun...">ProtocolPacketHandler::readTxRx()</a> </dd></dl>
 
 <p>Implements <a class="el" href="classmercury_1_1_packet_handler.html#a10c18ef1d19f531f71c3996f10b6426d">mercury::PacketHandler</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac4a6d381c2222446cfa558a9fb675c1c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void mercury::ProtocolPacketHandler::printRxPacketError </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>error</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The function that prints out description of hardware error. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">error</td><td>Mercury hardware error which might be gotten by the tx rx functions </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>This function is deprecated (removed in MercurySDK ver. 3.6.1) </dd></dl>
-
-<p>Implements <a class="el" href="classmercury_1_1_packet_handler.html#a63da34ba48010ef1836972484b46da4e">mercury::PacketHandler</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a24cb94d59c1a0f1fcb70a85e1a8465b2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void mercury::ProtocolPacketHandler::printTxRxResult </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>result</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The function that prints out description of communication result. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">result</td><td>Communication result which might be gotten by the tx rx functions </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>This function is deprecated (removed in MercurySDK ver. 3.6.1) </dd></dl>
-
-<p>Implements <a class="el" href="classmercury_1_1_packet_handler.html#aa87d54e892b2ef2bbb5136e95ed00e0c">mercury::PacketHandler</a>.</p>
 
 </div>
 </div>
