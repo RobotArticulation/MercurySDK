@@ -32,15 +32,15 @@ virtual int \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500
 virtual int \hyperlink{classmercury_1_1_packet_handler_a01a3929c3514eac14b4ca5a61b498e20}{rx\+Packet} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t $\ast$rxpacket)=0
 \begin{DoxyCompactList}\small\item\em The function that receives packet (rxpacket) during designated time via \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} port  The function repeatedly tries to receive rxpacket by \hyperlink{classmercury_1_1_port_handler_afa6f52d7b95c5ffd8f0c92477d517c79}{Port\+Handler\+::read\+Port()} function.  It breaks out  when \hyperlink{classmercury_1_1_port_handler_a6733438255ede3d34738842e10cd8fc2}{Port\+Handler\+::is\+Packet\+Timeout()} shows the timeout,  when rxpacket seemed as corrupted, or  when nothing received. \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{tx\+Rx\+Packet} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t $\ast$txpacket, uint8\+\_\+t $\ast$rxpacket, uint8\+\_\+t $\ast$error=0)=0
-\begin{DoxyCompactList}\small\item\em The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time via \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} port  The function calls \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()},  and calls \hyperlink{classmercury_1_1_packet_handler_a01a3929c3514eac14b4ca5a61b498e20}{Packet\+Handler\+::rx\+Packet()} if it succeeds \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()}.  It breaks out  when it fails \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()},  when txpacket is called by \hyperlink{classmercury_1_1_packet_handler_aae8b5fb10e57973884589a0318e30fad}{Packet\+Handler\+::broadcast\+Ping()} / \hyperlink{classmercury_1_1_packet_handler_aa4c16ce358c78638f49f6dc1b5b141bd}{Packet\+Handler\+::sync\+Write\+Tx\+Only()} / \hyperlink{classmercury_1_1_packet_handler_a0b0daaabd6473e14b2fbfbbf3260bc7b}{Packet\+Handler\+::reg\+Write\+Tx\+Only} / \hyperlink{classmercury_1_1_packet_handler_a2ce31bd650d032c4bff957c9e453f38e}{Packet\+Handler\+::action}. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time via \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} port  The function calls \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()},  and calls \hyperlink{classmercury_1_1_packet_handler_a01a3929c3514eac14b4ca5a61b498e20}{Packet\+Handler\+::rx\+Packet()} if it succeeds \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()}.  It breaks out  when it fails \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()},  when txpacket is called by \hyperlink{classmercury_1_1_packet_handler_aae8b5fb10e57973884589a0318e30fad}{Packet\+Handler\+::broadcast\+Ping()} / \hyperlink{classmercury_1_1_packet_handler_aa4c16ce358c78638f49f6dc1b5b141bd}{Packet\+Handler\+::sync\+Write\+Tx\+Only()} / \hyperlink{classmercury_1_1_packet_handler_a1f0bf77b7d230076624b428664bbf678}{Packet\+Handler\+::write\+Shadow\+Tx\+Only} / \hyperlink{classmercury_1_1_packet_handler_a58972a466fed2dc14463a416af9c9887}{Packet\+Handler\+::commit\+Shadow}. \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_a5fce347ac1f55de301e50bac01c58f4f}{ping} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id, uint8\+\_\+t $\ast$error=0)=0
 \begin{DoxyCompactList}\small\item\em The function that pings Mercury but doesn\textquotesingle{}t take its model number  The function calls \hyperlink{classmercury_1_1_packet_handler_a5fce347ac1f55de301e50bac01c58f4f}{Packet\+Handler\+::ping()} which gets Mercury model number,  but doesn\textquotesingle{}t carry the model number. \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_a10c18ef1d19f531f71c3996f10b6426d}{ping} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id, uint16\+\_\+t $\ast$model\+\_\+number, uint8\+\_\+t $\ast$error=0)=0
 \begin{DoxyCompactList}\small\item\em The function that pings Mercury and takes its model number  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+P\+I\+NG,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()},  and call \hyperlink{classmercury_1_1_packet_handler_ac743a57bba9e71aadb1578f0e704f166}{Packet\+Handler\+::read\+Tx\+Rx} to read model\+\_\+number in the rx buffer.  It breaks out  when it tries to transmit to B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+ID. \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_aae8b5fb10e57973884589a0318e30fad}{broadcast\+Ping} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, std\+::vector$<$ uint8\+\_\+t $>$ \&id\+\_\+list)=0
 \begin{DoxyCompactList}\small\item\em (Available only in Protocol 2.\+0) The function that pings all connected Mercury \end{DoxyCompactList}\item 
-virtual int \hyperlink{classmercury_1_1_packet_handler_a2ce31bd650d032c4bff957c9e453f38e}{action} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id)=0
-\begin{DoxyCompactList}\small\item\em The function that makes Mercurys run as written in the Mercury register  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+A\+C\+T\+I\+ON,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()}.  To use this function, Mercury register should be set by \hyperlink{classmercury_1_1_packet_handler_a0b0daaabd6473e14b2fbfbbf3260bc7b}{Packet\+Handler\+::reg\+Write\+Tx\+Only()} or \hyperlink{classmercury_1_1_packet_handler_a9944f0271cdcc637429b678a3cd73273}{Packet\+Handler\+::reg\+Write\+Tx\+Rx()} \end{DoxyCompactList}\item 
+virtual int \hyperlink{classmercury_1_1_packet_handler_a58972a466fed2dc14463a416af9c9887}{commit\+Shadow} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id)=0
+\begin{DoxyCompactList}\small\item\em The function that makes Mercurys run as written in the Mercury register  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+C\+O\+M\+M\+I\+T\+\_\+\+S\+H\+A\+D\+OW,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()}.  To use this function, Mercury register should be set by \hyperlink{classmercury_1_1_packet_handler_a1f0bf77b7d230076624b428664bbf678}{Packet\+Handler\+::write\+Shadow\+Tx\+Only()} or \hyperlink{classmercury_1_1_packet_handler_a5f81e12eabd4f661f828046ed0842727}{Packet\+Handler\+::write\+Shadow\+Tx\+Rx()} \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_a3ef14097ca9a667b90660edb72c61427}{reboot} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id, uint8\+\_\+t $\ast$error=0)=0
 \begin{DoxyCompactList}\small\item\em The function that makes Mercury reboot  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+R\+E\+B\+O\+OT,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()},  then Mercury reboots.  During reboot, its L\+ED will blink. \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_a03067ed71a4267c2b4fd3c21e63884f2}{factory\+Reset} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id, uint8\+\_\+t option=0, uint8\+\_\+t $\ast$error=0)=0
@@ -70,9 +70,9 @@ virtual int \hyperlink{classmercury_1_1_packet_handler_a0f590b9cefb32d8b6b00f9ba
 virtual int \hyperlink{classmercury_1_1_packet_handler_a92d8e5c9d5a0ed26dc5ba3cd78c3b636}{read4\+Byte\+Tx\+Rx} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint32\+\_\+t $\ast$data, uint8\+\_\+t $\ast$error=0)=0
 \begin{DoxyCompactList}\small\item\em The function that calls \hyperlink{classmercury_1_1_packet_handler_ac743a57bba9e71aadb1578f0e704f166}{Packet\+Handler\+::read\+Tx\+Rx()} function for reading 4 byte data  The function calls \hyperlink{classmercury_1_1_packet_handler_ac743a57bba9e71aadb1578f0e704f166}{Packet\+Handler\+::read\+Tx\+Rx()},  gets 4 byte data from the packet. \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_acf4e01987186250221603f794e7e4b59}{write\+Tx\+Only} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t length, uint8\+\_\+t $\ast$data)=0
-\begin{DoxyCompactList}\small\item\em The function that transmits I\+N\+S\+T\+\_\+\+W\+R\+I\+TE instruction packet with the data for write  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+W\+R\+I\+TE and the data for write,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()}. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The function that transmits I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+D\+I\+R\+E\+CT instruction packet with the data for write  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+D\+I\+R\+E\+CT and the data for write,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()}. \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_adf35a5000d465bd5426530e34a91a21d}{write\+Tx\+Rx} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t length, uint8\+\_\+t $\ast$data, uint8\+\_\+t $\ast$error=0)=0
-\begin{DoxyCompactList}\small\item\em The function that transmits I\+N\+S\+T\+\_\+\+W\+R\+I\+TE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+W\+R\+I\+TE and the data for write,  transmits and receives the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()},  gets the error from the packet. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The function that transmits I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+D\+I\+R\+E\+CT instruction packet with the data for write, and receives the packet  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+D\+I\+R\+E\+CT and the data for write,  transmits and receives the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()},  gets the error from the packet. \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_a21553798faa86c41203ab41a5c930938}{write1\+Byte\+Tx\+Only} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint8\+\_\+t data)=0
 \begin{DoxyCompactList}\small\item\em The function that calls \hyperlink{classmercury_1_1_packet_handler_acf4e01987186250221603f794e7e4b59}{Packet\+Handler\+::write\+Tx\+Only()} for writing 1 byte data  The function calls \hyperlink{classmercury_1_1_packet_handler_acf4e01987186250221603f794e7e4b59}{Packet\+Handler\+::write\+Tx\+Only()} for writing 1 byte data. \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_a23576f2a57fb0bb66797b8a3a1935cd1}{write1\+Byte\+Tx\+Rx} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint8\+\_\+t data, uint8\+\_\+t $\ast$error=0)=0
@@ -85,14 +85,14 @@ virtual int \hyperlink{classmercury_1_1_packet_handler_adf97e077894f1e01f53b7468
 \begin{DoxyCompactList}\small\item\em The function that calls \hyperlink{classmercury_1_1_packet_handler_acf4e01987186250221603f794e7e4b59}{Packet\+Handler\+::write\+Tx\+Only()} for writing 4 byte data  The function calls \hyperlink{classmercury_1_1_packet_handler_acf4e01987186250221603f794e7e4b59}{Packet\+Handler\+::write\+Tx\+Only()} for writing 4 byte data. \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_acd4df6583fcbaf872a4aba6623c9b084}{write4\+Byte\+Tx\+Rx} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint32\+\_\+t data, uint8\+\_\+t $\ast$error=0)=0
 \begin{DoxyCompactList}\small\item\em The function that calls \hyperlink{classmercury_1_1_packet_handler_adf35a5000d465bd5426530e34a91a21d}{Packet\+Handler\+::write\+Tx\+Rx()} for writing 4 byte data and receives the packet  The function calls \hyperlink{classmercury_1_1_packet_handler_adf35a5000d465bd5426530e34a91a21d}{Packet\+Handler\+::write\+Tx\+Rx()} for writing 4 byte data and receves the packet,  gets the error from the packet. \end{DoxyCompactList}\item 
-virtual int \hyperlink{classmercury_1_1_packet_handler_a0b0daaabd6473e14b2fbfbbf3260bc7b}{reg\+Write\+Tx\+Only} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t length, uint8\+\_\+t $\ast$data)=0
-\begin{DoxyCompactList}\small\item\em The function that transmits I\+N\+S\+T\+\_\+\+R\+E\+G\+\_\+\+W\+R\+I\+TE instruction packet with the data for writing on the Mercury register  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+R\+E\+G\+\_\+\+W\+R\+I\+TE and the data for writing on the Mercury register,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()}.  The data written in the register will act when I\+N\+S\+T\+\_\+\+A\+C\+T\+I\+ON instruction packet is transmitted to the Dynamxel. \end{DoxyCompactList}\item 
-virtual int \hyperlink{classmercury_1_1_packet_handler_a9944f0271cdcc637429b678a3cd73273}{reg\+Write\+Tx\+Rx} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t length, uint8\+\_\+t $\ast$data, uint8\+\_\+t $\ast$error=0)=0
-\begin{DoxyCompactList}\small\item\em The function that transmits I\+N\+S\+T\+\_\+\+R\+E\+G\+\_\+\+W\+R\+I\+TE instruction packet with the data for writing on the Mercury register, and receives the packet  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+R\+E\+G\+\_\+\+W\+R\+I\+TE and the data for writing on the Mercury register,  transmits and receives the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()},  gets the error from the packet.  The data written in the register will act when I\+N\+S\+T\+\_\+\+A\+C\+T\+I\+ON instruction packet is transmitted to the Dynamxel. \end{DoxyCompactList}\item 
+virtual int \hyperlink{classmercury_1_1_packet_handler_a1f0bf77b7d230076624b428664bbf678}{write\+Shadow\+Tx\+Only} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t length, uint8\+\_\+t $\ast$data)=0
+\begin{DoxyCompactList}\small\item\em The function that transmits I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+H\+A\+D\+OW instruction packet with the data for writing on the Mercury register  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+H\+A\+D\+OW and the data for writing on the Mercury register,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()}.  The data written in the register will act when I\+N\+S\+T\+\_\+\+C\+O\+M\+M\+I\+T\+\_\+\+S\+H\+A\+D\+OW instruction packet is transmitted to the Dynamxel. \end{DoxyCompactList}\item 
+virtual int \hyperlink{classmercury_1_1_packet_handler_a5f81e12eabd4f661f828046ed0842727}{write\+Shadow\+Tx\+Rx} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t length, uint8\+\_\+t $\ast$data, uint8\+\_\+t $\ast$error=0)=0
+\begin{DoxyCompactList}\small\item\em The function that transmits I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+H\+A\+D\+OW instruction packet with the data for writing on the Mercury register, and receives the packet  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+H\+A\+D\+OW and the data for writing on the Mercury register,  transmits and receives the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()},  gets the error from the packet.  The data written in the register will act when I\+N\+S\+T\+\_\+\+C\+O\+M\+M\+I\+T\+\_\+\+S\+H\+A\+D\+OW instruction packet is transmitted to the Dynamxel. \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_af51ee95bfc3f386235e746b1418d5d38}{sync\+Read\+Tx} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint16\+\_\+t start\+\_\+address, uint16\+\_\+t data\+\_\+length, uint8\+\_\+t $\ast$param, uint16\+\_\+t param\+\_\+length)=0
 \begin{DoxyCompactList}\small\item\em The function that transmits I\+N\+S\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+R\+E\+AD instruction packet  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+R\+E\+AD,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()}. \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_aa4c16ce358c78638f49f6dc1b5b141bd}{sync\+Write\+Tx\+Only} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint16\+\_\+t start\+\_\+address, uint16\+\_\+t data\+\_\+length, uint8\+\_\+t $\ast$param, uint16\+\_\+t param\+\_\+length)=0
-\begin{DoxyCompactList}\small\item\em The function that transmits I\+N\+S\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+W\+R\+I\+TE instruction packet  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+W\+R\+I\+TE,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()}. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The function that transmits I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+C\+O\+M\+P\+O\+S\+I\+TE instruction packet  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+C\+O\+M\+P\+O\+S\+I\+TE,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()}. \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_a88c18487119394e45537098716cbf6af}{bulk\+Read\+Tx} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t $\ast$param, uint16\+\_\+t param\+\_\+length)=0
 \begin{DoxyCompactList}\small\item\em The function that transmits I\+N\+S\+T\+\_\+\+B\+U\+L\+K\+\_\+\+R\+E\+AD instruction packet  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+B\+U\+L\+K\+\_\+\+R\+E\+AD,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()}. \end{DoxyCompactList}\item 
 virtual int \hyperlink{classmercury_1_1_packet_handler_a43bc93f4a1305ae3aea45f67404d8b6d}{bulk\+Write\+Tx\+Only} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, uint8\+\_\+t $\ast$param, uint16\+\_\+t param\+\_\+length)=0
@@ -108,32 +108,6 @@ static \hyperlink{classmercury_1_1_packet_handler}{Packet\+Handler} $\ast$ \hype
 The class that inherits \hyperlink{classmercury_1_1_protocol_packet_handler}{Protocol\+Packet\+Handler} class. 
 
 \subsection{Member Function Documentation}
-\index{mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}!action@{action}}
-\index{action@{action}!mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}}
-\subsubsection[{\texorpdfstring{action(\+Port\+Handler $\ast$port, uint8\+\_\+t id)=0}{action(PortHandler *port, uint8_t id)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual int mercury\+::\+Packet\+Handler\+::action (
-\begin{DoxyParamCaption}
-\item[{{\bf Port\+Handler} $\ast$}]{port, }
-\item[{uint8\+\_\+t}]{id}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classmercury_1_1_packet_handler_a2ce31bd650d032c4bff957c9e453f38e}{}\label{classmercury_1_1_packet_handler_a2ce31bd650d032c4bff957c9e453f38e}
-
-
-The function that makes Mercurys run as written in the Mercury register  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+A\+C\+T\+I\+ON,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()}.  To use this function, Mercury register should be set by \hyperlink{classmercury_1_1_packet_handler_a0b0daaabd6473e14b2fbfbbf3260bc7b}{Packet\+Handler\+::reg\+Write\+Tx\+Only()} or \hyperlink{classmercury_1_1_packet_handler_a9944f0271cdcc637429b678a3cd73273}{Packet\+Handler\+::reg\+Write\+Tx\+Rx()} 
-
-
-\begin{DoxyParams}{Parameters}
-{\em port} & \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} instance \\
-\hline
-{\em id} & Mercury ID \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-communication results which come from \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()} 
-\end{DoxyReturn}
-
-
-Implemented in \hyperlink{classmercury_1_1_protocol_packet_handler_a55034471e726b363c0a535acb1012468}{mercury\+::\+Protocol\+Packet\+Handler}.
-
 \index{mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}!broadcast\+Ping@{broadcast\+Ping}}
 \index{broadcast\+Ping@{broadcast\+Ping}!mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}}
 \subsubsection[{\texorpdfstring{broadcast\+Ping(\+Port\+Handler $\ast$port, std\+::vector$<$ uint8\+\_\+t $>$ \&id\+\_\+list)=0}{broadcastPing(PortHandler *port, std::vector< uint8_t > &id_list)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual int mercury\+::\+Packet\+Handler\+::broadcast\+Ping (
@@ -217,6 +191,32 @@ communication results which come from \hyperlink{classmercury_1_1_packet_handler
 
 
 Implemented in \hyperlink{classmercury_1_1_protocol_packet_handler_ac6c15829fd1bd0e321a1d63076e11839}{mercury\+::\+Protocol\+Packet\+Handler}.
+
+\index{mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}!commit\+Shadow@{commit\+Shadow}}
+\index{commit\+Shadow@{commit\+Shadow}!mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}}
+\subsubsection[{\texorpdfstring{commit\+Shadow(\+Port\+Handler $\ast$port, uint8\+\_\+t id)=0}{commitShadow(PortHandler *port, uint8_t id)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual int mercury\+::\+Packet\+Handler\+::commit\+Shadow (
+\begin{DoxyParamCaption}
+\item[{{\bf Port\+Handler} $\ast$}]{port, }
+\item[{uint8\+\_\+t}]{id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classmercury_1_1_packet_handler_a58972a466fed2dc14463a416af9c9887}{}\label{classmercury_1_1_packet_handler_a58972a466fed2dc14463a416af9c9887}
+
+
+The function that makes Mercurys run as written in the Mercury register  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+C\+O\+M\+M\+I\+T\+\_\+\+S\+H\+A\+D\+OW,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()}.  To use this function, Mercury register should be set by \hyperlink{classmercury_1_1_packet_handler_a1f0bf77b7d230076624b428664bbf678}{Packet\+Handler\+::write\+Shadow\+Tx\+Only()} or \hyperlink{classmercury_1_1_packet_handler_a5f81e12eabd4f661f828046ed0842727}{Packet\+Handler\+::write\+Shadow\+Tx\+Rx()} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em port} & \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} instance \\
+\hline
+{\em id} & Mercury ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+communication results which come from \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()} 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classmercury_1_1_protocol_packet_handler_aeb249dda7388331a21d7f765923dbd62}{mercury\+::\+Protocol\+Packet\+Handler}.
 
 \index{mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}!factory\+Reset@{factory\+Reset}}
 \index{factory\+Reset@{factory\+Reset}!mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}}
@@ -823,79 +823,6 @@ C\+O\+M\+M\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE
 
 Implemented in \hyperlink{classmercury_1_1_protocol_packet_handler_ada4e23e49d86234efad935480b6886f0}{mercury\+::\+Protocol\+Packet\+Handler}.
 
-\index{mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}!reg\+Write\+Tx\+Only@{reg\+Write\+Tx\+Only}}
-\index{reg\+Write\+Tx\+Only@{reg\+Write\+Tx\+Only}!mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}}
-\subsubsection[{\texorpdfstring{reg\+Write\+Tx\+Only(\+Port\+Handler $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t length, uint8\+\_\+t $\ast$data)=0}{regWriteTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual int mercury\+::\+Packet\+Handler\+::reg\+Write\+Tx\+Only (
-\begin{DoxyParamCaption}
-\item[{{\bf Port\+Handler} $\ast$}]{port, }
-\item[{uint8\+\_\+t}]{id, }
-\item[{uint16\+\_\+t}]{address, }
-\item[{uint16\+\_\+t}]{length, }
-\item[{uint8\+\_\+t $\ast$}]{data}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classmercury_1_1_packet_handler_a0b0daaabd6473e14b2fbfbbf3260bc7b}{}\label{classmercury_1_1_packet_handler_a0b0daaabd6473e14b2fbfbbf3260bc7b}
-
-
-The function that transmits I\+N\+S\+T\+\_\+\+R\+E\+G\+\_\+\+W\+R\+I\+TE instruction packet with the data for writing on the Mercury register  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+R\+E\+G\+\_\+\+W\+R\+I\+TE and the data for writing on the Mercury register,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()}.  The data written in the register will act when I\+N\+S\+T\+\_\+\+A\+C\+T\+I\+ON instruction packet is transmitted to the Dynamxel. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em port} & \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} instance \\
-\hline
-{\em id} & Mercury ID \\
-\hline
-{\em address} & Address of the data for write \\
-\hline
-{\em length} & Length of the data for write \\
-\hline
-{\em data} & Data for write \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-communication results which come from \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()} 
-\end{DoxyReturn}
-
-
-Implemented in \hyperlink{classmercury_1_1_protocol_packet_handler_af43e9f53d3e295b12b69f4b99c8c1746}{mercury\+::\+Protocol\+Packet\+Handler}.
-
-\index{mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}!reg\+Write\+Tx\+Rx@{reg\+Write\+Tx\+Rx}}
-\index{reg\+Write\+Tx\+Rx@{reg\+Write\+Tx\+Rx}!mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}}
-\subsubsection[{\texorpdfstring{reg\+Write\+Tx\+Rx(\+Port\+Handler $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t length, uint8\+\_\+t $\ast$data, uint8\+\_\+t $\ast$error=0)=0}{regWriteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error=0)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual int mercury\+::\+Packet\+Handler\+::reg\+Write\+Tx\+Rx (
-\begin{DoxyParamCaption}
-\item[{{\bf Port\+Handler} $\ast$}]{port, }
-\item[{uint8\+\_\+t}]{id, }
-\item[{uint16\+\_\+t}]{address, }
-\item[{uint16\+\_\+t}]{length, }
-\item[{uint8\+\_\+t $\ast$}]{data, }
-\item[{uint8\+\_\+t $\ast$}]{error = {\ttfamily 0}}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classmercury_1_1_packet_handler_a9944f0271cdcc637429b678a3cd73273}{}\label{classmercury_1_1_packet_handler_a9944f0271cdcc637429b678a3cd73273}
-
-
-The function that transmits I\+N\+S\+T\+\_\+\+R\+E\+G\+\_\+\+W\+R\+I\+TE instruction packet with the data for writing on the Mercury register, and receives the packet  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+R\+E\+G\+\_\+\+W\+R\+I\+TE and the data for writing on the Mercury register,  transmits and receives the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()},  gets the error from the packet.  The data written in the register will act when I\+N\+S\+T\+\_\+\+A\+C\+T\+I\+ON instruction packet is transmitted to the Dynamxel. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em port} & \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} instance \\
-\hline
-{\em id} & Mercury ID \\
-\hline
-{\em address} & Address of the data for write \\
-\hline
-{\em length} & Length of the data for write \\
-\hline
-{\em data} & Data for write \\
-\hline
-{\em error} & Mercury hardware error \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-communication results which come from \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()} 
-\end{DoxyReturn}
-
-
-Implemented in \hyperlink{classmercury_1_1_protocol_packet_handler_a314845a3e5d2030e56db2739310ad117}{mercury\+::\+Protocol\+Packet\+Handler}.
-
 \index{mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}!rx\+Packet@{rx\+Packet}}
 \index{rx\+Packet@{rx\+Packet}!mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}}
 \subsubsection[{\texorpdfstring{rx\+Packet(\+Port\+Handler $\ast$port, uint8\+\_\+t $\ast$rxpacket)=0}{rxPacket(PortHandler *port, uint8_t *rxpacket)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual int mercury\+::\+Packet\+Handler\+::rx\+Packet (
@@ -986,7 +913,7 @@ Implemented in \hyperlink{classmercury_1_1_protocol_packet_handler_af742b8964f4a
 )\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classmercury_1_1_packet_handler_aa4c16ce358c78638f49f6dc1b5b141bd}{}\label{classmercury_1_1_packet_handler_aa4c16ce358c78638f49f6dc1b5b141bd}
 
 
-The function that transmits I\+N\+S\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+W\+R\+I\+TE instruction packet  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+W\+R\+I\+TE,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()}. 
+The function that transmits I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+C\+O\+M\+P\+O\+S\+I\+TE instruction packet  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+C\+O\+M\+P\+O\+S\+I\+TE,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()}. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -1058,7 +985,7 @@ Implemented in \hyperlink{classmercury_1_1_protocol_packet_handler_a245f01395d96
 )\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{}\label{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}
 
 
-The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time via \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} port  The function calls \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()},  and calls \hyperlink{classmercury_1_1_packet_handler_a01a3929c3514eac14b4ca5a61b498e20}{Packet\+Handler\+::rx\+Packet()} if it succeeds \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()}.  It breaks out  when it fails \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()},  when txpacket is called by \hyperlink{classmercury_1_1_packet_handler_aae8b5fb10e57973884589a0318e30fad}{Packet\+Handler\+::broadcast\+Ping()} / \hyperlink{classmercury_1_1_packet_handler_aa4c16ce358c78638f49f6dc1b5b141bd}{Packet\+Handler\+::sync\+Write\+Tx\+Only()} / \hyperlink{classmercury_1_1_packet_handler_a0b0daaabd6473e14b2fbfbbf3260bc7b}{Packet\+Handler\+::reg\+Write\+Tx\+Only} / \hyperlink{classmercury_1_1_packet_handler_a2ce31bd650d032c4bff957c9e453f38e}{Packet\+Handler\+::action}. 
+The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time via \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} port  The function calls \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()},  and calls \hyperlink{classmercury_1_1_packet_handler_a01a3929c3514eac14b4ca5a61b498e20}{Packet\+Handler\+::rx\+Packet()} if it succeeds \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()}.  It breaks out  when it fails \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()},  when txpacket is called by \hyperlink{classmercury_1_1_packet_handler_aae8b5fb10e57973884589a0318e30fad}{Packet\+Handler\+::broadcast\+Ping()} / \hyperlink{classmercury_1_1_packet_handler_aa4c16ce358c78638f49f6dc1b5b141bd}{Packet\+Handler\+::sync\+Write\+Tx\+Only()} / \hyperlink{classmercury_1_1_packet_handler_a1f0bf77b7d230076624b428664bbf678}{Packet\+Handler\+::write\+Shadow\+Tx\+Only} / \hyperlink{classmercury_1_1_packet_handler_a58972a466fed2dc14463a416af9c9887}{Packet\+Handler\+::commit\+Shadow}. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -1281,6 +1208,79 @@ communication results which come from \hyperlink{classmercury_1_1_packet_handler
 
 Implemented in \hyperlink{classmercury_1_1_protocol_packet_handler_abdcdc58ceead4033768386c5de3eb066}{mercury\+::\+Protocol\+Packet\+Handler}.
 
+\index{mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}!write\+Shadow\+Tx\+Only@{write\+Shadow\+Tx\+Only}}
+\index{write\+Shadow\+Tx\+Only@{write\+Shadow\+Tx\+Only}!mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}}
+\subsubsection[{\texorpdfstring{write\+Shadow\+Tx\+Only(\+Port\+Handler $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t length, uint8\+\_\+t $\ast$data)=0}{writeShadowTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual int mercury\+::\+Packet\+Handler\+::write\+Shadow\+Tx\+Only (
+\begin{DoxyParamCaption}
+\item[{{\bf Port\+Handler} $\ast$}]{port, }
+\item[{uint8\+\_\+t}]{id, }
+\item[{uint16\+\_\+t}]{address, }
+\item[{uint16\+\_\+t}]{length, }
+\item[{uint8\+\_\+t $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classmercury_1_1_packet_handler_a1f0bf77b7d230076624b428664bbf678}{}\label{classmercury_1_1_packet_handler_a1f0bf77b7d230076624b428664bbf678}
+
+
+The function that transmits I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+H\+A\+D\+OW instruction packet with the data for writing on the Mercury register  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+H\+A\+D\+OW and the data for writing on the Mercury register,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()}.  The data written in the register will act when I\+N\+S\+T\+\_\+\+C\+O\+M\+M\+I\+T\+\_\+\+S\+H\+A\+D\+OW instruction packet is transmitted to the Dynamxel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em port} & \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} instance \\
+\hline
+{\em id} & Mercury ID \\
+\hline
+{\em address} & Address of the data for write \\
+\hline
+{\em length} & Length of the data for write \\
+\hline
+{\em data} & Data for write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+communication results which come from \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()} 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classmercury_1_1_protocol_packet_handler_a38b187dbb26583cb57fb7592e4be8136}{mercury\+::\+Protocol\+Packet\+Handler}.
+
+\index{mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}!write\+Shadow\+Tx\+Rx@{write\+Shadow\+Tx\+Rx}}
+\index{write\+Shadow\+Tx\+Rx@{write\+Shadow\+Tx\+Rx}!mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}}
+\subsubsection[{\texorpdfstring{write\+Shadow\+Tx\+Rx(\+Port\+Handler $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t length, uint8\+\_\+t $\ast$data, uint8\+\_\+t $\ast$error=0)=0}{writeShadowTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error=0)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual int mercury\+::\+Packet\+Handler\+::write\+Shadow\+Tx\+Rx (
+\begin{DoxyParamCaption}
+\item[{{\bf Port\+Handler} $\ast$}]{port, }
+\item[{uint8\+\_\+t}]{id, }
+\item[{uint16\+\_\+t}]{address, }
+\item[{uint16\+\_\+t}]{length, }
+\item[{uint8\+\_\+t $\ast$}]{data, }
+\item[{uint8\+\_\+t $\ast$}]{error = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classmercury_1_1_packet_handler_a5f81e12eabd4f661f828046ed0842727}{}\label{classmercury_1_1_packet_handler_a5f81e12eabd4f661f828046ed0842727}
+
+
+The function that transmits I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+H\+A\+D\+OW instruction packet with the data for writing on the Mercury register, and receives the packet  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+H\+A\+D\+OW and the data for writing on the Mercury register,  transmits and receives the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()},  gets the error from the packet.  The data written in the register will act when I\+N\+S\+T\+\_\+\+C\+O\+M\+M\+I\+T\+\_\+\+S\+H\+A\+D\+OW instruction packet is transmitted to the Dynamxel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em port} & \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} instance \\
+\hline
+{\em id} & Mercury ID \\
+\hline
+{\em address} & Address of the data for write \\
+\hline
+{\em length} & Length of the data for write \\
+\hline
+{\em data} & Data for write \\
+\hline
+{\em error} & Mercury hardware error \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+communication results which come from \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()} 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classmercury_1_1_protocol_packet_handler_a822f9e0b679c26df080a9ae7a60e741c}{mercury\+::\+Protocol\+Packet\+Handler}.
+
 \index{mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}!write\+Tx\+Only@{write\+Tx\+Only}}
 \index{write\+Tx\+Only@{write\+Tx\+Only}!mercury\+::\+Packet\+Handler@{mercury\+::\+Packet\+Handler}}
 \subsubsection[{\texorpdfstring{write\+Tx\+Only(\+Port\+Handler $\ast$port, uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t length, uint8\+\_\+t $\ast$data)=0}{writeTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual int mercury\+::\+Packet\+Handler\+::write\+Tx\+Only (
@@ -1294,7 +1294,7 @@ Implemented in \hyperlink{classmercury_1_1_protocol_packet_handler_abdcdc58ceead
 )\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classmercury_1_1_packet_handler_acf4e01987186250221603f794e7e4b59}{}\label{classmercury_1_1_packet_handler_acf4e01987186250221603f794e7e4b59}
 
 
-The function that transmits I\+N\+S\+T\+\_\+\+W\+R\+I\+TE instruction packet with the data for write  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+W\+R\+I\+TE and the data for write,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()}. 
+The function that transmits I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+D\+I\+R\+E\+CT instruction packet with the data for write  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+D\+I\+R\+E\+CT and the data for write,  transmits the packet with \hyperlink{classmercury_1_1_packet_handler_acc3f84f0d952dc2d827d8500de512abe}{Packet\+Handler\+::tx\+Packet()}. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -1330,7 +1330,7 @@ Implemented in \hyperlink{classmercury_1_1_protocol_packet_handler_adf6e96b41213
 )\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classmercury_1_1_packet_handler_adf35a5000d465bd5426530e34a91a21d}{}\label{classmercury_1_1_packet_handler_adf35a5000d465bd5426530e34a91a21d}
 
 
-The function that transmits I\+N\+S\+T\+\_\+\+W\+R\+I\+TE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+W\+R\+I\+TE and the data for write,  transmits and receives the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()},  gets the error from the packet. 
+The function that transmits I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+D\+I\+R\+E\+CT instruction packet with the data for write, and receives the packet  The function makes an instruction packet with I\+N\+S\+T\+\_\+\+W\+R\+I\+T\+E\+\_\+\+D\+I\+R\+E\+CT and the data for write,  transmits and receives the packet with \hyperlink{classmercury_1_1_packet_handler_ac7ceeaec210827d119199144badaad3a}{Packet\+Handler\+::tx\+Rx\+Packet()},  gets the error from the packet. 
 
 
 \begin{DoxyParams}{Parameters}

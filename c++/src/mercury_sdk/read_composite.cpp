@@ -33,21 +33,22 @@
 #include <algorithm>
 
 #if defined(__linux__)
-#include "group_sync_write.h"
+#include "read_composite.h"
 #elif defined(__APPLE__)
-#include "group_sync_write.h"
+#include "read_composite.h"
 #elif defined(_WIN32) || defined(_WIN64)
 #define WINDLLEXPORT
-#include "group_sync_write.h"
+#include "read_composite.h"
 #elif defined(ARDUINO) || defined(__OPENCR__) || defined(__OPENCM904__)
-#include "../../include/mercury_sdk/group_sync_write.h"
+#include "../../include/mercury_sdk/read_composite.h"
 #endif
 
 using namespace mercury;
 
-GroupSyncWrite::GroupSyncWrite(PortHandler *port, PacketHandler *ph, uint16_t start_address, uint16_t data_length)
+ReadComposite::ReadComposite(PortHandler *port, PacketHandler *ph, uint16_t start_address, uint16_t data_length)
   : port_(port),
     ph_(ph),
+    last_result_(false),
     is_param_changed_(false),
     param_(0),
     start_address_(start_address),
@@ -56,45 +57,41 @@ GroupSyncWrite::GroupSyncWrite(PortHandler *port, PacketHandler *ph, uint16_t st
   clearParam();
 }
 
-void GroupSyncWrite::makeParam()
+void ReadComposite::makeParam()
 {
-  if (id_list_.size() == 0) return;
+  if (ph_->getProtocolVersion() == 1.0 || id_list_.size() == 0)
+    return;
 
   if (param_ != 0)
     delete[] param_;
   param_ = 0;
 
-  param_ = new uint8_t[id_list_.size() * (1 + data_length_)]; // ID(1) + DATA(data_length)
+  param_ = new uint8_t[id_list_.size() * 1];  // ID(1)
 
   int idx = 0;
   for (unsigned int i = 0; i < id_list_.size(); i++)
-  {
-    uint8_t id = id_list_[i];
-    if (data_list_[id] == 0)
-      return;
-
-    param_[idx++] = id;
-    for (int c = 0; c < data_length_; c++)
-      param_[idx++] = (data_list_[id])[c];
-  }
+    param_[idx++] = id_list_[i];
 }
 
-bool GroupSyncWrite::addParam(uint8_t id, uint8_t *data)
+bool ReadComposite::addParam(uint8_t id)
 {
+  if (ph_->getProtocolVersion() == 1.0)
+    return false;
+
   if (std::find(id_list_.begin(), id_list_.end(), id) != id_list_.end())   // id already exist
     return false;
 
   id_list_.push_back(id);
-  data_list_[id]    = new uint8_t[data_length_];
-  for (int c = 0; c < data_length_; c++)
-    data_list_[id][c] = data[c];
+  data_list_[id] = new uint8_t[data_length_];
 
   is_param_changed_   = true;
   return true;
 }
-
-void GroupSyncWrite::removeParam(uint8_t id)
+void ReadComposite::removeParam(uint8_t id)
 {
+  if (ph_->getProtocolVersion() == 1.0)
+    return;
+
   std::vector<uint8_t>::iterator it = std::find(id_list_.begin(), id_list_.end(), id);
   if (it == id_list_.end())    // NOT exist
     return;
@@ -105,25 +102,9 @@ void GroupSyncWrite::removeParam(uint8_t id)
 
   is_param_changed_   = true;
 }
-
-bool GroupSyncWrite::changeParam(uint8_t id, uint8_t *data)
+void ReadComposite::clearParam()
 {
-  std::vector<uint8_t>::iterator it = std::find(id_list_.begin(), id_list_.end(), id);
-  if (it == id_list_.end())    // NOT exist
-    return false;
-
-  delete[] data_list_[id];
-  data_list_[id]    = new uint8_t[data_length_];
-  for (int c = 0; c < data_length_; c++)
-    data_list_[id][c] = data[c];
-
-  is_param_changed_   = true;
-  return true;
-}
-
-void GroupSyncWrite::clearParam()
-{
-  if (id_list_.size() == 0)
+  if (ph_->getProtocolVersion() == 1.0 || id_list_.size() == 0)
     return;
 
   for (unsigned int i = 0; i < id_list_.size(); i++)
@@ -136,13 +117,88 @@ void GroupSyncWrite::clearParam()
   param_ = 0;
 }
 
-int GroupSyncWrite::txPacket()
+int ReadComposite::txPacket()
 {
-  if (id_list_.size() == 0)
+  if (ph_->getProtocolVersion() == 1.0 || id_list_.size() == 0)
     return COMM_NOT_AVAILABLE;
 
   if (is_param_changed_ == true || param_ == 0)
     makeParam();
 
-  return ph_->syncWriteTxOnly(port_, start_address_, data_length_, param_, id_list_.size() * (1 + data_length_));
+  return ph_->syncReadTx(port_, start_address_, data_length_, param_, (uint16_t)id_list_.size() * 1);
+}
+
+int ReadComposite::rxPacket()
+{
+  last_result_ = false;
+
+  if (ph_->getProtocolVersion() == 1.0)
+    return COMM_NOT_AVAILABLE;
+
+  int cnt            = id_list_.size();
+  int result         = COMM_RX_FAIL;
+
+  if (cnt == 0)
+    return COMM_NOT_AVAILABLE;
+
+  for (int i = 0; i < cnt; i++)
+  {
+    uint8_t id = id_list_[i];
+
+    result = ph_->readRx(port_, id, data_length_, data_list_[id]);
+    if (result != COMM_SUCCESS)
+      return result;
+  }
+
+  if (result == COMM_SUCCESS)
+    last_result_ = true;
+
+  return result;
+}
+
+int ReadComposite::txRxPacket()
+{
+  if (ph_->getProtocolVersion() == 1.0)
+    return COMM_NOT_AVAILABLE;
+
+  int result         = COMM_TX_FAIL;
+
+  result = txPacket();
+  if (result != COMM_SUCCESS)
+    return result;
+
+  return rxPacket();
+}
+
+bool ReadComposite::isAvailable(uint8_t id, uint16_t address, uint16_t data_length)
+{
+  if (ph_->getProtocolVersion() == 1.0 || last_result_ == false || data_list_.find(id) == data_list_.end())
+    return false;
+
+  if (address < start_address_ || start_address_ + data_length_ - data_length < address)
+    return false;
+
+  return true;
+}
+
+uint32_t ReadComposite::getData(uint8_t id, uint16_t address, uint16_t data_length)
+{
+  if (isAvailable(id, address, data_length) == false)
+    return 0;
+
+  switch(data_length)
+  {
+    case 1:
+      return data_list_[id][address - start_address_];
+
+    case 2:
+      return DXL_MAKEWORD(data_list_[id][address - start_address_], data_list_[id][address - start_address_ + 1]);
+
+    case 4:
+      return DXL_MAKEDWORD(DXL_MAKEWORD(data_list_[id][address - start_address_ + 0], data_list_[id][address - start_address_ + 1]),
+                 DXL_MAKEWORD(data_list_[id][address - start_address_ + 2], data_list_[id][address - start_address_ + 3]));
+
+    default:
+      return 0;
+  }
 }

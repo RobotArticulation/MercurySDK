@@ -141,11 +141,11 @@ int main()
   // Get methods and members of ProtocolPacketHandler
   mercury::PacketHandler *packetHandler = mercury::PacketHandler::getPacketHandler(PROTOCOL_VERSION);
 
-  // Initialize GroupBulkWrite instance
-  mercury::GroupBulkWrite groupBulkWrite(portHandler, packetHandler);
+  // Initialize WriteDirect instance
+  mercury::WriteDirect groupBulkWrite(portHandler, packetHandler);
 
-  // Initialize GroupBulkRead instance
-  mercury::GroupBulkRead groupBulkRead(portHandler, packetHandler);
+  // Initialize ReadDirect instance
+  mercury::ReadDirect groupBulkRead(portHandler, packetHandler);
 
   int index = 0;
   int dxl_comm_result = COMM_TX_FAIL;             // Communication result

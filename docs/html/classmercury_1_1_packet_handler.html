@@ -127,7 +127,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a01a3929c3514eac14b4ca5a61b498e20"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that receives packet (rxpacket) during designated time via <a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> port  The function repeatedly tries to receive rxpacket by <a class="el" href="classmercury_1_1_port_handler.html#afa6f52d7b95c5ffd8f0c92477d517c79" title="The function that reads bytes from the port buffer  The function gets bytes from the port buffer...">PortHandler::readPort()</a> function.  It breaks out  when <a class="el" href="classmercury_1_1_port_handler.html#a6733438255ede3d34738842e10cd8fc2" title="The function that checks whether packet timeout is occurred  The function checks whether current time...">PortHandler::isPacketTimeout()</a> shows the timeout,  when rxpacket seemed as corrupted, or  when nothing received.  <a href="#a01a3929c3514eac14b4ca5a61b498e20">More...</a><br /></td></tr>
 <tr class="separator:a01a3929c3514eac14b4ca5a61b498e20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7ceeaec210827d119199144badaad3a"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a">txRxPacket</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t *txpacket, uint8_t *rxpacket, uint8_t *error=0)=0</td></tr>
-<tr class="memdesc:ac7ceeaec210827d119199144badaad3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time via <a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> port  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>,  and calls <a class="el" href="classmercury_1_1_packet_handler.html#a01a3929c3514eac14b4ca5a61b498e20" title="The function that receives packet (rxpacket) during designated time via PortHandler port  The functio...">PacketHandler::rxPacket()</a> if it succeeds <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>.  It breaks out  when it fails <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>,  when txpacket is called by <a class="el" href="classmercury_1_1_packet_handler.html#aae8b5fb10e57973884589a0318e30fad" title="(Available only in Protocol 2.0) The function that pings all connected Mercury ">PacketHandler::broadcastPing()</a> / <a class="el" href="classmercury_1_1_packet_handler.html#aa4c16ce358c78638f49f6dc1b5b141bd" title="The function that transmits INST_SYNC_WRITE instruction packet  The function makes an instruction pac...">PacketHandler::syncWriteTxOnly()</a> / <a class="el" href="classmercury_1_1_packet_handler.html#a0b0daaabd6473e14b2fbfbbf3260bc7b" title="The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Mercur...">PacketHandler::regWriteTxOnly</a> / <a class="el" href="classmercury_1_1_packet_handler.html#a2ce31bd650d032c4bff957c9e453f38e" title="The function that makes Mercurys run as written in the Mercury register  The function makes an instru...">PacketHandler::action</a>.  <a href="#ac7ceeaec210827d119199144badaad3a">More...</a><br /></td></tr>
+<tr class="memdesc:ac7ceeaec210827d119199144badaad3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time via <a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> port  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>,  and calls <a class="el" href="classmercury_1_1_packet_handler.html#a01a3929c3514eac14b4ca5a61b498e20" title="The function that receives packet (rxpacket) during designated time via PortHandler port  The functio...">PacketHandler::rxPacket()</a> if it succeeds <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>.  It breaks out  when it fails <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>,  when txpacket is called by <a class="el" href="classmercury_1_1_packet_handler.html#aae8b5fb10e57973884589a0318e30fad" title="(Available only in Protocol 2.0) The function that pings all connected Mercury ">PacketHandler::broadcastPing()</a> / <a class="el" href="classmercury_1_1_packet_handler.html#aa4c16ce358c78638f49f6dc1b5b141bd" title="The function that transmits INST_WRITE_COMPOSITE instruction packet  The function makes an instructio...">PacketHandler::syncWriteTxOnly()</a> / <a class="el" href="classmercury_1_1_packet_handler.html#a1f0bf77b7d230076624b428664bbf678" title="The function that transmits INST_WRITE_SHADOW instruction packet with the data for writing on the Mer...">PacketHandler::writeShadowTxOnly</a> / <a class="el" href="classmercury_1_1_packet_handler.html#a58972a466fed2dc14463a416af9c9887" title="The function that makes Mercurys run as written in the Mercury register  The function makes an instru...">PacketHandler::commitShadow</a>.  <a href="#ac7ceeaec210827d119199144badaad3a">More...</a><br /></td></tr>
 <tr class="separator:ac7ceeaec210827d119199144badaad3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fce347ac1f55de301e50bac01c58f4f"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#a5fce347ac1f55de301e50bac01c58f4f">ping</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id, uint8_t *error=0)=0</td></tr>
 <tr class="memdesc:a5fce347ac1f55de301e50bac01c58f4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that pings Mercury but doesn't take its model number  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#a5fce347ac1f55de301e50bac01c58f4f" title="The function that pings Mercury but doesn&#39;t take its model number  The function calls PacketHandler::...">PacketHandler::ping()</a> which gets Mercury model number,  but doesn't carry the model number.  <a href="#a5fce347ac1f55de301e50bac01c58f4f">More...</a><br /></td></tr>
@@ -138,9 +138,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aae8b5fb10e57973884589a0318e30fad"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#aae8b5fb10e57973884589a0318e30fad">broadcastPing</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, std::vector&lt; uint8_t &gt; &amp;id_list)=0</td></tr>
 <tr class="memdesc:aae8b5fb10e57973884589a0318e30fad"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Available only in Protocol 2.0) The function that pings all connected Mercury  <a href="#aae8b5fb10e57973884589a0318e30fad">More...</a><br /></td></tr>
 <tr class="separator:aae8b5fb10e57973884589a0318e30fad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ce31bd650d032c4bff957c9e453f38e"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#a2ce31bd650d032c4bff957c9e453f38e">action</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id)=0</td></tr>
-<tr class="memdesc:a2ce31bd650d032c4bff957c9e453f38e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that makes Mercurys run as written in the Mercury register  The function makes an instruction packet with INST_ACTION,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>.  To use this function, Mercury register should be set by <a class="el" href="classmercury_1_1_packet_handler.html#a0b0daaabd6473e14b2fbfbbf3260bc7b" title="The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Mercur...">PacketHandler::regWriteTxOnly()</a> or <a class="el" href="classmercury_1_1_packet_handler.html#a9944f0271cdcc637429b678a3cd73273" title="The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Mercur...">PacketHandler::regWriteTxRx()</a>  <a href="#a2ce31bd650d032c4bff957c9e453f38e">More...</a><br /></td></tr>
-<tr class="separator:a2ce31bd650d032c4bff957c9e453f38e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58972a466fed2dc14463a416af9c9887"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#a58972a466fed2dc14463a416af9c9887">commitShadow</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id)=0</td></tr>
+<tr class="memdesc:a58972a466fed2dc14463a416af9c9887"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that makes Mercurys run as written in the Mercury register  The function makes an instruction packet with INST_COMMIT_SHADOW,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>.  To use this function, Mercury register should be set by <a class="el" href="classmercury_1_1_packet_handler.html#a1f0bf77b7d230076624b428664bbf678" title="The function that transmits INST_WRITE_SHADOW instruction packet with the data for writing on the Mer...">PacketHandler::writeShadowTxOnly()</a> or <a class="el" href="classmercury_1_1_packet_handler.html#a5f81e12eabd4f661f828046ed0842727" title="The function that transmits INST_WRITE_SHADOW instruction packet with the data for writing on the Mer...">PacketHandler::writeShadowTxRx()</a>  <a href="#a58972a466fed2dc14463a416af9c9887">More...</a><br /></td></tr>
+<tr class="separator:a58972a466fed2dc14463a416af9c9887"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ef14097ca9a667b90660edb72c61427"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#a3ef14097ca9a667b90660edb72c61427">reboot</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id, uint8_t *error=0)=0</td></tr>
 <tr class="memdesc:a3ef14097ca9a667b90660edb72c61427"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that makes Mercury reboot  The function makes an instruction packet with INST_REBOOT,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>,  then Mercury reboots.  During reboot, its LED will blink.  <a href="#a3ef14097ca9a667b90660edb72c61427">More...</a><br /></td></tr>
 <tr class="separator:a3ef14097ca9a667b90660edb72c61427"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,40 +184,40 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a92d8e5c9d5a0ed26dc5ba3cd78c3b636"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#ac743a57bba9e71aadb1578f0e704f166" title="The function that transmits INST_READ instruction packet, and read data from received packet  The fun...">PacketHandler::readTxRx()</a> function for reading 4 byte data  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#ac743a57bba9e71aadb1578f0e704f166" title="The function that transmits INST_READ instruction packet, and read data from received packet  The fun...">PacketHandler::readTxRx()</a>,  gets 4 byte data from the packet.  <a href="#a92d8e5c9d5a0ed26dc5ba3cd78c3b636">More...</a><br /></td></tr>
 <tr class="separator:a92d8e5c9d5a0ed26dc5ba3cd78c3b636"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf4e01987186250221603f794e7e4b59"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59">writeTxOnly</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data)=0</td></tr>
-<tr class="memdesc:acf4e01987186250221603f794e7e4b59"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits INST_WRITE instruction packet with the data for write  The function makes an instruction packet with INST_WRITE and the data for write,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>.  <a href="#acf4e01987186250221603f794e7e4b59">More...</a><br /></td></tr>
+<tr class="memdesc:acf4e01987186250221603f794e7e4b59"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The function makes an instruction packet with INST_WRITE_DIRECT and the data for write,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>.  <a href="#acf4e01987186250221603f794e7e4b59">More...</a><br /></td></tr>
 <tr class="separator:acf4e01987186250221603f794e7e4b59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf35a5000d465bd5426530e34a91a21d"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d">writeTxRx</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error=0)=0</td></tr>
-<tr class="memdesc:adf35a5000d465bd5426530e34a91a21d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>,  gets the error from the packet.  <a href="#adf35a5000d465bd5426530e34a91a21d">More...</a><br /></td></tr>
+<tr class="memdesc:adf35a5000d465bd5426530e34a91a21d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits INST_WRITE_DIRECT instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE_DIRECT and the data for write,  transmits and receives the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>,  gets the error from the packet.  <a href="#adf35a5000d465bd5426530e34a91a21d">More...</a><br /></td></tr>
 <tr class="separator:adf35a5000d465bd5426530e34a91a21d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21553798faa86c41203ab41a5c930938"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#a21553798faa86c41203ab41a5c930938">write1ByteTxOnly</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id, uint16_t address, uint8_t data)=0</td></tr>
-<tr class="memdesc:a21553798faa86c41203ab41a5c930938"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> for writing 1 byte data  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> for writing 1 byte data.  <a href="#a21553798faa86c41203ab41a5c930938">More...</a><br /></td></tr>
+<tr class="memdesc:a21553798faa86c41203ab41a5c930938"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> for writing 1 byte data  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> for writing 1 byte data.  <a href="#a21553798faa86c41203ab41a5c930938">More...</a><br /></td></tr>
 <tr class="separator:a21553798faa86c41203ab41a5c930938"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23576f2a57fb0bb66797b8a3a1935cd1"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#a23576f2a57fb0bb66797b8a3a1935cd1">write1ByteTxRx</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id, uint16_t address, uint8_t data, uint8_t *error=0)=0</td></tr>
-<tr class="memdesc:a23576f2a57fb0bb66797b8a3a1935cd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> for writing 1 byte data and receives the packet  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> for writing 1 byte data and receves the packet,  gets the error from the packet.  <a href="#a23576f2a57fb0bb66797b8a3a1935cd1">More...</a><br /></td></tr>
+<tr class="memdesc:a23576f2a57fb0bb66797b8a3a1935cd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> for writing 1 byte data and receives the packet  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> for writing 1 byte data and receves the packet,  gets the error from the packet.  <a href="#a23576f2a57fb0bb66797b8a3a1935cd1">More...</a><br /></td></tr>
 <tr class="separator:a23576f2a57fb0bb66797b8a3a1935cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a417e5e07c5592d3dc524da4b4c829fb4"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#a417e5e07c5592d3dc524da4b4c829fb4">write2ByteTxOnly</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id, uint16_t address, uint16_t data)=0</td></tr>
-<tr class="memdesc:a417e5e07c5592d3dc524da4b4c829fb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> for writing 2 byte data  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> for writing 2 byte data.  <a href="#a417e5e07c5592d3dc524da4b4c829fb4">More...</a><br /></td></tr>
+<tr class="memdesc:a417e5e07c5592d3dc524da4b4c829fb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> for writing 2 byte data  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> for writing 2 byte data.  <a href="#a417e5e07c5592d3dc524da4b4c829fb4">More...</a><br /></td></tr>
 <tr class="separator:a417e5e07c5592d3dc524da4b4c829fb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5beac405c8ea75cc82ea5c01867a45db"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#a5beac405c8ea75cc82ea5c01867a45db">write2ByteTxRx</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id, uint16_t address, uint16_t data, uint8_t *error=0)=0</td></tr>
-<tr class="memdesc:a5beac405c8ea75cc82ea5c01867a45db"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> for writing 2 byte data and receives the packet  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> for writing 2 byte data and receves the packet,  gets the error from the packet.  <a href="#a5beac405c8ea75cc82ea5c01867a45db">More...</a><br /></td></tr>
+<tr class="memdesc:a5beac405c8ea75cc82ea5c01867a45db"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> for writing 2 byte data and receives the packet  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> for writing 2 byte data and receves the packet,  gets the error from the packet.  <a href="#a5beac405c8ea75cc82ea5c01867a45db">More...</a><br /></td></tr>
 <tr class="separator:a5beac405c8ea75cc82ea5c01867a45db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf97e077894f1e01f53b7468e4470c19"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#adf97e077894f1e01f53b7468e4470c19">write4ByteTxOnly</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id, uint16_t address, uint32_t data)=0</td></tr>
-<tr class="memdesc:adf97e077894f1e01f53b7468e4470c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> for writing 4 byte data  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> for writing 4 byte data.  <a href="#adf97e077894f1e01f53b7468e4470c19">More...</a><br /></td></tr>
+<tr class="memdesc:adf97e077894f1e01f53b7468e4470c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> for writing 4 byte data  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> for writing 4 byte data.  <a href="#adf97e077894f1e01f53b7468e4470c19">More...</a><br /></td></tr>
 <tr class="separator:adf97e077894f1e01f53b7468e4470c19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd4df6583fcbaf872a4aba6623c9b084"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#acd4df6583fcbaf872a4aba6623c9b084">write4ByteTxRx</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id, uint16_t address, uint32_t data, uint8_t *error=0)=0</td></tr>
-<tr class="memdesc:acd4df6583fcbaf872a4aba6623c9b084"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> for writing 4 byte data and receives the packet  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> for writing 4 byte data and receves the packet,  gets the error from the packet.  <a href="#acd4df6583fcbaf872a4aba6623c9b084">More...</a><br /></td></tr>
+<tr class="memdesc:acd4df6583fcbaf872a4aba6623c9b084"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> for writing 4 byte data and receives the packet  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> for writing 4 byte data and receves the packet,  gets the error from the packet.  <a href="#acd4df6583fcbaf872a4aba6623c9b084">More...</a><br /></td></tr>
 <tr class="separator:acd4df6583fcbaf872a4aba6623c9b084"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b0daaabd6473e14b2fbfbbf3260bc7b"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#a0b0daaabd6473e14b2fbfbbf3260bc7b">regWriteTxOnly</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data)=0</td></tr>
-<tr class="memdesc:a0b0daaabd6473e14b2fbfbbf3260bc7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Mercury register  The function makes an instruction packet with INST_REG_WRITE and the data for writing on the Mercury register,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>.  The data written in the register will act when INST_ACTION instruction packet is transmitted to the Dynamxel.  <a href="#a0b0daaabd6473e14b2fbfbbf3260bc7b">More...</a><br /></td></tr>
-<tr class="separator:a0b0daaabd6473e14b2fbfbbf3260bc7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9944f0271cdcc637429b678a3cd73273"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#a9944f0271cdcc637429b678a3cd73273">regWriteTxRx</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error=0)=0</td></tr>
-<tr class="memdesc:a9944f0271cdcc637429b678a3cd73273"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Mercury register, and receives the packet  The function makes an instruction packet with INST_REG_WRITE and the data for writing on the Mercury register,  transmits and receives the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>,  gets the error from the packet.  The data written in the register will act when INST_ACTION instruction packet is transmitted to the Dynamxel.  <a href="#a9944f0271cdcc637429b678a3cd73273">More...</a><br /></td></tr>
-<tr class="separator:a9944f0271cdcc637429b678a3cd73273"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f0bf77b7d230076624b428664bbf678"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#a1f0bf77b7d230076624b428664bbf678">writeShadowTxOnly</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data)=0</td></tr>
+<tr class="memdesc:a1f0bf77b7d230076624b428664bbf678"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits INST_WRITE_SHADOW instruction packet with the data for writing on the Mercury register  The function makes an instruction packet with INST_WRITE_SHADOW and the data for writing on the Mercury register,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>.  The data written in the register will act when INST_COMMIT_SHADOW instruction packet is transmitted to the Dynamxel.  <a href="#a1f0bf77b7d230076624b428664bbf678">More...</a><br /></td></tr>
+<tr class="separator:a1f0bf77b7d230076624b428664bbf678"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f81e12eabd4f661f828046ed0842727"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#a5f81e12eabd4f661f828046ed0842727">writeShadowTxRx</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error=0)=0</td></tr>
+<tr class="memdesc:a5f81e12eabd4f661f828046ed0842727"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits INST_WRITE_SHADOW instruction packet with the data for writing on the Mercury register, and receives the packet  The function makes an instruction packet with INST_WRITE_SHADOW and the data for writing on the Mercury register,  transmits and receives the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>,  gets the error from the packet.  The data written in the register will act when INST_COMMIT_SHADOW instruction packet is transmitted to the Dynamxel.  <a href="#a5f81e12eabd4f661f828046ed0842727">More...</a><br /></td></tr>
+<tr class="separator:a5f81e12eabd4f661f828046ed0842727"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af51ee95bfc3f386235e746b1418d5d38"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#af51ee95bfc3f386235e746b1418d5d38">syncReadTx</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint16_t start_address, uint16_t data_length, uint8_t *param, uint16_t param_length)=0</td></tr>
 <tr class="memdesc:af51ee95bfc3f386235e746b1418d5d38"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits INST_SYNC_READ instruction packet  The function makes an instruction packet with INST_SYNC_READ,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>.  <a href="#af51ee95bfc3f386235e746b1418d5d38">More...</a><br /></td></tr>
 <tr class="separator:af51ee95bfc3f386235e746b1418d5d38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4c16ce358c78638f49f6dc1b5b141bd"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#aa4c16ce358c78638f49f6dc1b5b141bd">syncWriteTxOnly</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint16_t start_address, uint16_t data_length, uint8_t *param, uint16_t param_length)=0</td></tr>
-<tr class="memdesc:aa4c16ce358c78638f49f6dc1b5b141bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits INST_SYNC_WRITE instruction packet  The function makes an instruction packet with INST_SYNC_WRITE,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>.  <a href="#aa4c16ce358c78638f49f6dc1b5b141bd">More...</a><br /></td></tr>
+<tr class="memdesc:aa4c16ce358c78638f49f6dc1b5b141bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits INST_WRITE_COMPOSITE instruction packet  The function makes an instruction packet with INST_WRITE_COMPOSITE,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>.  <a href="#aa4c16ce358c78638f49f6dc1b5b141bd">More...</a><br /></td></tr>
 <tr class="separator:aa4c16ce358c78638f49f6dc1b5b141bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88c18487119394e45537098716cbf6af"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmercury_1_1_packet_handler.html#a88c18487119394e45537098716cbf6af">bulkReadTx</a> (<a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *port, uint8_t *param, uint16_t param_length)=0</td></tr>
 <tr class="memdesc:a88c18487119394e45537098716cbf6af"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function that transmits INST_BULK_READ instruction packet  The function makes an instruction packet with INST_BULK_READ,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>.  <a href="#a88c18487119394e45537098716cbf6af">More...</a><br /></td></tr>
@@ -235,52 +235,6 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The class that inherits <a class="el" href="classmercury_1_1_protocol_packet_handler.html" title="The class for control Mercury by using Protocol.0. ">ProtocolPacketHandler</a> class. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a2ce31bd650d032c4bff957c9e453f38e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual int mercury::PacketHandler::action </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *&#160;</td>
-          <td class="paramname"><em>port</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>id</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The function that makes Mercurys run as written in the Mercury register  The function makes an instruction packet with INST_ACTION,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>.  To use this function, Mercury register should be set by <a class="el" href="classmercury_1_1_packet_handler.html#a0b0daaabd6473e14b2fbfbbf3260bc7b" title="The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Mercur...">PacketHandler::regWriteTxOnly()</a> or <a class="el" href="classmercury_1_1_packet_handler.html#a9944f0271cdcc637429b678a3cd73273" title="The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Mercur...">PacketHandler::regWriteTxRx()</a> </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
-    <tr><td class="paramname">id</td><td>Mercury ID </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a> </dd></dl>
-
-<p>Implemented in <a class="el" href="classmercury_1_1_protocol_packet_handler.html#a55034471e726b363c0a535acb1012468">mercury::ProtocolPacketHandler</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="aae8b5fb10e57973884589a0318e30fad"></a>
 <div class="memitem">
 <div class="memproto">
@@ -430,6 +384,52 @@ Static Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classmercury_1_1_protocol_packet_handler.html#ac6c15829fd1bd0e321a1d63076e11839">mercury::ProtocolPacketHandler</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a58972a466fed2dc14463a416af9c9887"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int mercury::PacketHandler::commitShadow </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *&#160;</td>
+          <td class="paramname"><em>port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The function that makes Mercurys run as written in the Mercury register  The function makes an instruction packet with INST_COMMIT_SHADOW,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>.  To use this function, Mercury register should be set by <a class="el" href="classmercury_1_1_packet_handler.html#a1f0bf77b7d230076624b428664bbf678" title="The function that transmits INST_WRITE_SHADOW instruction packet with the data for writing on the Mer...">PacketHandler::writeShadowTxOnly()</a> or <a class="el" href="classmercury_1_1_packet_handler.html#a5f81e12eabd4f661f828046ed0842727" title="The function that transmits INST_WRITE_SHADOW instruction packet with the data for writing on the Mer...">PacketHandler::writeShadowTxRx()</a> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
+    <tr><td class="paramname">id</td><td>Mercury ID </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a> </dd></dl>
+
+<p>Implemented in <a class="el" href="classmercury_1_1_protocol_packet_handler.html#aeb249dda7388331a21d7f765923dbd62">mercury::ProtocolPacketHandler</a>.</p>
 
 </div>
 </div>
@@ -1539,147 +1539,6 @@ or the other communication results which come from <a class="el" href="classmerc
 
 </div>
 </div>
-<a class="anchor" id="a0b0daaabd6473e14b2fbfbbf3260bc7b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual int mercury::PacketHandler::regWriteTxOnly </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *&#160;</td>
-          <td class="paramname"><em>port</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>address</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Mercury register  The function makes an instruction packet with INST_REG_WRITE and the data for writing on the Mercury register,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>.  The data written in the register will act when INST_ACTION instruction packet is transmitted to the Dynamxel. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
-    <tr><td class="paramname">id</td><td>Mercury ID </td></tr>
-    <tr><td class="paramname">address</td><td>Address of the data for write </td></tr>
-    <tr><td class="paramname">length</td><td>Length of the data for write </td></tr>
-    <tr><td class="paramname">data</td><td>Data for write </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a> </dd></dl>
-
-<p>Implemented in <a class="el" href="classmercury_1_1_protocol_packet_handler.html#af43e9f53d3e295b12b69f4b99c8c1746">mercury::ProtocolPacketHandler</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9944f0271cdcc637429b678a3cd73273"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual int mercury::PacketHandler::regWriteTxRx </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *&#160;</td>
-          <td class="paramname"><em>port</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>address</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>error</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Mercury register, and receives the packet  The function makes an instruction packet with INST_REG_WRITE and the data for writing on the Mercury register,  transmits and receives the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>,  gets the error from the packet.  The data written in the register will act when INST_ACTION instruction packet is transmitted to the Dynamxel. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
-    <tr><td class="paramname">id</td><td>Mercury ID </td></tr>
-    <tr><td class="paramname">address</td><td>Address of the data for write </td></tr>
-    <tr><td class="paramname">length</td><td>Length of the data for write </td></tr>
-    <tr><td class="paramname">data</td><td>Data for write </td></tr>
-    <tr><td class="paramname">error</td><td>Mercury hardware error </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a> </dd></dl>
-
-<p>Implemented in <a class="el" href="classmercury_1_1_protocol_packet_handler.html#a314845a3e5d2030e56db2739310ad117">mercury::ProtocolPacketHandler</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a01a3929c3514eac14b4ca5a61b498e20"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1859,7 +1718,7 @@ or COMM_RX_FAIL </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>The function that transmits INST_SYNC_WRITE instruction packet  The function makes an instruction packet with INST_SYNC_WRITE,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>. </p>
+<p>The function that transmits INST_WRITE_COMPOSITE instruction packet  The function makes an instruction packet with INST_WRITE_COMPOSITE,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
@@ -1978,7 +1837,7 @@ or COMM_SUCCESS </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time via <a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> port  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>,  and calls <a class="el" href="classmercury_1_1_packet_handler.html#a01a3929c3514eac14b4ca5a61b498e20" title="The function that receives packet (rxpacket) during designated time via PortHandler port  The functio...">PacketHandler::rxPacket()</a> if it succeeds <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>.  It breaks out  when it fails <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>,  when txpacket is called by <a class="el" href="classmercury_1_1_packet_handler.html#aae8b5fb10e57973884589a0318e30fad" title="(Available only in Protocol 2.0) The function that pings all connected Mercury ">PacketHandler::broadcastPing()</a> / <a class="el" href="classmercury_1_1_packet_handler.html#aa4c16ce358c78638f49f6dc1b5b141bd" title="The function that transmits INST_SYNC_WRITE instruction packet  The function makes an instruction pac...">PacketHandler::syncWriteTxOnly()</a> / <a class="el" href="classmercury_1_1_packet_handler.html#a0b0daaabd6473e14b2fbfbbf3260bc7b" title="The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Mercur...">PacketHandler::regWriteTxOnly</a> / <a class="el" href="classmercury_1_1_packet_handler.html#a2ce31bd650d032c4bff957c9e453f38e" title="The function that makes Mercurys run as written in the Mercury register  The function makes an instru...">PacketHandler::action</a>. </p>
+<p>The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time via <a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> port  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>,  and calls <a class="el" href="classmercury_1_1_packet_handler.html#a01a3929c3514eac14b4ca5a61b498e20" title="The function that receives packet (rxpacket) during designated time via PortHandler port  The functio...">PacketHandler::rxPacket()</a> if it succeeds <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>.  It breaks out  when it fails <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>,  when txpacket is called by <a class="el" href="classmercury_1_1_packet_handler.html#aae8b5fb10e57973884589a0318e30fad" title="(Available only in Protocol 2.0) The function that pings all connected Mercury ">PacketHandler::broadcastPing()</a> / <a class="el" href="classmercury_1_1_packet_handler.html#aa4c16ce358c78638f49f6dc1b5b141bd" title="The function that transmits INST_WRITE_COMPOSITE instruction packet  The function makes an instructio...">PacketHandler::syncWriteTxOnly()</a> / <a class="el" href="classmercury_1_1_packet_handler.html#a1f0bf77b7d230076624b428664bbf678" title="The function that transmits INST_WRITE_SHADOW instruction packet with the data for writing on the Mer...">PacketHandler::writeShadowTxOnly</a> / <a class="el" href="classmercury_1_1_packet_handler.html#a58972a466fed2dc14463a416af9c9887" title="The function that makes Mercurys run as written in the Mercury register  The function makes an instru...">PacketHandler::commitShadow</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
@@ -2041,7 +1900,7 @@ or the other communication results which come from <a class="el" href="classmerc
 </table>
 </div><div class="memdoc">
 
-<p>The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> for writing 1 byte data  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> for writing 1 byte data. </p>
+<p>The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> for writing 1 byte data  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> for writing 1 byte data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
@@ -2051,7 +1910,7 @@ or the other communication results which come from <a class="el" href="classmerc
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classmercury_1_1_protocol_packet_handler.html#a5552ae2bbb808624a5f8853a6c350c6a">mercury::ProtocolPacketHandler</a>.</p>
 
@@ -2107,7 +1966,7 @@ or the other communication results which come from <a class="el" href="classmerc
 </table>
 </div><div class="memdoc">
 
-<p>The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> for writing 1 byte data and receives the packet  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> for writing 1 byte data and receves the packet,  gets the error from the packet. </p>
+<p>The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> for writing 1 byte data and receives the packet  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> for writing 1 byte data and receves the packet,  gets the error from the packet. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
@@ -2118,7 +1977,7 @@ or the other communication results which come from <a class="el" href="classmerc
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classmercury_1_1_protocol_packet_handler.html#a707d577c37240db5de018f154a9a0fec">mercury::ProtocolPacketHandler</a>.</p>
 
@@ -2168,7 +2027,7 @@ or the other communication results which come from <a class="el" href="classmerc
 </table>
 </div><div class="memdoc">
 
-<p>The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> for writing 2 byte data  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> for writing 2 byte data. </p>
+<p>The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> for writing 2 byte data  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> for writing 2 byte data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
@@ -2178,7 +2037,7 @@ or the other communication results which come from <a class="el" href="classmerc
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classmercury_1_1_protocol_packet_handler.html#a80a1fe6d22afe8878b23d123e2c77070">mercury::ProtocolPacketHandler</a>.</p>
 
@@ -2234,7 +2093,7 @@ or the other communication results which come from <a class="el" href="classmerc
 </table>
 </div><div class="memdoc">
 
-<p>The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> for writing 2 byte data and receives the packet  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> for writing 2 byte data and receves the packet,  gets the error from the packet. </p>
+<p>The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> for writing 2 byte data and receives the packet  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> for writing 2 byte data and receves the packet,  gets the error from the packet. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
@@ -2245,7 +2104,7 @@ or the other communication results which come from <a class="el" href="classmerc
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classmercury_1_1_protocol_packet_handler.html#a59919f414dc8f1b0d024af5df3189294">mercury::ProtocolPacketHandler</a>.</p>
 
@@ -2295,7 +2154,7 @@ or the other communication results which come from <a class="el" href="classmerc
 </table>
 </div><div class="memdoc">
 
-<p>The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> for writing 4 byte data  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> for writing 4 byte data. </p>
+<p>The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> for writing 4 byte data  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> for writing 4 byte data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
@@ -2305,7 +2164,7 @@ or the other communication results which come from <a class="el" href="classmerc
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE instruction packet with the data for write  The function makes...">PacketHandler::writeTxOnly()</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#acf4e01987186250221603f794e7e4b59" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The functio...">PacketHandler::writeTxOnly()</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classmercury_1_1_protocol_packet_handler.html#a88c64703e5947188e7c83d57dd2a8ffc">mercury::ProtocolPacketHandler</a>.</p>
 
@@ -2361,7 +2220,7 @@ or the other communication results which come from <a class="el" href="classmerc
 </table>
 </div><div class="memdoc">
 
-<p>The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> for writing 4 byte data and receives the packet  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> for writing 4 byte data and receves the packet,  gets the error from the packet. </p>
+<p>The function that calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> for writing 4 byte data and receives the packet  The function calls <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> for writing 4 byte data and receves the packet,  gets the error from the packet. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
@@ -2372,9 +2231,150 @@ or the other communication results which come from <a class="el" href="classmerc
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with PacketHandler::txRxPacket(),  gets the error from the packet. ">PacketHandler::writeTxRx()</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#adf35a5000d465bd5426530e34a91a21d" title="The function that transmits INST_WRITE_DIRECT instruction packet with the data for write...">PacketHandler::writeTxRx()</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classmercury_1_1_protocol_packet_handler.html#abdcdc58ceead4033768386c5de3eb066">mercury::ProtocolPacketHandler</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1f0bf77b7d230076624b428664bbf678"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int mercury::PacketHandler::writeShadowTxOnly </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *&#160;</td>
+          <td class="paramname"><em>port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>length</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The function that transmits INST_WRITE_SHADOW instruction packet with the data for writing on the Mercury register  The function makes an instruction packet with INST_WRITE_SHADOW and the data for writing on the Mercury register,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>.  The data written in the register will act when INST_COMMIT_SHADOW instruction packet is transmitted to the Dynamxel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
+    <tr><td class="paramname">id</td><td>Mercury ID </td></tr>
+    <tr><td class="paramname">address</td><td>Address of the data for write </td></tr>
+    <tr><td class="paramname">length</td><td>Length of the data for write </td></tr>
+    <tr><td class="paramname">data</td><td>Data for write </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a> </dd></dl>
+
+<p>Implemented in <a class="el" href="classmercury_1_1_protocol_packet_handler.html#a38b187dbb26583cb57fb7592e4be8136">mercury::ProtocolPacketHandler</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5f81e12eabd4f661f828046ed0842727"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int mercury::PacketHandler::writeShadowTxRx </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmercury_1_1_port_handler.html">PortHandler</a> *&#160;</td>
+          <td class="paramname"><em>port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>length</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>error</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The function that transmits INST_WRITE_SHADOW instruction packet with the data for writing on the Mercury register, and receives the packet  The function makes an instruction packet with INST_WRITE_SHADOW and the data for writing on the Mercury register,  transmits and receives the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>,  gets the error from the packet.  The data written in the register will act when INST_COMMIT_SHADOW instruction packet is transmitted to the Dynamxel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
+    <tr><td class="paramname">id</td><td>Mercury ID </td></tr>
+    <tr><td class="paramname">address</td><td>Address of the data for write </td></tr>
+    <tr><td class="paramname">length</td><td>Length of the data for write </td></tr>
+    <tr><td class="paramname">data</td><td>Data for write </td></tr>
+    <tr><td class="paramname">error</td><td>Mercury hardware error </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>communication results which come from <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a> </dd></dl>
+
+<p>Implemented in <a class="el" href="classmercury_1_1_protocol_packet_handler.html#a822f9e0b679c26df080a9ae7a60e741c">mercury::ProtocolPacketHandler</a>.</p>
 
 </div>
 </div>
@@ -2428,7 +2428,7 @@ or the other communication results which come from <a class="el" href="classmerc
 </table>
 </div><div class="memdoc">
 
-<p>The function that transmits INST_WRITE instruction packet with the data for write  The function makes an instruction packet with INST_WRITE and the data for write,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>. </p>
+<p>The function that transmits INST_WRITE_DIRECT instruction packet with the data for write  The function makes an instruction packet with INST_WRITE_DIRECT and the data for write,  transmits the packet with <a class="el" href="classmercury_1_1_packet_handler.html#acc3f84f0d952dc2d827d8500de512abe" title="The function that transmits the instruction packet txpacket via PortHandler port.  The function clear...">PacketHandler::txPacket()</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>
@@ -2501,7 +2501,7 @@ or the other communication results which come from <a class="el" href="classmerc
 </table>
 </div><div class="memdoc">
 
-<p>The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE and the data for write,  transmits and receives the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>,  gets the error from the packet. </p>
+<p>The function that transmits INST_WRITE_DIRECT instruction packet with the data for write, and receives the packet  The function makes an instruction packet with INST_WRITE_DIRECT and the data for write,  transmits and receives the packet with <a class="el" href="classmercury_1_1_packet_handler.html#ac7ceeaec210827d119199144badaad3a" title="The function that transmits packet (txpacket) and receives packet (rxpacket) during designated time v...">PacketHandler::txRxPacket()</a>,  gets the error from the packet. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td><a class="el" href="classmercury_1_1_port_handler.html" title="The class for port control that inherits PortHandlerLinux, PortHandlerWindows, PortHandlerMac, or PortHandlerArduino. ">PortHandler</a> instance </td></tr>

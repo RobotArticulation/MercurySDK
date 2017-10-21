@@ -33,19 +33,19 @@
 #include <algorithm>
 
 #if defined(__linux__)
-#include "group_bulk_write.h"
+#include "write_direct.h"
 #elif defined(__APPLE__)
-#include "group_bulk_write.h"
+#include "write_direct.h"
 #elif defined(_WIN32) || defined(_WIN64)
 #define WINDLLEXPORT
-#include "group_bulk_write.h"
+#include "write_direct.h"
 #elif defined(ARDUINO) || defined(__OPENCR__) || defined(__OPENCM904__)
-#include "../../include/mercury_sdk/group_bulk_write.h"
+#include "../../include/mercury_sdk/write_direct.h"
 #endif
 
 using namespace mercury;
 
-GroupBulkWrite::GroupBulkWrite(PortHandler *port, PacketHandler *ph)
+WriteDirect::WriteDirect(PortHandler *port, PacketHandler *ph)
   : port_(port),
     ph_(ph),
     is_param_changed_(false),
@@ -55,7 +55,7 @@ GroupBulkWrite::GroupBulkWrite(PortHandler *port, PacketHandler *ph)
   clearParam();
 }
 
-void GroupBulkWrite::makeParam()
+void WriteDirect::makeParam()
 {
   if (ph_->getProtocolVersion() == 1.0 || id_list_.size() == 0)
     return;
@@ -87,7 +87,7 @@ void GroupBulkWrite::makeParam()
   }
 }
 
-bool GroupBulkWrite::addParam(uint8_t id, uint16_t start_address, uint16_t data_length, uint8_t *data)
+bool WriteDirect::addParam(uint8_t id, uint16_t start_address, uint16_t data_length, uint8_t *data)
 {
   if (ph_->getProtocolVersion() == 1.0)
     return false;
@@ -105,7 +105,7 @@ bool GroupBulkWrite::addParam(uint8_t id, uint16_t start_address, uint16_t data_
   is_param_changed_   = true;
   return true;
 }
-void GroupBulkWrite::removeParam(uint8_t id)
+void WriteDirect::removeParam(uint8_t id)
 {
   if (ph_->getProtocolVersion() == 1.0)
     return;
@@ -122,7 +122,7 @@ void GroupBulkWrite::removeParam(uint8_t id)
 
   is_param_changed_   = true;
 }
-bool GroupBulkWrite::changeParam(uint8_t id, uint16_t start_address, uint16_t data_length, uint8_t *data)
+bool WriteDirect::changeParam(uint8_t id, uint16_t start_address, uint16_t data_length, uint8_t *data)
 {
   if (ph_->getProtocolVersion() == 1.0)
     return false;
@@ -141,7 +141,7 @@ bool GroupBulkWrite::changeParam(uint8_t id, uint16_t start_address, uint16_t da
   is_param_changed_   = true;
   return true;
 }
-void GroupBulkWrite::clearParam()
+void WriteDirect::clearParam()
 {
   if (ph_->getProtocolVersion() == 1.0 || id_list_.size() == 0)
     return;
@@ -157,7 +157,7 @@ void GroupBulkWrite::clearParam()
     delete[] param_;
   param_ = 0;
 }
-int GroupBulkWrite::txPacket()
+int WriteDirect::txPacket()
 {
   if (ph_->getProtocolVersion() == 1.0 || id_list_.size() == 0)
     return COMM_NOT_AVAILABLE;

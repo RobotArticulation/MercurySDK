@@ -63,7 +63,7 @@
 #define ERRBIT_RANGE            8       // Command(setting value) is out of the range for use.
 #define ERRBIT_CHECKSUM         16      // Instruction packet checksum is incorrect.
 #define ERRBIT_OVERLOAD         32      // The current load cannot be controlled by the set torque.
-#define ERRBIT_INSTRUCTION      64      // Undefined instruction or delivering the action command without the reg_write command.
+#define ERRBIT_INSTRUCTION      64      // Undefined instruction or delivering the commitShadow command without the writeShadow command.
 
 using namespace mercury;
 
@@ -319,8 +319,8 @@ int ProtocolPacketHandler::txRxPacket(PortHandler *port, uint8_t *txpacket, uint
     result = COMM_NOT_AVAILABLE;
 
   // (ID == Broadcast ID) == no need to wait for status packet or not available
-  // (Instruction == action) == no need to wait for status packet
-  if (txpacket[PKT_ID] == BROADCAST_ID || txpacket[PKT_INSTRUCTION] == INST_ACTION)
+  // (Instruction == commitShadow) == no need to wait for status packet
+  if (txpacket[PKT_ID] == BROADCAST_ID || txpacket[PKT_INSTRUCTION] == INST_COMMIT_SHADOW)
   {
     port->is_using_ = false;
     return result;
@@ -385,13 +385,13 @@ int ProtocolPacketHandler::broadcastPing(PortHandler *port, std::vector<uint8_t>
   return COMM_NOT_AVAILABLE;
 }
 
-int ProtocolPacketHandler::action(PortHandler *port, uint8_t id)
+int ProtocolPacketHandler::commitShadow(PortHandler *port, uint8_t id)
 {
   uint8_t txpacket[6]         = {0};
 
   txpacket[PKT_ID]            = id;
   txpacket[PKT_LENGTH]        = 2;
-  txpacket[PKT_INSTRUCTION]   = INST_ACTION;
+  txpacket[PKT_INSTRUCTION]   = INST_COMMIT_SHADOW;
 
   return txRxPacket(port, txpacket, 0);
 }
@@ -572,7 +572,7 @@ int ProtocolPacketHandler::writeTxOnly(PortHandler *port, uint8_t id, uint16_t a
 
   txpacket[PKT_ID]            = id;
   txpacket[PKT_LENGTH]        = length+3;
-  txpacket[PKT_INSTRUCTION]   = INST_WRITE;
+  txpacket[PKT_INSTRUCTION]   = INST_WRITE_DIRECT;
   txpacket[PKT_PARAMETER0]    = (uint8_t)address;
 
   for (uint8_t s = 0; s < length; s++)
@@ -597,7 +597,7 @@ int ProtocolPacketHandler::writeTxRx(PortHandler *port, uint8_t id, uint16_t add
 
   txpacket[PKT_ID]            = id;
   txpacket[PKT_LENGTH]        = length+3;
-  txpacket[PKT_INSTRUCTION]   = INST_WRITE;
+  txpacket[PKT_INSTRUCTION]   = INST_WRITE_DIRECT;
   txpacket[PKT_PARAMETER0]    = (uint8_t)address;
 
   for (uint8_t s = 0; s < length; s++)
@@ -644,7 +644,7 @@ int ProtocolPacketHandler::write4ByteTxRx(PortHandler *port, uint8_t id, uint16_
   return writeTxRx(port, id, address, 4, data_write, error);
 }
 
-int ProtocolPacketHandler::regWriteTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data)
+int ProtocolPacketHandler::writeShadowTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data)
 {
   int result                 = COMM_TX_FAIL;
 
@@ -653,7 +653,7 @@ int ProtocolPacketHandler::regWriteTxOnly(PortHandler *port, uint8_t id, uint16_
 
   txpacket[PKT_ID]            = id;
   txpacket[PKT_LENGTH]        = length+3;
-  txpacket[PKT_INSTRUCTION]   = INST_REG_WRITE;
+  txpacket[PKT_INSTRUCTION]   = INST_WRITE_SHADOW;
   txpacket[PKT_PARAMETER0]    = (uint8_t)address;
 
   for (uint8_t s = 0; s < length; s++)
@@ -668,7 +668,7 @@ int ProtocolPacketHandler::regWriteTxOnly(PortHandler *port, uint8_t id, uint16_
   return result;
 }
 
-int ProtocolPacketHandler::regWriteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error)
+int ProtocolPacketHandler::writeShadowTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error)
 {
   int result                 = COMM_TX_FAIL;
 
@@ -678,7 +678,7 @@ int ProtocolPacketHandler::regWriteTxRx(PortHandler *port, uint8_t id, uint16_t 
 
   txpacket[PKT_ID]            = id;
   txpacket[PKT_LENGTH]        = length+3;
-  txpacket[PKT_INSTRUCTION]   = INST_REG_WRITE;
+  txpacket[PKT_INSTRUCTION]   = INST_WRITE_SHADOW;
   txpacket[PKT_PARAMETER0]    = (uint8_t)address;
 
   for (uint8_t s = 0; s < length; s++)
@@ -707,7 +707,7 @@ int ProtocolPacketHandler::syncWriteTxOnly(PortHandler *port, uint16_t start_add
 
   txpacket[PKT_ID]            = BROADCAST_ID;
   txpacket[PKT_LENGTH]        = param_length + 4; // 4: INST START_ADDR DATA_LEN ... CHKSUM
-  txpacket[PKT_INSTRUCTION]   = INST_SYNC_WRITE;
+  txpacket[PKT_INSTRUCTION]   = INST_WRITE_COMPOSITE;
   txpacket[PKT_PARAMETER0+0]  = start_address;
   txpacket[PKT_PARAMETER0+1]  = data_length;
 

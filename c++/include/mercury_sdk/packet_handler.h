@@ -58,11 +58,11 @@
 /* Instruction for DXL Protocol */
 #define INST_PING               1
 #define INST_READ               2
-#define INST_WRITE              3
-#define INST_REG_WRITE          4
-#define INST_ACTION             5
+#define INST_WRITE_DIRECT       3
+#define INST_WRITE_SHADOW       4
+#define INST_COMMIT_SHADOW      5
 #define INST_FACTORY_RESET      6
-#define INST_SYNC_WRITE         131     // 0x83
+#define INST_WRITE_COMPOSITE    131     // 0x83
 #define INST_BULK_READ          146     // 0x92
 // --- Only for 2.0 --- //
 #define INST_REBOOT             8
@@ -166,7 +166,7 @@ class WINDECLSPEC PacketHandler
   /// @description and calls PacketHandler::rxPacket() if it succeeds PacketHandler::txPacket().
   /// @description It breaks out
   /// @description when it fails PacketHandler::txPacket(),
-  /// @description when txpacket is called by PacketHandler::broadcastPing() / PacketHandler::syncWriteTxOnly() / PacketHandler::regWriteTxOnly / PacketHandler::action
+  /// @description when txpacket is called by PacketHandler::broadcastPing() / PacketHandler::syncWriteTxOnly() / PacketHandler::writeShadowTxOnly / PacketHandler::commitShadow
   /// @param port PortHandler instance
   /// @param txpacket packet for transmission
   /// @param rxpacket received packet
@@ -215,14 +215,14 @@ class WINDECLSPEC PacketHandler
 
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that makes Mercurys run as written in the Mercury register
-  /// @description The function makes an instruction packet with INST_ACTION,
+  /// @description The function makes an instruction packet with INST_COMMIT_SHADOW,
   /// @description transmits the packet with PacketHandler::txRxPacket().
-  /// @description To use this function, Mercury register should be set by PacketHandler::regWriteTxOnly() or PacketHandler::regWriteTxRx()
+  /// @description To use this function, Mercury register should be set by PacketHandler::writeShadowTxOnly() or PacketHandler::writeShadowTxRx()
   /// @param port PortHandler instance
   /// @param id Mercury ID
   /// @return communication results which come from PacketHandler::txRxPacket()
   ////////////////////////////////////////////////////////////////////////////////
-  virtual int action          (PortHandler *port, uint8_t id) = 0;
+  virtual int commitShadow          (PortHandler *port, uint8_t id) = 0;
 
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that makes Mercury reboot
@@ -403,8 +403,8 @@ class WINDECLSPEC PacketHandler
   virtual int read4ByteTxRx   (PortHandler *port, uint8_t id, uint16_t address, uint32_t *data, uint8_t *error = 0) = 0;
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that transmits INST_WRITE instruction packet with the data for write
-  /// @description The function makes an instruction packet with INST_WRITE and the data for write,
+  /// @brief The function that transmits INST_WRITE_DIRECT instruction packet with the data for write
+  /// @description The function makes an instruction packet with INST_WRITE_DIRECT and the data for write,
   /// @description transmits the packet with PacketHandler::txPacket().
   /// @param port PortHandler instance
   /// @param id Mercury ID
@@ -416,8 +416,8 @@ class WINDECLSPEC PacketHandler
   virtual int writeTxOnly     (PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data) = 0;
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that transmits INST_WRITE instruction packet with the data for write, and receives the packet
-  /// @description The function makes an instruction packet with INST_WRITE and the data for write,
+  /// @brief The function that transmits INST_WRITE_DIRECT instruction packet with the data for write, and receives the packet
+  /// @description The function makes an instruction packet with INST_WRITE_DIRECT and the data for write,
   /// @description transmits and receives the packet with PacketHandler::txRxPacket(),
   /// @description gets the error from the packet.
   /// @param port PortHandler instance
@@ -503,10 +503,10 @@ class WINDECLSPEC PacketHandler
   virtual int write4ByteTxRx  (PortHandler *port, uint8_t id, uint16_t address, uint32_t data, uint8_t *error = 0) = 0;
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Mercury register
-  /// @description The function makes an instruction packet with INST_REG_WRITE and the data for writing on the Mercury register,
+  /// @brief The function that transmits INST_WRITE_SHADOW instruction packet with the data for writing on the Mercury register
+  /// @description The function makes an instruction packet with INST_WRITE_SHADOW and the data for writing on the Mercury register,
   /// @description transmits the packet with PacketHandler::txPacket().
-  /// @description The data written in the register will act when INST_ACTION instruction packet is transmitted to the Dynamxel.
+  /// @description The data written in the register will act when INST_COMMIT_SHADOW instruction packet is transmitted to the Dynamxel.
   /// @param port PortHandler instance
   /// @param id Mercury ID
   /// @param address Address of the data for write
@@ -514,14 +514,14 @@ class WINDECLSPEC PacketHandler
   /// @param data Data for write
   /// @return communication results which come from PacketHandler::txPacket()
   ////////////////////////////////////////////////////////////////////////////////
-  virtual int regWriteTxOnly  (PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data) = 0;
+  virtual int writeShadowTxOnly  (PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data) = 0;
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Mercury register, and receives the packet
-  /// @description The function makes an instruction packet with INST_REG_WRITE and the data for writing on the Mercury register,
+  /// @brief The function that transmits INST_WRITE_SHADOW instruction packet with the data for writing on the Mercury register, and receives the packet
+  /// @description The function makes an instruction packet with INST_WRITE_SHADOW and the data for writing on the Mercury register,
   /// @description transmits and receives the packet with PacketHandler::txRxPacket(),
   /// @description gets the error from the packet.
-  /// @description The data written in the register will act when INST_ACTION instruction packet is transmitted to the Dynamxel.
+  /// @description The data written in the register will act when INST_COMMIT_SHADOW instruction packet is transmitted to the Dynamxel.
   /// @param port PortHandler instance
   /// @param id Mercury ID
   /// @param address Address of the data for write
@@ -530,7 +530,7 @@ class WINDECLSPEC PacketHandler
   /// @param error Mercury hardware error
   /// @return communication results which come from PacketHandler::txRxPacket()
   ////////////////////////////////////////////////////////////////////////////////
-  virtual int regWriteTxRx    (PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error = 0) = 0;
+  virtual int writeShadowTxRx    (PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error = 0) = 0;
 
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that transmits INST_SYNC_READ instruction packet
@@ -544,12 +544,12 @@ class WINDECLSPEC PacketHandler
   /// @return communication results which come from PacketHandler::txPacket()
   ////////////////////////////////////////////////////////////////////////////////
   virtual int syncReadTx      (PortHandler *port, uint16_t start_address, uint16_t data_length, uint8_t *param, uint16_t param_length) = 0;
-  // SyncReadRx   -> GroupSyncRead class
-  // SyncReadTxRx -> GroupSyncRead class
+  // SyncReadRx   -> ReadComposite class
+  // SyncReadTxRx -> ReadComposite class
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that transmits INST_SYNC_WRITE instruction packet
-  /// @description The function makes an instruction packet with INST_SYNC_WRITE,
+  /// @brief The function that transmits INST_WRITE_COMPOSITE instruction packet
+  /// @description The function makes an instruction packet with INST_WRITE_COMPOSITE,
   /// @description transmits the packet with PacketHandler::txRxPacket().
   /// @param port PortHandler instance
   /// @param start_address Address of the data for Sync Write
@@ -570,8 +570,8 @@ class WINDECLSPEC PacketHandler
   /// @return communication results which come from PacketHandler::txPacket()
   ////////////////////////////////////////////////////////////////////////////////
   virtual int bulkReadTx      (PortHandler *port, uint8_t *param, uint16_t param_length) = 0;
-  // BulkReadRx   -> GroupBulkRead class
-  // BulkReadTxRx -> GroupBulkRead class
+  // BulkReadRx   -> ReadDirect class
+  // BulkReadTxRx -> ReadDirect class
 
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that transmits INST_BULK_WRITE instruction packet

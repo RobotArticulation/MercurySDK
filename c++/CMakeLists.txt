@@ -38,10 +38,10 @@ include_directories(
   add_library(mercury_sdk
     src/mercury_sdk/packet_handler.cpp
     src/mercury_sdk/protocol_packet_handler.cpp
-    src/mercury_sdk/group_sync_read.cpp
-    src/mercury_sdk/group_sync_write.cpp
-    src/mercury_sdk/group_bulk_read.cpp
-    src/mercury_sdk/group_bulk_write.cpp
+    src/mercury_sdk/read_composite.cpp
+    src/mercury_sdk/write_composite.cpp
+    src/mercury_sdk/read_direct.cpp
+    src/mercury_sdk/write_direct.cpp
     src/mercury_sdk/port_handler.cpp
   )
 if(APPLE)

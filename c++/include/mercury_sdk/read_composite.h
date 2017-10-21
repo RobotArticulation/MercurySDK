@@ -29,12 +29,12 @@
 *******************************************************************************/
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @file The file for Mercury Bulk Read
+/// @file The file for Mercury Sync Read
 /// @author Zerom, Leon (RyuWoon Jung)
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef MERCURY_SDK_INCLUDE_MERCURY_SDK_GROUPBULKREAD_H_
-#define MERCURY_SDK_INCLUDE_MERCURY_SDK_GROUPBULKREAD_H_
+#ifndef MERCURY_SDK_INCLUDE_MERCURY_SDK_GROUPSYNCREAD_H_
+#define MERCURY_SDK_INCLUDE_MERCURY_SDK_GROUPSYNCREAD_H_
 
 
 #include <map>
@@ -46,38 +46,40 @@ namespace mercury
 {
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief The class for reading multiple Mercury data from different addresses with different lengths at once
+/// @brief The class for reading multiple Mercury data from same address with same length at once
 ////////////////////////////////////////////////////////////////////////////////
-class WINDECLSPEC GroupBulkRead
+class WINDECLSPEC ReadComposite
 {
  private:
   PortHandler    *port_;
   PacketHandler  *ph_;
 
   std::vector<uint8_t>            id_list_;
-  std::map<uint8_t, uint16_t>     address_list_;  // <id, start_address>
-  std::map<uint8_t, uint16_t>     length_list_;   // <id, data_length>
-  std::map<uint8_t, uint8_t *>    data_list_;     // <id, data>
+  std::map<uint8_t, uint8_t* >    data_list_; // <id, data>
 
   bool            last_result_;
   bool            is_param_changed_;
 
   uint8_t        *param_;
+  uint16_t        start_address_;
+  uint16_t        data_length_;
 
   void    makeParam();
 
  public:
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that Initializes instance for Bulk Read
+  /// @brief The function that Initializes instance for Sync Read
   /// @param port PortHandler instance
   /// @param ph PacketHandler instance
+  /// @param start_address Address of the data for read
+  /// @param data_length Length of the data for read
   ////////////////////////////////////////////////////////////////////////////////
-  GroupBulkRead(PortHandler *port, PacketHandler *ph);
+  ReadComposite(PortHandler *port, PacketHandler *ph, uint16_t start_address, uint16_t data_length);
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that calls clearParam function to clear the parameter list for Bulk Read
+  /// @brief The function that calls clearParam function to clear the parameter list for Sync Read
   ////////////////////////////////////////////////////////////////////////////////
-  ~GroupBulkRead() { clearParam(); }
+  ~ReadComposite() { clearParam(); }
 
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that returns PortHandler instance
@@ -92,41 +94,40 @@ class WINDECLSPEC GroupBulkRead
   PacketHandler   *getPacketHandler() { return ph_; }
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that adds id, start_address, data_length to the Bulk Read list
+  /// @brief The function that adds id, start_address, data_length to the Sync Read list
   /// @param id Mercury ID
-  /// @param start_address Address of the data for read
-  /// @data_length Length of the data for read
   /// @return false
   /// @return   when the ID exists already in the list
+  /// @return   when the protocol.0 has been used
   /// @return or true
   ////////////////////////////////////////////////////////////////////////////////
-  bool    addParam    (uint8_t id, uint16_t start_address, uint16_t data_length);
+  bool    addParam    (uint8_t id);
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that removes id from the Bulk Read list
+  /// @brief The function that removes id from the Sync Read list
   /// @param id Mercury ID
   ////////////////////////////////////////////////////////////////////////////////
   void    removeParam (uint8_t id);
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that clears the Bulk Read list
+  /// @brief The function that clears the Sync Read list
   ////////////////////////////////////////////////////////////////////////////////
   void    clearParam  ();
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that transmits the Bulk Read instruction packet which might be constructed by GroupBulkRead::addParam function
+  /// @brief The function that transmits the Sync Read instruction packet which might be constructed by ReadComposite::addParam function
   /// @return COMM_NOT_AVAILABLE
-  /// @return   when the list for Bulk Read is empty
-  /// @return or the other communication results which come from PacketHandler::bulkReadTx
+  /// @return   when the list for Sync Read is empty
+  /// @return   when the protocol.0 has been used
+  /// @return or the other communication results which come from PacketHandler::syncReadTx
   ////////////////////////////////////////////////////////////////////////////////
   int     txPacket();
 
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that receives the packet which might be come from the Mercury
   /// @return COMM_NOT_AVAILABLE
-  /// @return   when the list for Bulk Read is empty
-  /// @return COMM_RX_FAIL
-  /// @return   when there is no packet recieved
+  /// @return   when the list for Sync Read is empty
+  /// @return   when the protocol.0 has been used
   /// @return COMM_SUCCESS
   /// @return   when there is packet recieved
   /// @return or the other communication results
@@ -135,27 +136,30 @@ class WINDECLSPEC GroupBulkRead
 
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that transmits and receives the packet which might be come from the Mercury
+  /// @return COMM_NOT_AVAILABLE
+  /// @return   when the protocol.0 has been used
   /// @return COMM_RX_FAIL
   /// @return   when there is no packet recieved
   /// @return COMM_SUCCESS
   /// @return   when there is packet recieved
-  /// @return or the other communication results which come from GroupBulkRead::txPacket or GroupBulkRead::rxPacket
+  /// @return or the other communication results which come from ReadDirect::txPacket or ReadDirect::rxPacket
   ////////////////////////////////////////////////////////////////////////////////
   int     txRxPacket();
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that checks whether there are available data which might be received by GroupBulkRead::rxPacket or GroupBulkRead::txRxPacket
+  /// @brief The function that checks whether there are available data which might be received by ReadComposite::rxPacket or ReadComposite::txRxPacket
   /// @param id Mercury ID
   /// @param address Address of the data for read
   /// @param data_length Length of the data for read
   /// @return false
-  /// @return  when there are no data available
+  /// @return   when there are no data available
+  /// @return   when the protocol.0 has been used
   /// @return or true
   ////////////////////////////////////////////////////////////////////////////////
   bool        isAvailable (uint8_t id, uint16_t address, uint16_t data_length);
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that gets the data which might be received by GroupBulkRead::rxPacket or GroupBulkRead::txRxPacket
+  /// @brief The function that gets the data which might be received by ReadComposite::rxPacket or ReadComposite::txRxPacket
   /// @param id Mercury ID
   /// @param address Address of the data for read
   /// @data_length Length of the data for read
@@ -167,4 +171,4 @@ class WINDECLSPEC GroupBulkRead
 }
 
 
-#endif /* MERCURY_SDK_INCLUDE_MERCURY_SDK_GROUPBULKREAD_H_ */
+#endif /* MERCURY_SDK_INCLUDE_MERCURY_SDK_GROUPSYNCREAD_H_ */

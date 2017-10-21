@@ -151,11 +151,11 @@ int main()
   // Get methods and members of ProtocolPacketHandler
   mercury::PacketHandler *packetHandler = mercury::PacketHandler::getPacketHandler(PROTOCOL_VERSION);
 
-  // Initialize GroupSyncWrite instance
-  mercury::GroupSyncWrite groupSyncWrite(portHandler, packetHandler, ADDR_PRO_INDIRECTDATA_FOR_WRITE, LEN_PRO_INDIRECTDATA_FOR_WRITE);
+  // Initialize WriteComposite instance
+  mercury::WriteComposite groupSyncWrite(portHandler, packetHandler, ADDR_PRO_INDIRECTDATA_FOR_WRITE, LEN_PRO_INDIRECTDATA_FOR_WRITE);
 
   // Initialize Groupsyncread instance
-  mercury::GroupSyncRead groupSyncRead(portHandler, packetHandler, ADDR_PRO_INDIRECTDATA_FOR_READ, LEN_PRO_INDIRECTDATA_FOR_READ);
+  mercury::ReadComposite groupSyncRead(portHandler, packetHandler, ADDR_PRO_INDIRECTDATA_FOR_READ, LEN_PRO_INDIRECTDATA_FOR_READ);
 
   int index = 0;
   int dxl_comm_result = COMM_TX_FAIL;             // Communication result

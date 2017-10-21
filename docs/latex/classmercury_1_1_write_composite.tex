@@ -1,0 +1,187 @@
+\hypertarget{classmercury_1_1_write_composite}{}\section{mercury\+:\+:Write\+Composite Class Reference}
+\label{classmercury_1_1_write_composite}\index{mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}}
+
+
+The class for writing multiple Mercury data from same address with same length at once.  
+
+
+
+
+{\ttfamily \#include $<$write\+\_\+composite.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmercury_1_1_write_composite_afd47717cf8c80577c676ed3dea80764e}{Write\+Composite} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, \hyperlink{classmercury_1_1_packet_handler}{Packet\+Handler} $\ast$ph, uint16\+\_\+t start\+\_\+address, uint16\+\_\+t data\+\_\+length)
+\begin{DoxyCompactList}\small\item\em The function that Initializes instance for Sync Write. \end{DoxyCompactList}\item 
+\hyperlink{classmercury_1_1_write_composite_a42d4018d89b57dd2df237de689c136b4}{$\sim$\+Write\+Composite} ()\hypertarget{classmercury_1_1_write_composite_a42d4018d89b57dd2df237de689c136b4}{}\label{classmercury_1_1_write_composite_a42d4018d89b57dd2df237de689c136b4}
+
+\begin{DoxyCompactList}\small\item\em The function that calls clear\+Param function to clear the parameter list for Sync Write. \end{DoxyCompactList}\item 
+\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$ \hyperlink{classmercury_1_1_write_composite_abb8575d349e8b5d60eb8cfcb180c15e2}{get\+Port\+Handler} ()
+\begin{DoxyCompactList}\small\item\em The function that returns \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} instance. \end{DoxyCompactList}\item 
+\hyperlink{classmercury_1_1_packet_handler}{Packet\+Handler} $\ast$ \hyperlink{classmercury_1_1_write_composite_a26311329992011ef20eed8702b72bccd}{get\+Packet\+Handler} ()
+\begin{DoxyCompactList}\small\item\em The function that returns \hyperlink{classmercury_1_1_packet_handler}{Packet\+Handler} instance. \end{DoxyCompactList}\item 
+bool \hyperlink{classmercury_1_1_write_composite_a2aa7d4d41e0c0eb7290393740a19b049}{add\+Param} (uint8\+\_\+t id, uint8\+\_\+t $\ast$data)
+\begin{DoxyCompactList}\small\item\em The function that adds id, start\+\_\+address, data\+\_\+length to the Sync Write list. \end{DoxyCompactList}\item 
+void \hyperlink{classmercury_1_1_write_composite_a7a3d69b52b70d34cae02c89aada27efa}{remove\+Param} (uint8\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em The function that removes id from the Sync Write list. \end{DoxyCompactList}\item 
+bool \hyperlink{classmercury_1_1_write_composite_a00e8c031549b838922f5fb92d86ff3b6}{change\+Param} (uint8\+\_\+t id, uint8\+\_\+t $\ast$data)
+\begin{DoxyCompactList}\small\item\em The function that changes the data for write in id -\/$>$ start\+\_\+address -\/$>$ data\+\_\+length to the Sync Write list. \end{DoxyCompactList}\item 
+void \hyperlink{classmercury_1_1_write_composite_a8a98a953c7c6b12c10f5dbc57fd9cab1}{clear\+Param} ()\hypertarget{classmercury_1_1_write_composite_a8a98a953c7c6b12c10f5dbc57fd9cab1}{}\label{classmercury_1_1_write_composite_a8a98a953c7c6b12c10f5dbc57fd9cab1}
+
+\begin{DoxyCompactList}\small\item\em The function that clears the Sync Write list. \end{DoxyCompactList}\item 
+int \hyperlink{classmercury_1_1_write_composite_a055aa8dd87287c00e041dac6e1ad809f}{tx\+Packet} ()
+\begin{DoxyCompactList}\small\item\em The function that transmits the Sync Write instruction packet which might be constructed by \hyperlink{classmercury_1_1_write_composite_a2aa7d4d41e0c0eb7290393740a19b049}{Write\+Composite\+::add\+Param} function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The class for writing multiple Mercury data from same address with same length at once. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}!Write\+Composite@{Write\+Composite}}
+\index{Write\+Composite@{Write\+Composite}!mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}}
+\subsubsection[{\texorpdfstring{Write\+Composite(\+Port\+Handler $\ast$port, Packet\+Handler $\ast$ph, uint16\+\_\+t start\+\_\+address, uint16\+\_\+t data\+\_\+length)}{WriteComposite(PortHandler *port, PacketHandler *ph, uint16_t start_address, uint16_t data_length)}}]{\setlength{\rightskip}{0pt plus 5cm}mercury\+::\+Write\+Composite\+::\+Write\+Composite (
+\begin{DoxyParamCaption}
+\item[{{\bf Port\+Handler} $\ast$}]{port, }
+\item[{{\bf Packet\+Handler} $\ast$}]{ph, }
+\item[{uint16\+\_\+t}]{start\+\_\+address, }
+\item[{uint16\+\_\+t}]{data\+\_\+length}
+\end{DoxyParamCaption}
+)}\hypertarget{classmercury_1_1_write_composite_afd47717cf8c80577c676ed3dea80764e}{}\label{classmercury_1_1_write_composite_afd47717cf8c80577c676ed3dea80764e}
+
+
+The function that Initializes instance for Sync Write. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em port} & \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} instance \\
+\hline
+{\em ph} & \hyperlink{classmercury_1_1_packet_handler}{Packet\+Handler} instance \\
+\hline
+{\em start\+\_\+address} & Address of the data for write \\
+\hline
+{\em data\+\_\+length} & Length of the data for write \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}!add\+Param@{add\+Param}}
+\index{add\+Param@{add\+Param}!mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}}
+\subsubsection[{\texorpdfstring{add\+Param(uint8\+\_\+t id, uint8\+\_\+t $\ast$data)}{addParam(uint8_t id, uint8_t *data)}}]{\setlength{\rightskip}{0pt plus 5cm}bool mercury\+::\+Write\+Composite\+::add\+Param (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{id, }
+\item[{uint8\+\_\+t $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\hypertarget{classmercury_1_1_write_composite_a2aa7d4d41e0c0eb7290393740a19b049}{}\label{classmercury_1_1_write_composite_a2aa7d4d41e0c0eb7290393740a19b049}
+
+
+The function that adds id, start\+\_\+address, data\+\_\+length to the Sync Write list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Mercury ID \\
+\hline
+{\em data} & Data for write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+false 
+
+when the ID exists already in the list 
+
+or true 
+\end{DoxyReturn}
+\index{mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}!change\+Param@{change\+Param}}
+\index{change\+Param@{change\+Param}!mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}}
+\subsubsection[{\texorpdfstring{change\+Param(uint8\+\_\+t id, uint8\+\_\+t $\ast$data)}{changeParam(uint8_t id, uint8_t *data)}}]{\setlength{\rightskip}{0pt plus 5cm}bool mercury\+::\+Write\+Composite\+::change\+Param (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{id, }
+\item[{uint8\+\_\+t $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\hypertarget{classmercury_1_1_write_composite_a00e8c031549b838922f5fb92d86ff3b6}{}\label{classmercury_1_1_write_composite_a00e8c031549b838922f5fb92d86ff3b6}
+
+
+The function that changes the data for write in id -\/$>$ start\+\_\+address -\/$>$ data\+\_\+length to the Sync Write list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Mercury ID \\
+\hline
+{\em data} & for replacement \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+false 
+
+when the ID doesn\textquotesingle{}t exist in the list 
+
+or true 
+\end{DoxyReturn}
+\index{mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}!get\+Packet\+Handler@{get\+Packet\+Handler}}
+\index{get\+Packet\+Handler@{get\+Packet\+Handler}!mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}}
+\subsubsection[{\texorpdfstring{get\+Packet\+Handler()}{getPacketHandler()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Packet\+Handler}$\ast$ mercury\+::\+Write\+Composite\+::get\+Packet\+Handler (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classmercury_1_1_write_composite_a26311329992011ef20eed8702b72bccd}{}\label{classmercury_1_1_write_composite_a26311329992011ef20eed8702b72bccd}
+
+
+The function that returns \hyperlink{classmercury_1_1_packet_handler}{Packet\+Handler} instance. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classmercury_1_1_packet_handler}{Packet\+Handler} instance 
+\end{DoxyReturn}
+\index{mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}!get\+Port\+Handler@{get\+Port\+Handler}}
+\index{get\+Port\+Handler@{get\+Port\+Handler}!mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}}
+\subsubsection[{\texorpdfstring{get\+Port\+Handler()}{getPortHandler()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Port\+Handler}$\ast$ mercury\+::\+Write\+Composite\+::get\+Port\+Handler (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classmercury_1_1_write_composite_abb8575d349e8b5d60eb8cfcb180c15e2}{}\label{classmercury_1_1_write_composite_abb8575d349e8b5d60eb8cfcb180c15e2}
+
+
+The function that returns \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} instance. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} instance 
+\end{DoxyReturn}
+\index{mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}!remove\+Param@{remove\+Param}}
+\index{remove\+Param@{remove\+Param}!mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}}
+\subsubsection[{\texorpdfstring{remove\+Param(uint8\+\_\+t id)}{removeParam(uint8_t id)}}]{\setlength{\rightskip}{0pt plus 5cm}void mercury\+::\+Write\+Composite\+::remove\+Param (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{classmercury_1_1_write_composite_a7a3d69b52b70d34cae02c89aada27efa}{}\label{classmercury_1_1_write_composite_a7a3d69b52b70d34cae02c89aada27efa}
+
+
+The function that removes id from the Sync Write list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Mercury ID \\
+\hline
+\end{DoxyParams}
+\index{mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}!tx\+Packet@{tx\+Packet}}
+\index{tx\+Packet@{tx\+Packet}!mercury\+::\+Write\+Composite@{mercury\+::\+Write\+Composite}}
+\subsubsection[{\texorpdfstring{tx\+Packet()}{txPacket()}}]{\setlength{\rightskip}{0pt plus 5cm}int mercury\+::\+Write\+Composite\+::tx\+Packet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classmercury_1_1_write_composite_a055aa8dd87287c00e041dac6e1ad809f}{}\label{classmercury_1_1_write_composite_a055aa8dd87287c00e041dac6e1ad809f}
+
+
+The function that transmits the Sync Write instruction packet which might be constructed by \hyperlink{classmercury_1_1_write_composite_a2aa7d4d41e0c0eb7290393740a19b049}{Write\+Composite\+::add\+Param} function. 
+
+\begin{DoxyReturn}{Returns}
+C\+O\+M\+M\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE 
+
+when the list for Sync Write is empty 
+
+or the other communication results which come from \hyperlink{classmercury_1_1_packet_handler_aa4c16ce358c78638f49f6dc1b5b141bd}{Packet\+Handler\+::sync\+Write\+Tx\+Only} 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/wigir/dev/software/projects/\+Mercury\+S\+D\+K/c++/include/mercury\+\_\+sdk/write\+\_\+composite.\+h\end{DoxyCompactItemize}

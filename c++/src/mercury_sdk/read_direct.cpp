@@ -34,19 +34,19 @@
 #include <algorithm>
 
 #if defined(__linux__)
-#include "group_bulk_read.h"
+#include "read_direct.h"
 #elif defined(__APPLE__)
-#include "group_bulk_read.h"
+#include "read_direct.h"
 #elif defined(_WIN32) || defined(_WIN64)
 #define WINDLLEXPORT
-#include "group_bulk_read.h"
+#include "read_direct.h"
 #elif defined(ARDUINO) || defined(__OPENCR__) || defined(__OPENCM904__)
-#include "../../include/mercury_sdk/group_bulk_read.h"
+#include "../../include/mercury_sdk/read_direct.h"
 #endif
 
 using namespace mercury;
 
-GroupBulkRead::GroupBulkRead(PortHandler *port, PacketHandler *ph)
+ReadDirect::ReadDirect(PortHandler *port, PacketHandler *ph)
   : port_(port),
     ph_(ph),
     last_result_(false),
@@ -56,7 +56,7 @@ GroupBulkRead::GroupBulkRead(PortHandler *port, PacketHandler *ph)
   clearParam();
 }
 
-void GroupBulkRead::makeParam()
+void ReadDirect::makeParam()
 {
   if (id_list_.size() == 0)
     return;
@@ -95,7 +95,7 @@ void GroupBulkRead::makeParam()
   }
 }
 
-bool GroupBulkRead::addParam(uint8_t id, uint16_t start_address, uint16_t data_length)
+bool ReadDirect::addParam(uint8_t id, uint16_t start_address, uint16_t data_length)
 {
   if (std::find(id_list_.begin(), id_list_.end(), id) != id_list_.end())   // id already exist
     return false;
@@ -109,7 +109,7 @@ bool GroupBulkRead::addParam(uint8_t id, uint16_t start_address, uint16_t data_l
   return true;
 }
 
-void GroupBulkRead::removeParam(uint8_t id)
+void ReadDirect::removeParam(uint8_t id)
 {
   std::vector<uint8_t>::iterator it = std::find(id_list_.begin(), id_list_.end(), id);
   if (it == id_list_.end())    // NOT exist
@@ -124,7 +124,7 @@ void GroupBulkRead::removeParam(uint8_t id)
   is_param_changed_   = true;
 }
 
-void GroupBulkRead::clearParam()
+void ReadDirect::clearParam()
 {
   if (id_list_.size() == 0)
     return;
@@ -141,7 +141,7 @@ void GroupBulkRead::clearParam()
   param_ = 0;
 }
 
-int GroupBulkRead::txPacket()
+int ReadDirect::txPacket()
 {
   if (id_list_.size() == 0)
     return COMM_NOT_AVAILABLE;
@@ -159,7 +159,7 @@ int GroupBulkRead::txPacket()
   }
 }
 
-int GroupBulkRead::rxPacket()
+int ReadDirect::rxPacket()
 {
   int cnt            = id_list_.size();
   int result          = COMM_RX_FAIL;
@@ -184,7 +184,7 @@ int GroupBulkRead::rxPacket()
   return result;
 }
 
-int GroupBulkRead::txRxPacket()
+int ReadDirect::txRxPacket()
 {
   int result         = COMM_TX_FAIL;
 
@@ -195,7 +195,7 @@ int GroupBulkRead::txRxPacket()
   return rxPacket();
 }
 
-bool GroupBulkRead::isAvailable(uint8_t id, uint16_t address, uint16_t data_length)
+bool ReadDirect::isAvailable(uint8_t id, uint16_t address, uint16_t data_length)
 {
   uint16_t start_addr;
 
@@ -210,7 +210,7 @@ bool GroupBulkRead::isAvailable(uint8_t id, uint16_t address, uint16_t data_leng
   return true;
 }
 
-uint32_t GroupBulkRead::getData(uint8_t id, uint16_t address, uint16_t data_length)
+uint32_t ReadDirect::getData(uint8_t id, uint16_t address, uint16_t data_length)
 {
   if (isAvailable(id, address, data_length) == false)
     return 0;

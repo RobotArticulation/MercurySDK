@@ -139,11 +139,11 @@ int main()
   // Get methods and members of ProtocolPacketHandler
   mercury::PacketHandler *packetHandler = mercury::PacketHandler::getPacketHandler(PROTOCOL_VERSION);
 
-  // Initialize GroupSyncWrite instance
-  mercury::GroupSyncWrite groupSyncWrite(portHandler, packetHandler, ADDR_PRO_GOAL_POSITION, LEN_PRO_GOAL_POSITION);
+  // Initialize WriteComposite instance
+  mercury::WriteComposite groupSyncWrite(portHandler, packetHandler, ADDR_PRO_GOAL_POSITION, LEN_PRO_GOAL_POSITION);
 
   // Initialize Groupsyncread instance for Present Position
-  mercury::GroupSyncRead groupSyncRead(portHandler, packetHandler, ADDR_PRO_PRESENT_POSITION, LEN_PRO_PRESENT_POSITION);
+  mercury::ReadComposite groupSyncRead(portHandler, packetHandler, ADDR_PRO_PRESENT_POSITION, LEN_PRO_PRESENT_POSITION);
 
   int index = 0;
   int dxl_comm_result = COMM_TX_FAIL;               // Communication result

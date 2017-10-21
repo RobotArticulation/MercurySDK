@@ -37,10 +37,10 @@
 #define MERCURY_SDK_INCLUDE_MERCURY_SDK_MERCURYSDK_H_
 
 
-#include "group_bulk_read.h"
-#include "group_bulk_write.h"
-#include "group_sync_read.h"
-#include "group_sync_write.h"
+#include "read_direct.h"
+#include "write_direct.h"
+#include "read_composite.h"
+#include "write_composite.h"
 #include "packet_handler.h"
 #include "port_handler.h"
 

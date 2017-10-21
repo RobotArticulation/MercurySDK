@@ -1,0 +1,262 @@
+\hypertarget{classmercury_1_1_read_direct}{}\section{mercury\+:\+:Read\+Direct Class Reference}
+\label{classmercury_1_1_read_direct}\index{mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}}
+
+
+The class for reading multiple Mercury data from different addresses with different lengths at once.  
+
+
+
+
+{\ttfamily \#include $<$read\+\_\+direct.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmercury_1_1_read_direct_a6f4833d330e4ae483e71338420a03aa3}{Read\+Direct} (\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$port, \hyperlink{classmercury_1_1_packet_handler}{Packet\+Handler} $\ast$ph)
+\begin{DoxyCompactList}\small\item\em The function that Initializes instance for Bulk Read. \end{DoxyCompactList}\item 
+\hyperlink{classmercury_1_1_read_direct_a22d47618c53289739b402b49187526c4}{$\sim$\+Read\+Direct} ()\hypertarget{classmercury_1_1_read_direct_a22d47618c53289739b402b49187526c4}{}\label{classmercury_1_1_read_direct_a22d47618c53289739b402b49187526c4}
+
+\begin{DoxyCompactList}\small\item\em The function that calls clear\+Param function to clear the parameter list for Bulk Read. \end{DoxyCompactList}\item 
+\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} $\ast$ \hyperlink{classmercury_1_1_read_direct_ae249107c7036cf9d6c5419d99aa627e9}{get\+Port\+Handler} ()
+\begin{DoxyCompactList}\small\item\em The function that returns \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} instance. \end{DoxyCompactList}\item 
+\hyperlink{classmercury_1_1_packet_handler}{Packet\+Handler} $\ast$ \hyperlink{classmercury_1_1_read_direct_aa4815ffba5ed207db5b773846611be64}{get\+Packet\+Handler} ()
+\begin{DoxyCompactList}\small\item\em The function that returns \hyperlink{classmercury_1_1_packet_handler}{Packet\+Handler} instance. \end{DoxyCompactList}\item 
+bool \hyperlink{classmercury_1_1_read_direct_ad0c586d8d610414f9dea589b181ea48a}{add\+Param} (uint8\+\_\+t id, uint16\+\_\+t start\+\_\+address, uint16\+\_\+t data\+\_\+length)
+\begin{DoxyCompactList}\small\item\em The function that adds id, start\+\_\+address, data\+\_\+length to the Bulk Read list. \end{DoxyCompactList}\item 
+void \hyperlink{classmercury_1_1_read_direct_afb55a6de1588d05c9c15a09a25312b39}{remove\+Param} (uint8\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em The function that removes id from the Bulk Read list. \end{DoxyCompactList}\item 
+void \hyperlink{classmercury_1_1_read_direct_ad114e00d53b0930d81e402d09fc8cc36}{clear\+Param} ()\hypertarget{classmercury_1_1_read_direct_ad114e00d53b0930d81e402d09fc8cc36}{}\label{classmercury_1_1_read_direct_ad114e00d53b0930d81e402d09fc8cc36}
+
+\begin{DoxyCompactList}\small\item\em The function that clears the Bulk Read list. \end{DoxyCompactList}\item 
+int \hyperlink{classmercury_1_1_read_direct_a2a0d35bd9736a001ad2deeab43794cd6}{tx\+Packet} ()
+\begin{DoxyCompactList}\small\item\em The function that transmits the Bulk Read instruction packet which might be constructed by \hyperlink{classmercury_1_1_read_direct_ad0c586d8d610414f9dea589b181ea48a}{Read\+Direct\+::add\+Param} function. \end{DoxyCompactList}\item 
+int \hyperlink{classmercury_1_1_read_direct_acb378e4cb210f59a75b7e20b3462724a}{rx\+Packet} ()
+\begin{DoxyCompactList}\small\item\em The function that receives the packet which might be come from the Mercury. \end{DoxyCompactList}\item 
+int \hyperlink{classmercury_1_1_read_direct_a04798e967278faf61a842ee753d1cf30}{tx\+Rx\+Packet} ()
+\begin{DoxyCompactList}\small\item\em The function that transmits and receives the packet which might be come from the Mercury. \end{DoxyCompactList}\item 
+bool \hyperlink{classmercury_1_1_read_direct_a2d89253019859e37d72fda82cd9c7117}{is\+Available} (uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t data\+\_\+length)
+\begin{DoxyCompactList}\small\item\em The function that checks whether there are available data which might be received by \hyperlink{classmercury_1_1_read_direct_acb378e4cb210f59a75b7e20b3462724a}{Read\+Direct\+::rx\+Packet} or \hyperlink{classmercury_1_1_read_direct_a04798e967278faf61a842ee753d1cf30}{Read\+Direct\+::tx\+Rx\+Packet}. \end{DoxyCompactList}\item 
+uint32\+\_\+t \hyperlink{classmercury_1_1_read_direct_ae952ad7a5578cae43264635d1cb131dc}{get\+Data} (uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t data\+\_\+length)
+\begin{DoxyCompactList}\small\item\em The function that gets the data which might be received by \hyperlink{classmercury_1_1_read_direct_acb378e4cb210f59a75b7e20b3462724a}{Read\+Direct\+::rx\+Packet} or \hyperlink{classmercury_1_1_read_direct_a04798e967278faf61a842ee753d1cf30}{Read\+Direct\+::tx\+Rx\+Packet}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The class for reading multiple Mercury data from different addresses with different lengths at once. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}!Read\+Direct@{Read\+Direct}}
+\index{Read\+Direct@{Read\+Direct}!mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}}
+\subsubsection[{\texorpdfstring{Read\+Direct(\+Port\+Handler $\ast$port, Packet\+Handler $\ast$ph)}{ReadDirect(PortHandler *port, PacketHandler *ph)}}]{\setlength{\rightskip}{0pt plus 5cm}mercury\+::\+Read\+Direct\+::\+Read\+Direct (
+\begin{DoxyParamCaption}
+\item[{{\bf Port\+Handler} $\ast$}]{port, }
+\item[{{\bf Packet\+Handler} $\ast$}]{ph}
+\end{DoxyParamCaption}
+)}\hypertarget{classmercury_1_1_read_direct_a6f4833d330e4ae483e71338420a03aa3}{}\label{classmercury_1_1_read_direct_a6f4833d330e4ae483e71338420a03aa3}
+
+
+The function that Initializes instance for Bulk Read. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em port} & \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} instance \\
+\hline
+{\em ph} & \hyperlink{classmercury_1_1_packet_handler}{Packet\+Handler} instance \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}!add\+Param@{add\+Param}}
+\index{add\+Param@{add\+Param}!mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}}
+\subsubsection[{\texorpdfstring{add\+Param(uint8\+\_\+t id, uint16\+\_\+t start\+\_\+address, uint16\+\_\+t data\+\_\+length)}{addParam(uint8_t id, uint16_t start_address, uint16_t data_length)}}]{\setlength{\rightskip}{0pt plus 5cm}bool mercury\+::\+Read\+Direct\+::add\+Param (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{id, }
+\item[{uint16\+\_\+t}]{start\+\_\+address, }
+\item[{uint16\+\_\+t}]{data\+\_\+length}
+\end{DoxyParamCaption}
+)}\hypertarget{classmercury_1_1_read_direct_ad0c586d8d610414f9dea589b181ea48a}{}\label{classmercury_1_1_read_direct_ad0c586d8d610414f9dea589b181ea48a}
+
+
+The function that adds id, start\+\_\+address, data\+\_\+length to the Bulk Read list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Mercury ID \\
+\hline
+{\em start\+\_\+address} & Address of the data for read  Length of the data for read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+false 
+
+when the ID exists already in the list 
+
+or true 
+\end{DoxyReturn}
+\index{mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}!get\+Data@{get\+Data}}
+\index{get\+Data@{get\+Data}!mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}}
+\subsubsection[{\texorpdfstring{get\+Data(uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t data\+\_\+length)}{getData(uint8_t id, uint16_t address, uint16_t data_length)}}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t mercury\+::\+Read\+Direct\+::get\+Data (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{id, }
+\item[{uint16\+\_\+t}]{address, }
+\item[{uint16\+\_\+t}]{data\+\_\+length}
+\end{DoxyParamCaption}
+)}\hypertarget{classmercury_1_1_read_direct_ae952ad7a5578cae43264635d1cb131dc}{}\label{classmercury_1_1_read_direct_ae952ad7a5578cae43264635d1cb131dc}
+
+
+The function that gets the data which might be received by \hyperlink{classmercury_1_1_read_direct_acb378e4cb210f59a75b7e20b3462724a}{Read\+Direct\+::rx\+Packet} or \hyperlink{classmercury_1_1_read_direct_a04798e967278faf61a842ee753d1cf30}{Read\+Direct\+::tx\+Rx\+Packet}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Mercury ID \\
+\hline
+{\em address} & Address of the data for read  Length of the data for read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+data value 
+\end{DoxyReturn}
+\index{mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}!get\+Packet\+Handler@{get\+Packet\+Handler}}
+\index{get\+Packet\+Handler@{get\+Packet\+Handler}!mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}}
+\subsubsection[{\texorpdfstring{get\+Packet\+Handler()}{getPacketHandler()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Packet\+Handler}$\ast$ mercury\+::\+Read\+Direct\+::get\+Packet\+Handler (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classmercury_1_1_read_direct_aa4815ffba5ed207db5b773846611be64}{}\label{classmercury_1_1_read_direct_aa4815ffba5ed207db5b773846611be64}
+
+
+The function that returns \hyperlink{classmercury_1_1_packet_handler}{Packet\+Handler} instance. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classmercury_1_1_packet_handler}{Packet\+Handler} instance 
+\end{DoxyReturn}
+\index{mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}!get\+Port\+Handler@{get\+Port\+Handler}}
+\index{get\+Port\+Handler@{get\+Port\+Handler}!mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}}
+\subsubsection[{\texorpdfstring{get\+Port\+Handler()}{getPortHandler()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Port\+Handler}$\ast$ mercury\+::\+Read\+Direct\+::get\+Port\+Handler (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classmercury_1_1_read_direct_ae249107c7036cf9d6c5419d99aa627e9}{}\label{classmercury_1_1_read_direct_ae249107c7036cf9d6c5419d99aa627e9}
+
+
+The function that returns \hyperlink{classmercury_1_1_port_handler}{Port\+Handler} instance. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classmercury_1_1_port_handler}{Port\+Handler} instance 
+\end{DoxyReturn}
+\index{mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}!is\+Available@{is\+Available}}
+\index{is\+Available@{is\+Available}!mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}}
+\subsubsection[{\texorpdfstring{is\+Available(uint8\+\_\+t id, uint16\+\_\+t address, uint16\+\_\+t data\+\_\+length)}{isAvailable(uint8_t id, uint16_t address, uint16_t data_length)}}]{\setlength{\rightskip}{0pt plus 5cm}bool mercury\+::\+Read\+Direct\+::is\+Available (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{id, }
+\item[{uint16\+\_\+t}]{address, }
+\item[{uint16\+\_\+t}]{data\+\_\+length}
+\end{DoxyParamCaption}
+)}\hypertarget{classmercury_1_1_read_direct_a2d89253019859e37d72fda82cd9c7117}{}\label{classmercury_1_1_read_direct_a2d89253019859e37d72fda82cd9c7117}
+
+
+The function that checks whether there are available data which might be received by \hyperlink{classmercury_1_1_read_direct_acb378e4cb210f59a75b7e20b3462724a}{Read\+Direct\+::rx\+Packet} or \hyperlink{classmercury_1_1_read_direct_a04798e967278faf61a842ee753d1cf30}{Read\+Direct\+::tx\+Rx\+Packet}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Mercury ID \\
+\hline
+{\em address} & Address of the data for read \\
+\hline
+{\em data\+\_\+length} & Length of the data for read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+false 
+
+when there are no data available 
+
+or true 
+\end{DoxyReturn}
+\index{mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}!remove\+Param@{remove\+Param}}
+\index{remove\+Param@{remove\+Param}!mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}}
+\subsubsection[{\texorpdfstring{remove\+Param(uint8\+\_\+t id)}{removeParam(uint8_t id)}}]{\setlength{\rightskip}{0pt plus 5cm}void mercury\+::\+Read\+Direct\+::remove\+Param (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{classmercury_1_1_read_direct_afb55a6de1588d05c9c15a09a25312b39}{}\label{classmercury_1_1_read_direct_afb55a6de1588d05c9c15a09a25312b39}
+
+
+The function that removes id from the Bulk Read list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Mercury ID \\
+\hline
+\end{DoxyParams}
+\index{mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}!rx\+Packet@{rx\+Packet}}
+\index{rx\+Packet@{rx\+Packet}!mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}}
+\subsubsection[{\texorpdfstring{rx\+Packet()}{rxPacket()}}]{\setlength{\rightskip}{0pt plus 5cm}int mercury\+::\+Read\+Direct\+::rx\+Packet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classmercury_1_1_read_direct_acb378e4cb210f59a75b7e20b3462724a}{}\label{classmercury_1_1_read_direct_acb378e4cb210f59a75b7e20b3462724a}
+
+
+The function that receives the packet which might be come from the Mercury. 
+
+\begin{DoxyReturn}{Returns}
+C\+O\+M\+M\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE 
+
+when the list for Bulk Read is empty 
+
+C\+O\+M\+M\+\_\+\+R\+X\+\_\+\+F\+A\+IL 
+
+when there is no packet recieved 
+
+C\+O\+M\+M\+\_\+\+S\+U\+C\+C\+E\+SS 
+
+when there is packet recieved 
+
+or the other communication results 
+\end{DoxyReturn}
+\index{mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}!tx\+Packet@{tx\+Packet}}
+\index{tx\+Packet@{tx\+Packet}!mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}}
+\subsubsection[{\texorpdfstring{tx\+Packet()}{txPacket()}}]{\setlength{\rightskip}{0pt plus 5cm}int mercury\+::\+Read\+Direct\+::tx\+Packet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classmercury_1_1_read_direct_a2a0d35bd9736a001ad2deeab43794cd6}{}\label{classmercury_1_1_read_direct_a2a0d35bd9736a001ad2deeab43794cd6}
+
+
+The function that transmits the Bulk Read instruction packet which might be constructed by \hyperlink{classmercury_1_1_read_direct_ad0c586d8d610414f9dea589b181ea48a}{Read\+Direct\+::add\+Param} function. 
+
+\begin{DoxyReturn}{Returns}
+C\+O\+M\+M\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE 
+
+when the list for Bulk Read is empty 
+
+or the other communication results which come from \hyperlink{classmercury_1_1_packet_handler_a88c18487119394e45537098716cbf6af}{Packet\+Handler\+::bulk\+Read\+Tx} 
+\end{DoxyReturn}
+\index{mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}!tx\+Rx\+Packet@{tx\+Rx\+Packet}}
+\index{tx\+Rx\+Packet@{tx\+Rx\+Packet}!mercury\+::\+Read\+Direct@{mercury\+::\+Read\+Direct}}
+\subsubsection[{\texorpdfstring{tx\+Rx\+Packet()}{txRxPacket()}}]{\setlength{\rightskip}{0pt plus 5cm}int mercury\+::\+Read\+Direct\+::tx\+Rx\+Packet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classmercury_1_1_read_direct_a04798e967278faf61a842ee753d1cf30}{}\label{classmercury_1_1_read_direct_a04798e967278faf61a842ee753d1cf30}
+
+
+The function that transmits and receives the packet which might be come from the Mercury. 
+
+\begin{DoxyReturn}{Returns}
+C\+O\+M\+M\+\_\+\+R\+X\+\_\+\+F\+A\+IL 
+
+when there is no packet recieved 
+
+C\+O\+M\+M\+\_\+\+S\+U\+C\+C\+E\+SS 
+
+when there is packet recieved 
+
+or the other communication results which come from \hyperlink{classmercury_1_1_read_direct_a2a0d35bd9736a001ad2deeab43794cd6}{Read\+Direct\+::tx\+Packet} or \hyperlink{classmercury_1_1_read_direct_acb378e4cb210f59a75b7e20b3462724a}{Read\+Direct\+::rx\+Packet} 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/wigir/dev/software/projects/\+Mercury\+S\+D\+K/c++/include/mercury\+\_\+sdk/read\+\_\+direct.\+h\end{DoxyCompactItemize}
