@@ -32,8 +32,11 @@ DIR_OBJS   = .objects
 # compiler options
 CC          = gcc
 CX          = g++
-CCFLAGS     = -O2 -O3 -DLINUX -D_GNU_SOURCE -Wall $(INCLUDES) $(FORMAT) -g
-CXFLAGS     = -O2 -O3 -DLINUX -D_GNU_SOURCE -Wall $(INCLUDES) $(FORMAT) -g
+
+CCFLAGS     = -O0 -DLINUX -D_GNU_SOURCE -Wall $(INCLUDES) $(FORMAT) -g
+CXFLAGS     = -O0 -DLINUX -D_GNU_SOURCE -Wall $(INCLUDES) $(FORMAT) -g
+# CCFLAGS     = -O2 -O3 -DLINUX -D_GNU_SOURCE -Wall $(INCLUDES) $(FORMAT) -g
+# CXFLAGS     = -O2 -O3 -DLINUX -D_GNU_SOURCE -Wall $(INCLUDES) $(FORMAT) -g
 LNKCC       = $(CX)
 LNKFLAGS    = $(CXFLAGS) #-Wl,-rpath,$(DIR_THOR)/lib
 FORMAT      = -m64
