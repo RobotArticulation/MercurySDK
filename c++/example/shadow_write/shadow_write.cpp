@@ -120,12 +120,10 @@ int main()
   // Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
   dynamixel::PacketHandler *packetHandler = dynamixel::PacketHandler::getPacketHandler(PROTOCOL_VERSION);
 
-  int index = 0;
   int dxl_comm_result = COMM_TX_FAIL;             // Communication result
   int dxl_goal_position[2] = {DXL_MINIMUM_POSITION_VALUE, DXL_MAXIMUM_POSITION_VALUE};         // Goal position
 
   uint8_t dxl_error = 0;                          // Dynamixel error
-  uint32_t dxl_present_position = 0;              // Present position
 
   // Open port
   if (portHandler->openPort())
@@ -171,11 +169,32 @@ int main()
   while(1)
   {
     printf("Press any key to continue! (or press ESC to quit!)\n");
-    if (getch() == ESC_ASCII_VALUE)
+    char input = getch();
+    if (input == ESC_ASCII_VALUE)
       break;
 
+    if (input == 'A' || input== 'a')
+    {
+        packetHandler->action(portHandler, DXL_ID);
+        if (dxl_comm_result != COMM_SUCCESS)
+        {
+          printf("%s\n", packetHandler->getTxRxResult(dxl_comm_result));
+        }
+        else if (dxl_error != 0)
+        {
+          printf("%s\n", packetHandler->getRxPacketError(dxl_error));
+        }
+        continue;
+    }
+
+    if (!(input == '0' || input == '1'))
+        continue;
+
+    printf ("target=%d\n", dxl_goal_position[input == '1' ? 1 : 0]);
+
     // Write goal position
-    dxl_comm_result = packetHandler->write4ByteTxRx(portHandler, DXL_ID, ADDR_MX_GOAL_POSITION, dxl_goal_position[index], &dxl_error);
+    int goal_position = dxl_goal_position[input == '1' ? 1 : 0];
+    dxl_comm_result = packetHandler->regWriteTxRx(portHandler, DXL_ID, ADDR_MX_GOAL_POSITION, 4, (uint8_t*)(&goal_position), &dxl_error);
     if (dxl_comm_result != COMM_SUCCESS)
     {
       printf("%s\n", packetHandler->getTxRxResult(dxl_comm_result));
@@ -183,37 +202,6 @@ int main()
     else if (dxl_error != 0)
     {
       printf("%s\n", packetHandler->getRxPacketError(dxl_error));
-    }
-
-    do
-    {
-#if defined(__linux__)
-      usleep(10000);
-#endif
-
-      // Read present position
-      dxl_comm_result = packetHandler->read4ByteTxRx(portHandler, DXL_ID, ADDR_MX_PRESENT_POSITION, &dxl_present_position, &dxl_error);
-      if (dxl_comm_result != COMM_SUCCESS)
-      {
-        printf("%s\n", packetHandler->getTxRxResult(dxl_comm_result));
-      }
-      else if (dxl_error != 0)
-      {
-        printf("%s\n", packetHandler->getRxPacketError(dxl_error));
-      }
-
-      printf("[ID:%03d] GoalPos:%03d  PresPos:%03d\n", DXL_ID, dxl_goal_position[index], dxl_present_position);
-
-    }while((labs(dxl_goal_position[index] - dxl_present_position) > DXL_MOVING_STATUS_THRESHOLD));
-
-    // Change goal position
-    if (index == 0)
-    {
-      index = 1;
-    }
-    else
-    {
-      index = 0;
     }
   }
 
