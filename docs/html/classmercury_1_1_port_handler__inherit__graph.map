@@ -1,6 +1,0 @@
-<map id="mercury::PortHandler" name="mercury::PortHandler">
-<area shape="rect" id="node2" href="$classmercury_1_1_port_handler_arduino.html" title="The class for control port in Arduino. " alt="" coords="205,5,395,32"/>
-<area shape="rect" id="node3" href="$classmercury_1_1_port_handler_linux.html" title="The class for control port in Linux. " alt="" coords="211,56,389,83"/>
-<area shape="rect" id="node4" href="$classmercury_1_1_port_handler_mac.html" title="The class for control port in Mac OS. " alt="" coords="215,107,385,133"/>
-<area shape="rect" id="node5" href="$classmercury_1_1_port_handler_windows.html" title="The class for control port in Windows. " alt="" coords="200,157,400,184"/>
-</map>
