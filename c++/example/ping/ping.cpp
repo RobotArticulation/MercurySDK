@@ -37,7 +37,7 @@
 #include "dynamixel_sdk.h"                                   // Uses Dynamixel SDK library
 
 // Protocol version
-#define PROTOCOL_VERSION                1.0                 // See which protocol version is used in the Dynamixel
+#define PROTOCOL_VERSION                2.0                 // See which protocol version is used in the Dynamixel
 
 // Default setting
 #define DXL_ID                          1                   // Dynamixel ID: 1
