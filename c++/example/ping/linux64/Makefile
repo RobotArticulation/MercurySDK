@@ -1,10 +1,14 @@
 ##################################################
-# PROJECT: DXL Protocol 1.0 ping Example Makefile
-# AUTHOR : ROBOTIS Ltd.
+# PROJECT: Mercury  ping Example Makefile
+##################################################
+
+##################################################
+# Note - this is a modified version of the Dynamixel SDK ping example
+# Original AUTHOR : ROBOTIS Ltd.
 ##################################################
 
 #---------------------------------------------------------------------
-# Makefile template for projects using DXL SDK
+# Makefile template for projects using MERCURY SDK
 #
 # Please make sure to follow these instructions when setting up your
 # own copy of this file:
@@ -26,7 +30,7 @@
 TARGET      = ping
 
 # important directories used by assorted rules and other variables
-DIR_DXL    = ../../../../../DynamixelSDK/c++
+DIR_MCY    = ../../../../../MercurySDK/c++
 DIR_OBJS   = .objects
 
 # compiler options
@@ -44,8 +48,8 @@ FORMAT      = -m64
 #---------------------------------------------------------------------
 # Core components (all of these are likely going to be needed)
 #---------------------------------------------------------------------
-INCLUDES   += -I$(DIR_DXL)/include/dynamixel_sdk
-LIBRARIES  += -ldxl_x64_cpp
+INCLUDES   += -I$(DIR_MCY)/include/mercury_sdk
+LIBRARIES  += -lmercury_sdk_x64_cpp
 LIBRARIES  += -lrt
 
 #---------------------------------------------------------------------
