@@ -34,10 +34,7 @@
 #endif
 
 #include <stdio.h>
-#include "dynamixel_sdk.h"                                   // Uses Dynamixel SDK library
-
-// Protocol version
-#define PROTOCOL_VERSION                2.0                 // See which protocol version is used in the Dynamixel
+#include "mercury_sdk.h"                                   // Uses Dynamixel SDK library
 
 // Default setting
 #define DXL_ID                          1                   // Dynamixel ID: 1
@@ -103,7 +100,7 @@ int main()
   // Initialize PacketHandler instance
   // Set the protocol version
   // Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
-  dynamixel::PacketHandler *packetHandler = dynamixel::PacketHandler::getPacketHandler(PROTOCOL_VERSION);
+  dynamixel::PacketHandler *packetHandler = dynamixel::PacketHandler::getPacketHandler();
 
   int dxl_comm_result = COMM_TX_FAIL;             // Communication result
 

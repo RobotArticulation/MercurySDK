@@ -37,14 +37,11 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "dynamixel_sdk.h"                                  // Uses Dynamixel SDK library
+#include "mercury_sdk.h"                                  // Uses Dynamixel SDK library
 
 #define ADDR_MX_TORQUE_ENABLE           0x30                // Mercury Control table register addresses
 #define ADDR_MX_GOAL_POSITION           0x4e
 #define ADDR_MX_PRESENT_POSITION        0x56
-
-// Protocol version
-#define PROTOCOL_VERSION                2.0                 // See which protocol version is used in the Dynamixel
 
 // Default setting
 #define DXL_ID                          1                   // Mercury ID: 1
@@ -118,7 +115,7 @@ int main()
   // Initialize PacketHandler instance
   // Set the protocol version
   // Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
-  dynamixel::PacketHandler *packetHandler = dynamixel::PacketHandler::getPacketHandler(PROTOCOL_VERSION);
+  dynamixel::PacketHandler *packetHandler = dynamixel::PacketHandler::getPacketHandler();
 
   int index = 0;
   int dxl_comm_result = COMM_TX_FAIL;             // Communication result
