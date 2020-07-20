@@ -1,5 +1,5 @@
 ##################################################
-# PROJECT: Mercury read/write Example Makefile
+# PROJECT: Mercury action Example Makefile
 ##################################################
 
 ##################################################
