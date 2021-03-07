@@ -39,7 +39,7 @@
 #endif
 #include <stdio.h>
 
-#include "mercury_sdk.h"                                  // Uses Dynamixel SDK library
+#include "mercury_sdk.h"                                  // Uses Mercury SDK library
 
 // Control table address
 #define ADDR_PRO_BAUDRATE               4                   // Control table address is different in Dynamixel model

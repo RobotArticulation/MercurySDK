@@ -28,16 +28,17 @@
 #if defined(__linux__) || defined(__APPLE__)
 #include <fcntl.h>
 #include <termios.h>
+#include <unistd.h>
 #define STDIN_FILENO 0
 #elif defined(_WIN32) || defined(_WIN64)
 #include <conio.h>
+//#include <io.h>
 #endif
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
 
-#include "mercury_sdk.h"                                  // Uses Dynamixel SDK library
+#include "mercury_sdk.h"                                  // Uses Mercury SDK library
 
 #define ADDR_MX_TORQUE_ENABLE           0x30                // Mercury Control table register addresses
 
