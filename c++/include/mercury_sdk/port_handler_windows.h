@@ -19,14 +19,14 @@
 /// @author Leon (RyuWoon Jung)
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DYNAMIXEL_SDK_INCLUDE_DYNAMIXEL_SDK_WINDOWS_PORTHANDLERWINDOWS_H_
-#define DYNAMIXEL_SDK_INCLUDE_DYNAMIXEL_SDK_WINDOWS_PORTHANDLERWINDOWS_H_
+#ifndef MERCURY_SDK_INCLUDE_MERCURY_SDK_WINDOWS_PORTHANDLERWINDOWS_H_
+#define MERCURY_SDK_INCLUDE_MERCURY_SDK_WINDOWS_PORTHANDLERWINDOWS_H_
 
 #include <Windows.h>
 
 #include "port_handler.h"
 
-namespace dynamixel
+namespace mercury
 {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -169,4 +169,4 @@ class WINDECLSPEC PortHandlerWindows : public PortHandler
 }
 
 
-#endif /* DYNAMIXEL_SDK_INCLUDE_DYNAMIXEL_SDK_WINDOWS_PORTHANDLERWINDOWS_H_ */
+#endif /* MERCURY_SDK_INCLUDE_MERCURY_SDK_WINDOWS_PORTHANDLERWINDOWS_H_ */

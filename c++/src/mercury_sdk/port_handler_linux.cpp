@@ -55,7 +55,7 @@
                            // or if you have another good idea that can be an alternatives,
                            // please give us advice via github issue https://github.com/ROBOTIS-GIT/DynamixelSDK/issues
 
-using namespace dynamixel;
+using namespace mercury;
 
 PortHandlerLinux::PortHandlerLinux(const char *port_name)
   : socket_fd_(-1),

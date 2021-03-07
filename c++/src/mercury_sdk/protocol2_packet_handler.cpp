@@ -27,7 +27,7 @@
 #include <Windows.h>
 #include "protocol2_packet_handler.h"
 #elif defined(ARDUINO) || defined(__OPENCR__) || defined(__OPENCM904__)
-#include "../../include/dynamixel_sdk/protocol2_packet_handler.h"
+#include "../../include/MERCURY_sdk/protocol2_packet_handler.h"
 #endif
 
 #include <stdio.h>
@@ -60,7 +60,7 @@
 
 #define ERRBIT_ALERT            128     //When the device has a problem, this bit is set to 1. Check "Device Status Check" value.
 
-using namespace dynamixel;
+using namespace mercury;
 
 Protocol2PacketHandler *Protocol2PacketHandler::unique_instance_ = new Protocol2PacketHandler();
 
@@ -193,7 +193,7 @@ unsigned short Protocol2PacketHandler::updateCRC(uint16_t crc_accum, uint8_t *da
 
 void Protocol2PacketHandler::addStuffing(uint8_t *packet)
 {
-  int packet_length_in = DXL_MAKEWORD(packet[PKT_LENGTH_L], packet[PKT_LENGTH_H]);
+  int packet_length_in = MCY_MAKEWORD(packet[PKT_LENGTH_L], packet[PKT_LENGTH_H]);
   int packet_length_out = packet_length_in;
   
   if (packet_length_in < 8) // INSTRUCTION, ADDR_L, ADDR_H, CRC16_L, CRC16_H + FF FF FD
@@ -231,8 +231,8 @@ void Protocol2PacketHandler::addStuffing(uint8_t *packet)
     }
   }
 
-  packet[PKT_LENGTH_L] = DXL_LOBYTE(packet_length_out);
-  packet[PKT_LENGTH_H] = DXL_HIBYTE(packet_length_out);
+  packet[PKT_LENGTH_L] = MCY_LOBYTE(packet_length_out);
+  packet[PKT_LENGTH_H] = MCY_HIBYTE(packet_length_out);
 
   return;
 }
@@ -240,7 +240,7 @@ void Protocol2PacketHandler::addStuffing(uint8_t *packet)
 void Protocol2PacketHandler::removeStuffing(uint8_t *packet)
 {
   int i = 0, index = 0;
-  int packet_length_in = DXL_MAKEWORD(packet[PKT_LENGTH_L], packet[PKT_LENGTH_H]);
+  int packet_length_in = MCY_MAKEWORD(packet[PKT_LENGTH_L], packet[PKT_LENGTH_H]);
   int packet_length_out = packet_length_in;
 
   index = PKT_INSTRUCTION;
@@ -256,8 +256,8 @@ void Protocol2PacketHandler::removeStuffing(uint8_t *packet)
   packet[index++] = packet[PKT_INSTRUCTION+packet_length_in-2];
   packet[index++] = packet[PKT_INSTRUCTION+packet_length_in-1];
 
-  packet[PKT_LENGTH_L] = DXL_LOBYTE(packet_length_out);
-  packet[PKT_LENGTH_H] = DXL_HIBYTE(packet_length_out);
+  packet[PKT_LENGTH_L] = MCY_LOBYTE(packet_length_out);
+  packet[PKT_LENGTH_H] = MCY_HIBYTE(packet_length_out);
 }
 
 int Protocol2PacketHandler::txPacket(PortHandler *port, uint8_t *txpacket)
@@ -273,7 +273,7 @@ int Protocol2PacketHandler::txPacket(PortHandler *port, uint8_t *txpacket)
   addStuffing(txpacket);
 
   // check max packet length
-  total_packet_length = DXL_MAKEWORD(txpacket[PKT_LENGTH_L], txpacket[PKT_LENGTH_H]) + 7;
+  total_packet_length = MCY_MAKEWORD(txpacket[PKT_LENGTH_L], txpacket[PKT_LENGTH_H]) + 7;
   // 7: HEADER0 HEADER1 HEADER2 RESERVED ID LENGTH_L LENGTH_H
   if (total_packet_length > TXPACKET_MAX_LEN)
   {
@@ -289,8 +289,8 @@ int Protocol2PacketHandler::txPacket(PortHandler *port, uint8_t *txpacket)
 
   // add CRC16
   uint16_t crc = updateCRC(0, txpacket, total_packet_length - 2);    // 2: CRC16
-  txpacket[total_packet_length - 2] = DXL_LOBYTE(crc);
-  txpacket[total_packet_length - 1] = DXL_HIBYTE(crc);
+  txpacket[total_packet_length - 2] = MCY_LOBYTE(crc);
+  txpacket[total_packet_length - 1] = MCY_HIBYTE(crc);
 
   // tx packet
   port->clearPort();
@@ -329,7 +329,7 @@ int Protocol2PacketHandler::rxPacket(PortHandler *port, uint8_t *rxpacket)
       {
         if (rxpacket[PKT_RESERVED] != 0x00 ||
            rxpacket[PKT_ID] > 0xFC ||
-           DXL_MAKEWORD(rxpacket[PKT_LENGTH_L], rxpacket[PKT_LENGTH_H]) > RXPACKET_MAX_LEN ||
+           MCY_MAKEWORD(rxpacket[PKT_LENGTH_L], rxpacket[PKT_LENGTH_H]) > RXPACKET_MAX_LEN ||
            rxpacket[PKT_INSTRUCTION] != 0x55)
         {
           // remove the first byte in the packet
@@ -341,9 +341,9 @@ int Protocol2PacketHandler::rxPacket(PortHandler *port, uint8_t *rxpacket)
         }
 
         // re-calculate the exact length of the rx packet
-        if (wait_length != DXL_MAKEWORD(rxpacket[PKT_LENGTH_L], rxpacket[PKT_LENGTH_H]) + PKT_LENGTH_H + 1)
+        if (wait_length != MCY_MAKEWORD(rxpacket[PKT_LENGTH_L], rxpacket[PKT_LENGTH_H]) + PKT_LENGTH_H + 1)
         {
-          wait_length = DXL_MAKEWORD(rxpacket[PKT_LENGTH_L], rxpacket[PKT_LENGTH_H]) + PKT_LENGTH_H + 1;
+          wait_length = MCY_MAKEWORD(rxpacket[PKT_LENGTH_L], rxpacket[PKT_LENGTH_H]) + PKT_LENGTH_H + 1;
           continue;
         }
 
@@ -369,7 +369,7 @@ int Protocol2PacketHandler::rxPacket(PortHandler *port, uint8_t *rxpacket)
         }
 
         // verify CRC16
-        uint16_t crc = DXL_MAKEWORD(rxpacket[wait_length-2], rxpacket[wait_length-1]);
+        uint16_t crc = MCY_MAKEWORD(rxpacket[wait_length-2], rxpacket[wait_length-1]);
         if (updateCRC(0, rxpacket, wait_length - 2) == crc)
         {
           result = COMM_SUCCESS;
@@ -444,7 +444,7 @@ int Protocol2PacketHandler::txRxPacket(PortHandler *port, uint8_t *txpacket, uin
   // set packet timeout
   if (txpacket[PKT_INSTRUCTION] == INST_READ)
   {
-    port->setPacketTimeout((uint16_t)(DXL_MAKEWORD(txpacket[PKT_PARAMETER0+2], txpacket[PKT_PARAMETER0+3]) + 11));
+    port->setPacketTimeout((uint16_t)(MCY_MAKEWORD(txpacket[PKT_PARAMETER0+2], txpacket[PKT_PARAMETER0+3]) + 11));
   }
   else
   {
@@ -488,7 +488,7 @@ int Protocol2PacketHandler::ping(PortHandler *port, uint8_t id, uint16_t *model_
 
   result = txRxPacket(port, txpacket, rxpacket, error);
   if (result == COMM_SUCCESS && model_number != 0)
-    *model_number = DXL_MAKEWORD(rxpacket[PKT_PARAMETER0+1], rxpacket[PKT_PARAMETER0+2]);
+    *model_number = MCY_MAKEWORD(rxpacket[PKT_PARAMETER0+1], rxpacket[PKT_PARAMETER0+2]);
 
   return result;
 }
@@ -553,7 +553,7 @@ int Protocol2PacketHandler::broadcastPing(PortHandler *port, std::vector<uint8_t
     if (idx == 0)   // found at the beginning of the packet
     {
       // verify CRC16
-      uint16_t crc = DXL_MAKEWORD(rxpacket[STATUS_LENGTH-2], rxpacket[STATUS_LENGTH-1]);
+      uint16_t crc = MCY_MAKEWORD(rxpacket[STATUS_LENGTH-2], rxpacket[STATUS_LENGTH-1]);
 
       if (updateCRC(0, rxpacket, STATUS_LENGTH - 2) == crc)
       {
@@ -642,10 +642,10 @@ int Protocol2PacketHandler::readTx(PortHandler *port, uint8_t id, uint16_t addre
   txpacket[PKT_LENGTH_L]      = 7;
   txpacket[PKT_LENGTH_H]      = 0;
   txpacket[PKT_INSTRUCTION]   = INST_READ;
-  txpacket[PKT_PARAMETER0+0]  = (uint8_t)DXL_LOBYTE(address);
-  txpacket[PKT_PARAMETER0+1]  = (uint8_t)DXL_HIBYTE(address);
-  txpacket[PKT_PARAMETER0+2]  = (uint8_t)DXL_LOBYTE(length);
-  txpacket[PKT_PARAMETER0+3]  = (uint8_t)DXL_HIBYTE(length);
+  txpacket[PKT_PARAMETER0+0]  = (uint8_t)MCY_LOBYTE(address);
+  txpacket[PKT_PARAMETER0+1]  = (uint8_t)MCY_HIBYTE(address);
+  txpacket[PKT_PARAMETER0+2]  = (uint8_t)MCY_LOBYTE(length);
+  txpacket[PKT_PARAMETER0+3]  = (uint8_t)MCY_HIBYTE(length);
 
   result = txPacket(port, txpacket);
 
@@ -707,10 +707,10 @@ int Protocol2PacketHandler::readTxRx(PortHandler *port, uint8_t id, uint16_t add
   txpacket[PKT_LENGTH_L]      = 7;
   txpacket[PKT_LENGTH_H]      = 0;
   txpacket[PKT_INSTRUCTION]   = INST_READ;
-  txpacket[PKT_PARAMETER0+0]  = (uint8_t)DXL_LOBYTE(address);
-  txpacket[PKT_PARAMETER0+1]  = (uint8_t)DXL_HIBYTE(address);
-  txpacket[PKT_PARAMETER0+2]  = (uint8_t)DXL_LOBYTE(length);
-  txpacket[PKT_PARAMETER0+3]  = (uint8_t)DXL_HIBYTE(length);
+  txpacket[PKT_PARAMETER0+0]  = (uint8_t)MCY_LOBYTE(address);
+  txpacket[PKT_PARAMETER0+1]  = (uint8_t)MCY_HIBYTE(address);
+  txpacket[PKT_PARAMETER0+2]  = (uint8_t)MCY_LOBYTE(length);
+  txpacket[PKT_PARAMETER0+3]  = (uint8_t)MCY_HIBYTE(length);
 
   result = txRxPacket(port, txpacket, rxpacket, error);
   if (result == COMM_SUCCESS)
@@ -760,7 +760,7 @@ int Protocol2PacketHandler::read2ByteRx(PortHandler *port, uint8_t id, uint16_t 
   uint8_t data_read[2] = {0};
   int result = readRx(port, id, 2, data_read, error);
   if (result == COMM_SUCCESS)
-    *data = DXL_MAKEWORD(data_read[0], data_read[1]);
+    *data = MCY_MAKEWORD(data_read[0], data_read[1]);
   return result;
 }
 int Protocol2PacketHandler::read2ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t *data, uint8_t *error)
@@ -768,7 +768,7 @@ int Protocol2PacketHandler::read2ByteTxRx(PortHandler *port, uint8_t id, uint16_
   uint8_t data_read[2] = {0};
   int result = readTxRx(port, id, address, 2, data_read, error);
   if (result == COMM_SUCCESS)
-    *data = DXL_MAKEWORD(data_read[0], data_read[1]);
+    *data = MCY_MAKEWORD(data_read[0], data_read[1]);
   return result;
 }
 
@@ -781,7 +781,7 @@ int Protocol2PacketHandler::read4ByteRx(PortHandler *port, uint8_t id, uint32_t 
   uint8_t data_read[4] = {0};
   int result = readRx(port, id, 4, data_read, error);
   if (result == COMM_SUCCESS)
-    *data = DXL_MAKEDWORD(DXL_MAKEWORD(data_read[0], data_read[1]), DXL_MAKEWORD(data_read[2], data_read[3]));
+    *data = MCY_MAKEDWORD(MCY_MAKEWORD(data_read[0], data_read[1]), MCY_MAKEWORD(data_read[2], data_read[3]));
   return result;
 }
 int Protocol2PacketHandler::read4ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint32_t *data, uint8_t *error)
@@ -789,7 +789,7 @@ int Protocol2PacketHandler::read4ByteTxRx(PortHandler *port, uint8_t id, uint16_
   uint8_t data_read[4] = {0};
   int result = readTxRx(port, id, address, 4, data_read, error);
   if (result == COMM_SUCCESS)
-    *data = DXL_MAKEDWORD(DXL_MAKEWORD(data_read[0], data_read[1]), DXL_MAKEWORD(data_read[2], data_read[3]));
+    *data = MCY_MAKEDWORD(MCY_MAKEWORD(data_read[0], data_read[1]), MCY_MAKEWORD(data_read[2], data_read[3]));
   return result;
 }
 
@@ -804,11 +804,11 @@ int Protocol2PacketHandler::writeTxOnly(PortHandler *port, uint8_t id, uint16_t 
     return result;
 
   txpacket[PKT_ID]            = id;
-  txpacket[PKT_LENGTH_L]      = DXL_LOBYTE(length+5);
-  txpacket[PKT_LENGTH_H]      = DXL_HIBYTE(length+5);
+  txpacket[PKT_LENGTH_L]      = MCY_LOBYTE(length+5);
+  txpacket[PKT_LENGTH_H]      = MCY_HIBYTE(length+5);
   txpacket[PKT_INSTRUCTION]   = INST_WRITE;
-  txpacket[PKT_PARAMETER0+0]  = (uint8_t)DXL_LOBYTE(address);
-  txpacket[PKT_PARAMETER0+1]  = (uint8_t)DXL_HIBYTE(address);
+  txpacket[PKT_PARAMETER0+0]  = (uint8_t)MCY_LOBYTE(address);
+  txpacket[PKT_PARAMETER0+1]  = (uint8_t)MCY_HIBYTE(address);
 
   for (uint16_t s = 0; s < length; s++)
     txpacket[PKT_PARAMETER0+2+s] = data[s];
@@ -833,11 +833,11 @@ int Protocol2PacketHandler::writeTxRx(PortHandler *port, uint8_t id, uint16_t ad
     return result;
   
   txpacket[PKT_ID]            = id;
-  txpacket[PKT_LENGTH_L]      = DXL_LOBYTE(length+5);
-  txpacket[PKT_LENGTH_H]      = DXL_HIBYTE(length+5);
+  txpacket[PKT_LENGTH_L]      = MCY_LOBYTE(length+5);
+  txpacket[PKT_LENGTH_H]      = MCY_HIBYTE(length+5);
   txpacket[PKT_INSTRUCTION]   = INST_WRITE;
-  txpacket[PKT_PARAMETER0+0]  = (uint8_t)DXL_LOBYTE(address);
-  txpacket[PKT_PARAMETER0+1]  = (uint8_t)DXL_HIBYTE(address);
+  txpacket[PKT_PARAMETER0+0]  = (uint8_t)MCY_LOBYTE(address);
+  txpacket[PKT_PARAMETER0+1]  = (uint8_t)MCY_HIBYTE(address);
 
   for (uint16_t s = 0; s < length; s++)
     txpacket[PKT_PARAMETER0+2+s] = data[s];
@@ -863,23 +863,23 @@ int Protocol2PacketHandler::write1ByteTxRx(PortHandler *port, uint8_t id, uint16
 
 int Protocol2PacketHandler::write2ByteTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint16_t data)
 {
-  uint8_t data_write[2] = { DXL_LOBYTE(data), DXL_HIBYTE(data) };
+  uint8_t data_write[2] = { MCY_LOBYTE(data), MCY_HIBYTE(data) };
   return writeTxOnly(port, id, address, 2, data_write);
 }
 int Protocol2PacketHandler::write2ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint16_t data, uint8_t *error)
 {
-  uint8_t data_write[2] = { DXL_LOBYTE(data), DXL_HIBYTE(data) };
+  uint8_t data_write[2] = { MCY_LOBYTE(data), MCY_HIBYTE(data) };
   return writeTxRx(port, id, address, 2, data_write, error);
 }
 
 int Protocol2PacketHandler::write4ByteTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint32_t data)
 {
-  uint8_t data_write[4] = { DXL_LOBYTE(DXL_LOWORD(data)), DXL_HIBYTE(DXL_LOWORD(data)), DXL_LOBYTE(DXL_HIWORD(data)), DXL_HIBYTE(DXL_HIWORD(data)) };
+  uint8_t data_write[4] = { MCY_LOBYTE(MCY_LOWORD(data)), MCY_HIBYTE(MCY_LOWORD(data)), MCY_LOBYTE(MCY_HIWORD(data)), MCY_HIBYTE(MCY_HIWORD(data)) };
   return writeTxOnly(port, id, address, 4, data_write);
 }
 int Protocol2PacketHandler::write4ByteTxRx(PortHandler *port, uint8_t id, uint16_t address, uint32_t data, uint8_t *error)
 {
-  uint8_t data_write[4] = { DXL_LOBYTE(DXL_LOWORD(data)), DXL_HIBYTE(DXL_LOWORD(data)), DXL_LOBYTE(DXL_HIWORD(data)), DXL_HIBYTE(DXL_HIWORD(data)) };
+  uint8_t data_write[4] = { MCY_LOBYTE(MCY_LOWORD(data)), MCY_HIBYTE(MCY_LOWORD(data)), MCY_LOBYTE(MCY_HIWORD(data)), MCY_HIBYTE(MCY_HIWORD(data)) };
   return writeTxRx(port, id, address, 4, data_write, error);
 }
 
@@ -893,11 +893,11 @@ int Protocol2PacketHandler::regWriteTxOnly(PortHandler *port, uint8_t id, uint16
     return result;
   
   txpacket[PKT_ID]            = id;
-  txpacket[PKT_LENGTH_L]      = DXL_LOBYTE(length+5);
-  txpacket[PKT_LENGTH_H]      = DXL_HIBYTE(length+5);
+  txpacket[PKT_LENGTH_L]      = MCY_LOBYTE(length+5);
+  txpacket[PKT_LENGTH_H]      = MCY_HIBYTE(length+5);
   txpacket[PKT_INSTRUCTION]   = INST_REG_WRITE;
-  txpacket[PKT_PARAMETER0+0]  = (uint8_t)DXL_LOBYTE(address);
-  txpacket[PKT_PARAMETER0+1]  = (uint8_t)DXL_HIBYTE(address);
+  txpacket[PKT_PARAMETER0+0]  = (uint8_t)MCY_LOBYTE(address);
+  txpacket[PKT_PARAMETER0+1]  = (uint8_t)MCY_HIBYTE(address);
 
   for (uint16_t s = 0; s < length; s++)
     txpacket[PKT_PARAMETER0+2+s] = data[s];
@@ -922,11 +922,11 @@ int Protocol2PacketHandler::regWriteTxRx(PortHandler *port, uint8_t id, uint16_t
     return result;
   
   txpacket[PKT_ID]            = id;
-  txpacket[PKT_LENGTH_L]      = DXL_LOBYTE(length+5);
-  txpacket[PKT_LENGTH_H]      = DXL_HIBYTE(length+5);
+  txpacket[PKT_LENGTH_L]      = MCY_LOBYTE(length+5);
+  txpacket[PKT_LENGTH_H]      = MCY_HIBYTE(length+5);
   txpacket[PKT_INSTRUCTION]   = INST_REG_WRITE;
-  txpacket[PKT_PARAMETER0+0]  = (uint8_t)DXL_LOBYTE(address);
-  txpacket[PKT_PARAMETER0+1]  = (uint8_t)DXL_HIBYTE(address);
+  txpacket[PKT_PARAMETER0+0]  = (uint8_t)MCY_LOBYTE(address);
+  txpacket[PKT_PARAMETER0+1]  = (uint8_t)MCY_HIBYTE(address);
 
   for (uint16_t s = 0; s < length; s++)
     txpacket[PKT_PARAMETER0+2+s] = data[s];

@@ -39,12 +39,12 @@
 #define MAX_ID              0xFC    // 252
 
 /* Macro for Control Table Value */
-#define DXL_MAKEWORD(a, b)  ((uint16_t)(((uint8_t)(((uint64_t)(a)) & 0xff)) | ((uint16_t)((uint8_t)(((uint64_t)(b)) & 0xff))) << 8))
-#define DXL_MAKEDWORD(a, b) ((uint32_t)(((uint16_t)(((uint64_t)(a)) & 0xffff)) | ((uint32_t)((uint16_t)(((uint64_t)(b)) & 0xffff))) << 16))
-#define DXL_LOWORD(l)       ((uint16_t)(((uint64_t)(l)) & 0xffff))
-#define DXL_HIWORD(l)       ((uint16_t)((((uint64_t)(l)) >> 16) & 0xffff))
-#define DXL_LOBYTE(w)       ((uint8_t)(((uint64_t)(w)) & 0xff))
-#define DXL_HIBYTE(w)       ((uint8_t)((((uint64_t)(w)) >> 8) & 0xff))
+#define MCY_MAKEWORD(a, b)  ((uint16_t)(((uint8_t)(((uint64_t)(a)) & 0xff)) | ((uint16_t)((uint8_t)(((uint64_t)(b)) & 0xff))) << 8))
+#define MCY_MAKEDWORD(a, b) ((uint32_t)(((uint16_t)(((uint64_t)(a)) & 0xffff)) | ((uint32_t)((uint16_t)(((uint64_t)(b)) & 0xffff))) << 16))
+#define MCY_LOWORD(l)       ((uint16_t)(((uint64_t)(l)) & 0xffff))
+#define MCY_HIWORD(l)       ((uint16_t)((((uint64_t)(l)) >> 16) & 0xffff))
+#define MCY_LOBYTE(w)       ((uint8_t)(((uint64_t)(w)) & 0xff))
+#define MCY_HIBYTE(w)       ((uint8_t)((((uint64_t)(w)) >> 8) & 0xff))
 
 /* Instruction for DXL Protocol */
 #define INST_PING               1
@@ -67,7 +67,7 @@
 #define COMM_RX_CORRUPT     -3002   // Incorrect status packet
 #define COMM_NOT_AVAILABLE  -9000   //
 
-namespace dynamixel
+namespace mercury
 {
 
 ////////////////////////////////////////////////////////////////////////////////

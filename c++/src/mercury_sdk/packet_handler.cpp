@@ -25,7 +25,7 @@
 #include "protocol2_packet_handler.h"
 #endif
 
-using namespace dynamixel;
+using namespace mercury;
 
 PacketHandler *PacketHandler::getPacketHandler()
 {

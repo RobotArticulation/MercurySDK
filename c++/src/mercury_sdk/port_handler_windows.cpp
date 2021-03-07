@@ -35,7 +35,7 @@
                           // [Device Manager] -> [Port (COM & LPT)] -> the port you use but starts with COMx-> mouse right click -> properties
                           // -> [port settings] -> [details] -> change response time from 16 to the value you need
 
-using namespace dynamixel;
+using namespace mercury;
 
 PortHandlerWindows::PortHandlerWindows(const char *port_name)
   : serial_handle_(INVALID_HANDLE_VALUE),
@@ -178,7 +178,7 @@ bool PortHandlerWindows::setupPort(int baudrate)
 
   dcb.DCBlength = sizeof(DCB);
   if (GetCommState(serial_handle_, &dcb) == FALSE)
-    goto DXL_HAL_OPEN_ERROR;
+    goto MCY_HAL_OPEN_ERROR;
 
   // Set baudrate
   dcb.BaudRate = (DWORD)baudrate;
@@ -201,19 +201,19 @@ bool PortHandlerWindows::setupPort(int baudrate)
   dcb.fOutxCtsFlow = 0;
 
   if (SetCommState(serial_handle_, &dcb) == FALSE)
-    goto DXL_HAL_OPEN_ERROR;
+    goto MCY_HAL_OPEN_ERROR;
 
   if (SetCommMask(serial_handle_, 0) == FALSE) // Not using Comm event
-    goto DXL_HAL_OPEN_ERROR;
+    goto MCY_HAL_OPEN_ERROR;
   if (SetupComm(serial_handle_, 4096, 4096) == FALSE) // Buffer size (Rx,Tx)
-    goto DXL_HAL_OPEN_ERROR;
+    goto MCY_HAL_OPEN_ERROR;
   if (PurgeComm(serial_handle_, PURGE_TXABORT | PURGE_TXCLEAR | PURGE_RXABORT | PURGE_RXCLEAR) == FALSE) // Clear buffer
-    goto DXL_HAL_OPEN_ERROR;
+    goto MCY_HAL_OPEN_ERROR;
   if (ClearCommError(serial_handle_, &dwError, NULL) == FALSE)
-    goto DXL_HAL_OPEN_ERROR;
+    goto MCY_HAL_OPEN_ERROR;
 
   if (GetCommTimeouts(serial_handle_, &timeouts) == FALSE)
-    goto DXL_HAL_OPEN_ERROR;
+    goto MCY_HAL_OPEN_ERROR;
   // Timeout (Not using timeout)
   // Immediatly return
   timeouts.ReadIntervalTimeout = 0;
@@ -222,12 +222,12 @@ bool PortHandlerWindows::setupPort(int baudrate)
   timeouts.WriteTotalTimeoutMultiplier = 0;
   timeouts.WriteTotalTimeoutConstant = 0;
   if (SetCommTimeouts(serial_handle_, &timeouts) == FALSE)
-    goto DXL_HAL_OPEN_ERROR;
+    goto MCY_HAL_OPEN_ERROR;
 
   tx_time_per_byte_ = (1000.0 / (double)baudrate_) * 10.0;
   return true;
 
-DXL_HAL_OPEN_ERROR:
+MCY_HAL_OPEN_ERROR:
   closePort();
   return false;
 }

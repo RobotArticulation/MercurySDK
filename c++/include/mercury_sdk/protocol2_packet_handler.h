@@ -19,13 +19,13 @@
 /// @author Zerom, Leon (RyuWoon Jung)
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DYNAMIXEL_SDK_INCLUDE_DYNAMIXEL_SDK_PROTOCOL2PACKETHANDLER_H_
-#define DYNAMIXEL_SDK_INCLUDE_DYNAMIXEL_SDK_PROTOCOL2PACKETHANDLER_H_
+#ifndef MERCURY_SDK_INCLUDE_MERCURY_SDK_PROTOCOL2PACKETHANDLER_H_
+#define MERCURY_SDK_INCLUDE_MERCURY_SDK_PROTOCOL2PACKETHANDLER_H_
 
 
 #include "packet_handler.h"
 
-namespace dynamixel
+namespace mercury
 {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -485,4 +485,4 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
 }
 
 
-#endif /* DYNAMIXEL_SDK_INCLUDE_DYNAMIXEL_SDK_PROTOCOL2PACKETHANDLER_H_ */
+#endif /* MERCURY_SDK_INCLUDE_MERCURY_SDK_PROTOCOL2PACKETHANDLER_H_ */

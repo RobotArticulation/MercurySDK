@@ -25,7 +25,7 @@
 #include "port_handler_windows.h"
 #endif
 
-using namespace dynamixel;
+using namespace mercury;
 
 PortHandler *PortHandler::getPortHandler(const char *port_name)
 {

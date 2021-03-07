@@ -19,13 +19,13 @@
 /// @author Zerom, Leon (RyuWoon Jung)
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DYNAMIXEL_SDK_INCLUDE_DYNAMIXEL_SDK_LINUX_PORTHANDLERLINUX_H_
-#define DYNAMIXEL_SDK_INCLUDE_DYNAMIXEL_SDK_LINUX_PORTHANDLERLINUX_H_
+#ifndef MERCURY_SDK_INCLUDE_MERCURY_SDK_LINUX_PORTHANDLERLINUX_H_
+#define MERCURY_SDK_INCLUDE_MERCURY_SDK_LINUX_PORTHANDLERLINUX_H_
 
 
 #include "port_handler.h"
 
-namespace dynamixel
+namespace mercury
 {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -168,4 +168,4 @@ class PortHandlerLinux : public PortHandler
 }
 
 
-#endif /* DYNAMIXEL_SDK_INCLUDE_DYNAMIXEL_SDK_LINUX_PORTHANDLERLINUX_H_ */
+#endif /* MERCURY_SDK_INCLUDE_MERCURY_SDK_LINUX_PORTHANDLERLINUX_H_ */
