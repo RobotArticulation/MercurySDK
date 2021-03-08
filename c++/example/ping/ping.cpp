@@ -19,10 +19,7 @@
 //
 // *********     ping Example      *********
 //
-//
-// Available Dynamixel model on this example : All models using Protocol 1.0
-// This example is tested with a Dynamixel MX-28, and an USB2DYNAMIXEL
-// Be sure that Dynamixel MX properties are already set as %% ID : 1 / Baudnum : 34 (Baudrate : 57600)
+// This example is tested with a Mercury M65, and a USB2Mercury
 //
 
 #if defined(__linux__) || defined(__APPLE__)
@@ -95,12 +92,12 @@ int main()
   // Initialize PortHandler instance
   // Set the port path
   // Get methods and members of PortHandlerLinux or PortHandlerWindows
-  dynamixel::PortHandler *portHandler = dynamixel::PortHandler::getPortHandler(DEVICENAME);
+  mercury::PortHandler *portHandler = mercury::PortHandler::getPortHandler(DEVICENAME);
 
   // Initialize PacketHandler instance
   // Set the protocol version
   // Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
-  dynamixel::PacketHandler *packetHandler = dynamixel::PacketHandler::getPacketHandler();
+  mercury::PacketHandler *packetHandler = mercury::PacketHandler::getPacketHandler();
 
   int dxl_comm_result = COMM_TX_FAIL;             // Communication result
 
