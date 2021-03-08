@@ -27,7 +27,7 @@
 #include <Windows.h>
 #include "protocol2_packet_handler.h"
 #elif defined(ARDUINO) || defined(__OPENCR__) || defined(__OPENCM904__)
-#include "../../include/MERCURY_sdk/protocol2_packet_handler.h"
+#include "../../include/mercury_sdk/protocol2_packet_handler.h"
 #endif
 
 #include <stdio.h>

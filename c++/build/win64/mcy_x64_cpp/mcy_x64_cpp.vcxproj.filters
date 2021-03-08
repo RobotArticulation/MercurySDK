@@ -21,18 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\mercury_sdk\group_bulk_read.cpp">
-      <Filter>Source Files\mercury_sdk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\mercury_sdk\group_bulk_write.cpp">
-      <Filter>Source Files\mercury_sdk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\mercury_sdk\group_sync_read.cpp">
-      <Filter>Source Files\mercury_sdk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\mercury_sdk\group_sync_write.cpp">
-      <Filter>Source Files\mercury_sdk</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\mercury_sdk\packet_handler.cpp">
       <Filter>Source Files\mercury_sdk</Filter>
     </ClCompile>
@@ -40,9 +28,6 @@
       <Filter>Source Files\mercury_sdk</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\mercury_sdk\port_handler_windows.cpp">
-      <Filter>Source Files\mercury_sdk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\mercury_sdk\protocol1_packet_handler.cpp">
       <Filter>Source Files\mercury_sdk</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\mercury_sdk\protocol2_packet_handler.cpp">
@@ -53,18 +38,6 @@
     <ClInclude Include="..\..\..\include\mercury_sdk\mercury_sdk.h">
       <Filter>Header Files\mercury_sdk</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\mercury_sdk\group_bulk_read.h">
-      <Filter>Header Files\mercury_sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\mercury_sdk\group_bulk_write.h">
-      <Filter>Header Files\mercury_sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\mercury_sdk\group_sync_read.h">
-      <Filter>Header Files\mercury_sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\mercury_sdk\group_sync_write.h">
-      <Filter>Header Files\mercury_sdk</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\mercury_sdk\packet_handler.h">
       <Filter>Header Files\mercury_sdk</Filter>
     </ClInclude>
@@ -72,9 +45,6 @@
       <Filter>Header Files\mercury_sdk</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\mercury_sdk\port_handler_windows.h">
-      <Filter>Header Files\mercury_sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\mercury_sdk\protocol1_packet_handler.h">
       <Filter>Header Files\mercury_sdk</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\mercury_sdk\protocol2_packet_handler.h">
