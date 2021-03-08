@@ -145,7 +145,7 @@ int main()
     return 0;
   }
 
-  // Enable Dynamixel Torque
+  // Enable Mercury Torque
   mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_MX_TORQUE_ENABLE, TORQUE_ENABLE, &mcy_error);
   if (mcy_comm_result != COMM_SUCCESS)
   {

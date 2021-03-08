@@ -52,8 +52,8 @@
                            // $ cat /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
                            //
                            // Method 2. If you want to set it as be done automatically, and don't want to do above everytime, make rules file in /etc/udev/rules.d/. For example,
-                           // $ echo ACTION==\"add\", SUBSYSTEM==\"usb-serial\", DRIVER==\"ftdi_sio\", ATTR{latency_timer}=\"1\" > 99-dynamixelsdk-usb.rules
-                           // $ sudo cp ./99-dynamixelsdk-usb.rules /etc/udev/rules.d/
+                           // $ echo ACTION==\"add\", SUBSYSTEM==\"usb-serial\", DRIVER==\"ftdi_sio\", ATTR{latency_timer}=\"1\" > 99-mercurysdk-usb.rules
+                           // $ sudo cp ./99-mercurysdk-usb.rules /etc/udev/rules.d/
                            // $ sudo udevadm control --reload-rules
                            // $ sudo udevadm trigger --action=add
                            // $ cat /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
