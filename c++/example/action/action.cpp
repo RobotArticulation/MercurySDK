@@ -45,7 +45,7 @@
 // Default setting
 #define DXL_ID                          1                   // Mercury ID: 1
 #define BAUDRATE                        1000000
-#define DEVICENAME                      "/dev/ttyACM0"      // Check which port is being used on your controller
+#define DEVICENAME                      "COM5" //"/dev/ttyACM0"      // Check which port is being used on your controller
                                                             // ex) Windows: "COM1"   Linux: "/dev/ttyUSB0" Mac: "/dev/tty.usbserial-*"
 
 #define TORQUE_ENABLE                   1                   // Value for enabling the torque
@@ -106,12 +106,12 @@ int main()
   // Initialize PortHandler instance
   // Set the port path
   // Get methods and members of PortHandlerLinux or PortHandlerWindows
-  dynamixel::PortHandler *portHandler = dynamixel::PortHandler::getPortHandler(DEVICENAME);
+  mercury::PortHandler *portHandler = mercury::PortHandler::getPortHandler(DEVICENAME);
 
   // Initialize PacketHandler instance
   // Set the protocol version
   // Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
-  dynamixel::PacketHandler *packetHandler = dynamixel::PacketHandler::getPacketHandler();
+  mercury::PacketHandler *packetHandler = mercury::PacketHandler::getPacketHandler();
 
   int dxl_comm_result = COMM_TX_FAIL;             // Communication result
 
