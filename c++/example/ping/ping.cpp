@@ -1,4 +1,10 @@
 /*******************************************************************************
+* Copyright (C) 2021 <Robot Articulation/code@robotarticulation.com> 
+*
+* Source files modified to support the Mercury range of digital servo motors from Robot Articulation
+*******************************************************************************/
+
+/*******************************************************************************
 * Copyright 2017 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +20,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Author: Ryu Woon Jung (Leon) */
+/* Original author: Zerom, Leon (RyuWoon Jung) */
 
 //
 // *********     ping Example      *********
@@ -31,10 +37,10 @@
 #endif
 
 #include <stdio.h>
-#include "mercury_sdk.h"                                   // Uses Dynamixel SDK library
+#include "mercury_sdk.h"                                   // Uses Mercury SDK library
 
 // Default setting
-#define DXL_ID                          1                   // Dynamixel ID: 1
+#define MCY_ID                          1                   // Mercury ID: 1
 #define BAUDRATE                        1000000
 #define DEVICENAME                     "/dev/ttyACM0"      // Check which port is being used on your controller
                                                             // ex) Windows: "COM1"   Linux: "/dev/ttyUSB0" Mac: "/dev/tty.usbserial-*"
@@ -99,10 +105,10 @@ int main()
   // Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
   mercury::PacketHandler *packetHandler = mercury::PacketHandler::getPacketHandler();
 
-  int dxl_comm_result = COMM_TX_FAIL;             // Communication result
+  int mcy_comm_result = COMM_TX_FAIL;             // Communication result
 
-  uint8_t dxl_error = 0;                          // Dynamixel error
-  uint16_t dxl_model_number;                      // Dynamixel model number
+  uint8_t mcy_error = 0;                          // Mercury error
+  uint16_t mcy_model_number;                      // Mercury model number
 
   // Open port
   if (portHandler->openPort())
@@ -130,20 +136,20 @@ int main()
     return 0;
   }
 
-  // Try to ping the Dynamixel
-  // Get Dynamixel model number
-  dxl_comm_result = packetHandler->ping(portHandler, DXL_ID, &dxl_model_number, &dxl_error);
-  if (dxl_comm_result != COMM_SUCCESS)
+  // Try to ping the Mercury
+  // Get Mercury model number
+  mcy_comm_result = packetHandler->ping(portHandler, MCY_ID, &mcy_model_number, &mcy_error);
+  if (mcy_comm_result != COMM_SUCCESS)
   {
-    printf("%s\n", packetHandler->getTxRxResult(dxl_comm_result));
+    printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
   }
-  else if (dxl_error != 0)
+  else if (mcy_error != 0)
   {
-    printf("%s\n", packetHandler->getRxPacketError(dxl_error));
+    printf("%s\n", packetHandler->getRxPacketError(mcy_error));
   }
   else
   {
-    printf("[ID:%03d] ping Succeeded. Dynamixel model number : %d\n", DXL_ID, dxl_model_number);
+    printf("[ID:%03d] ping Succeeded. Mercury model number : %d\n", MCY_ID, mcy_model_number);
   }
 
   // Close port

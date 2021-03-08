@@ -1,4 +1,10 @@
 /*******************************************************************************
+* Copyright (C) 2021 <Robot Articulation/code@robotarticulation.com> 
+*
+* Source files modified to support the Mercury range of digital servo motors from Robot Articulation
+*******************************************************************************/
+
+/*******************************************************************************
 * Copyright 2017 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,10 +20,10 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Author: Ryu Woon Jung (Leon) */
+/* Original author: Zerom, Leon (RyuWoon Jung) */
 
 //
-// *********     Read and Write Example      *********
+// *********     Action Example      *********
 //
 // This example is tested with a Mercury M65, and a USB2Mercury
 //
@@ -29,7 +35,6 @@
 #define STDIN_FILENO 0
 #elif defined(_WIN32) || defined(_WIN64)
 #include <conio.h>
-//#include <io.h>
 #endif
 
 #include <stdlib.h>
@@ -40,7 +45,7 @@
 #define ADDR_MX_TORQUE_ENABLE           0x30                // Mercury Control table register addresses
 
 // Default setting
-#define DXL_ID                          1                   // Mercury ID: 1
+#define MCY_ID                          1                   // Mercury ID: 1
 #define BAUDRATE                        1000000
 #define DEVICENAME                      "/dev/ttyACM0"      // Check which port is being used on your controller
                                                             // ex) Windows: "COM1"   Linux: "/dev/ttyUSB0" Mac: "/dev/tty.usbserial-*"
@@ -110,9 +115,9 @@ int main()
   // Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
   mercury::PacketHandler *packetHandler = mercury::PacketHandler::getPacketHandler();
 
-  int dxl_comm_result = COMM_TX_FAIL;             // Communication result
+  int mcy_comm_result = COMM_TX_FAIL;             // Communication result
 
-  uint8_t dxl_error = 0;                          // Dynamixel error
+  uint8_t mcy_error = 0;                          // Mercury error
 
   // Open port
   if (portHandler->openPort())
@@ -141,28 +146,28 @@ int main()
   }
 
   // Enable Dynamixel Torque
-  dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, DXL_ID, ADDR_MX_TORQUE_ENABLE, TORQUE_ENABLE, &dxl_error);
-  if (dxl_comm_result != COMM_SUCCESS)
+  mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_MX_TORQUE_ENABLE, TORQUE_ENABLE, &mcy_error);
+  if (mcy_comm_result != COMM_SUCCESS)
   {
-    printf("%s\n", packetHandler->getTxRxResult(dxl_comm_result));
+    printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
   }
-  else if (dxl_error != 0)
+  else if (mcy_error != 0)
   {
-    printf("%s\n", packetHandler->getRxPacketError(dxl_error));
+    printf("%s\n", packetHandler->getRxPacketError(mcy_error));
   }
   else
   {
     printf("Mercury has been successfully connected \n");
   }
 
-  dxl_comm_result = packetHandler->action(portHandler, DXL_ID);
-  if (dxl_comm_result != COMM_SUCCESS)
+  mcy_comm_result = packetHandler->action(portHandler, MCY_ID);
+  if (mcy_comm_result != COMM_SUCCESS)
   {
-    printf("%s\n", packetHandler->getTxRxResult(dxl_comm_result));
+    printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
   }
-  else if (dxl_error != 0)
+  else if (mcy_error != 0)
   {
-    printf("%s\n", packetHandler->getRxPacketError(dxl_error));
+    printf("%s\n", packetHandler->getRxPacketError(mcy_error));
   }
 
   // Close port

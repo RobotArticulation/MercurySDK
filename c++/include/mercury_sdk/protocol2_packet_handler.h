@@ -1,7 +1,7 @@
 /*******************************************************************************
 * Copyright (C) 2021 <Robot Articulation/code@robotarticulation.com> 
 *
-* Source files modified to support the ercury range of digital servo motors from Robot Articulation
+* Source files modified to support the Mercury range of digital servo motors from Robot Articulation
 *******************************************************************************/
 
 /*******************************************************************************
@@ -32,7 +32,7 @@ namespace mercury
 {
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief The class for control Dynamixel by using Protocol2.0
+/// @brief The class for control Mercury by using Protocol2.0
 ////////////////////////////////////////////////////////////////////////////////
 class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
 {
@@ -69,7 +69,7 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
 
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that gets description of hardware error
-  /// @param error Dynamixel hardware error which might be gotten by the tx rx functions
+  /// @param error Mercury hardware error which might be gotten by the tx rx functions
   /// @return description of hardware error in const char* (string)
   ////////////////////////////////////////////////////////////////////////////////
   const char *getRxPacketError  (uint8_t error);
@@ -129,75 +129,75 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   int txRxPacket      (PortHandler *port, uint8_t *txpacket, uint8_t *rxpacket, uint8_t *error = 0);
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that pings Dynamixel but doesn't take its model number
-  /// @description The function calls Protocol2PacketHandler::ping() which gets Dynamixel model number,
+  /// @brief The function that pings Mercury but doesn't take its model number
+  /// @description The function calls Protocol2PacketHandler::ping() which gets Mercury model number,
   /// @description but doesn't carry the model number
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
-  /// @param error Dynamixel hardware error
+  /// @param id Mercury ID
+  /// @param error Mercury hardware error
   /// @return communication results which come from Protocol2PacketHandler::ping()
   ////////////////////////////////////////////////////////////////////////////////
   int ping            (PortHandler *port, uint8_t id, uint8_t *error = 0);
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that pings Dynamixel and takes its model number
+  /// @brief The function that pings Mercury and takes its model number
   /// @description The function makes an instruction packet with INST_PING,
   /// @description transmits the packet with Protocol2PacketHandler::txRxPacket(),
   /// @description and call Protocol2PacketHandler::readTxRx to read model_number in the rx buffer.
   /// @description It breaks out
   /// @description when it tries to transmit to BROADCAST_ID
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
-  /// @param error Dynamixel hardware error
+  /// @param id Mercury ID
+  /// @param error Mercury hardware error
   /// @return COMM_NOT_AVAILABLE
   /// @return   when it tries to transmit to BROADCAST_ID
   /// @return COMM_SUCCESS
-  /// @return   when it succeeds to ping Dynamixel and get model_number from it
+  /// @return   when it succeeds to ping Mercury and get model_number from it
   /// @return or the other communication results which come from Protocol2PacketHandler::txRxPacket() and Protocol2PacketHandler::readTxRx()
   ////////////////////////////////////////////////////////////////////////////////
   int ping            (PortHandler *port, uint8_t id, uint16_t *model_number, uint8_t *error = 0);
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief (Available only in Protocol 2.0) The function that pings all connected Dynamixel
+  /// @brief (Available only in Protocol 2.0) The function that pings all connected Mercury
   /// @param port PortHandler instance
-  /// @param id_list ID list of Dynamixels which are found by broadcast ping
+  /// @param id_list ID list of Mercurys which are found by broadcast ping
   /// @return COMM_NOT_AVAILABLE
   ////////////////////////////////////////////////////////////////////////////////
   int broadcastPing   (PortHandler *port, std::vector<uint8_t> &id_list);
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that makes Dynamixels run as written in the Dynamixel register
+  /// @brief The function that makes Mercurys run as written in the Mercury register
   /// @description The function makes an instruction packet with INST_ACTION,
   /// @description transmits the packet with Protocol2PacketHandler::txRxPacket().
-  /// @description To use this function, Dynamixel register should be set by Protocol2PacketHandler::regWriteTxOnly() or Protocol2PacketHandler::regWriteTxRx()
+  /// @description To use this function, Mercury register should be set by Protocol2PacketHandler::regWriteTxOnly() or Protocol2PacketHandler::regWriteTxRx()
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @return communication results which come from Protocol2PacketHandler::txRxPacket()
   ////////////////////////////////////////////////////////////////////////////////
   int action          (PortHandler *port, uint8_t id);
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that makes Dynamixel reboot
+  /// @brief The function that makes Mercury reboot
   /// @description The function makes an instruction packet with INST_REBOOT,
   /// @description transmits the packet with Protocol2PacketHandler::txRxPacket(),
-  /// @description then Dynamixel reboots.
+  /// @description then Mercury reboots.
   /// @description During reboot, its LED will blink.
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
-  /// @param error Dynamixel hardware error
+  /// @param id Mercury ID
+  /// @param error Mercury hardware error
   /// @return COMM_NOT_AVAILABLE
   ////////////////////////////////////////////////////////////////////////////////
   int reboot          (PortHandler *port, uint8_t id, uint8_t *error = 0);
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that makes Dynamixel reset as it was produced in the factory
+  /// @brief The function that makes Mercury reset as it was produced in the factory
   /// @description The function makes an instruction packet with INST_FACTORY_RESET,
   /// @description transmits the packet with Protocol2PacketHandler::txRxPacket().
   /// @description Be careful of the use.
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param option Reset option (0xFF for reset all values / 0x01 for reset all values except ID / 0x02 for reset all values except ID and Baudrate)
-  /// @param error Dynamixel hardware error
+  /// @param error Mercury hardware error
   /// @return communication results which come from Protocol2PacketHandler::txRxPacket()
   ////////////////////////////////////////////////////////////////////////////////
   int factoryReset    (PortHandler *port, uint8_t id, uint8_t option, uint8_t *error = 0);
@@ -209,7 +209,7 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @description It breaks out
   /// @description when it tries to transmit to BROADCAST_ID
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for read
   /// @param length Length of the data for read
   /// @return COMM_NOT_AVAILABLE
@@ -225,7 +225,7 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @param port PortHandler instance
   /// @param length Length of the data for read
   /// @param data Data extracted from the packet
-  /// @param error Dynamixel hardware error
+  /// @param error Mercury hardware error
   /// @return communication results which come from Protocol2PacketHandler::rxPacket()
   ////////////////////////////////////////////////////////////////////////////////
   int readRx          (PortHandler *port, uint8_t id, uint16_t length, uint8_t *data, uint8_t *error = 0);
@@ -238,11 +238,11 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @description It breaks out
   /// @description when it tries to transmit to BROADCAST_ID
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for read
   /// @param length Length of the data for read
   /// @param data Data extracted from the packet
-  /// @param error Dynamixel hardware error
+  /// @param error Mercury hardware error
   /// @return COMM_NOT_AVAILABLE
   /// @return   when it tries to transmit to BROADCAST_ID
   /// @return or the other communication results which come from Protocol2PacketHandler::txRxPacket()
@@ -253,7 +253,7 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @brief The function that calls Protocol2PacketHandler::readTx() function for reading 1 byte data
   /// @description The function calls Protocol2PacketHandler::readTx() function for reading 1 byte data
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for read
   /// @return communication results which come from Protocol2PacketHandler::readTx()
   ////////////////////////////////////////////////////////////////////////////////
@@ -265,7 +265,7 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @description gets 1 byte data from the packet.
   /// @param port PortHandler instance
   /// @param data Data extracted from the packet
-  /// @param error Dynamixel hardware error
+  /// @param error Mercury hardware error
   /// @return communication results which come from Protocol2PacketHandler::readRx()
   ////////////////////////////////////////////////////////////////////////////////
   int read1ByteRx     (PortHandler *port, uint8_t id, uint8_t *data, uint8_t *error = 0);
@@ -275,11 +275,11 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @description The function calls Protocol2PacketHandler::readTxRx(),
   /// @description gets 1 byte data from the packet.
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for read
   /// @param length Length of the data for read
   /// @param data Data extracted from the packet
-  /// @param error Dynamixel hardware error
+  /// @param error Mercury hardware error
   /// @return communication results which come from Protocol2PacketHandler::txRxPacket()
   ////////////////////////////////////////////////////////////////////////////////
   int read1ByteTxRx       (PortHandler *port, uint8_t id, uint16_t address, uint8_t *data, uint8_t *error = 0);
@@ -288,7 +288,7 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @brief The function that calls Protocol2PacketHandler::readTx() function for reading 2 byte data
   /// @description The function calls Protocol2PacketHandler::readTx() function for reading 2 byte data
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for read
   /// @return communication results which come from Protocol2PacketHandler::readTx()
   ////////////////////////////////////////////////////////////////////////////////
@@ -300,7 +300,7 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @description gets 2 byte data from the packet.
   /// @param port PortHandler instance
   /// @param data Data extracted from the packet
-  /// @param error Dynamixel hardware error
+  /// @param error Mercury hardware error
   /// @return communication results which come from Protocol2PacketHandler::readRx()
   ////////////////////////////////////////////////////////////////////////////////
   int read2ByteRx     (PortHandler *port, uint8_t id, uint16_t *data, uint8_t *error = 0);
@@ -310,11 +310,11 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @description The function calls Protocol2PacketHandler::readTxRx(),
   /// @description gets 2 byte data from the packet.
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for read
   /// @param length Length of the data for read
   /// @param data Data extracted from the packet
-  /// @param error Dynamixel hardware error
+  /// @param error Mercury hardware error
   /// @return communication results which come from Protocol2PacketHandler::txRxPacket()
   ////////////////////////////////////////////////////////////////////////////////
   int read2ByteTxRx       (PortHandler *port, uint8_t id, uint16_t address, uint16_t *data, uint8_t *error = 0);
@@ -323,7 +323,7 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @brief The function that calls Protocol2PacketHandler::readTx() function for reading 4 byte data
   /// @description The function calls Protocol2PacketHandler::readTx() function for reading 4 byte data
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for read
   /// @return communication results which come from Protocol2PacketHandler::readTx()
   ////////////////////////////////////////////////////////////////////////////////
@@ -335,7 +335,7 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @description gets 4 byte data from the packet.
   /// @param port PortHandler instance
   /// @param data Data extracted from the packet
-  /// @param error Dynamixel hardware error
+  /// @param error Mercury hardware error
   /// @return communication results which come from Protocol2PacketHandler::readRx()
   ////////////////////////////////////////////////////////////////////////////////
   int read4ByteRx     (PortHandler *port, uint8_t id, uint32_t *data, uint8_t *error = 0);
@@ -345,11 +345,11 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @description The function calls Protocol2PacketHandler::readTxRx(),
   /// @description gets 4 byte data from the packet.
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for read
   /// @param length Length of the data for read
   /// @param data Data extracted from the packet
-  /// @param error Dynamixel hardware error
+  /// @param error Mercury hardware error
   /// @return communication results which come from Protocol2PacketHandler::txRxPacket()
   ////////////////////////////////////////////////////////////////////////////////
   int read4ByteTxRx       (PortHandler *port, uint8_t id, uint16_t address, uint32_t *data, uint8_t *error = 0);
@@ -359,7 +359,7 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @description The function makes an instruction packet with INST_WRITE and the data for write,
   /// @description transmits the packet with Protocol2PacketHandler::txPacket().
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for write
   /// @param length Length of the data for write
   /// @param data Data for write
@@ -373,11 +373,11 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @description transmits and receives the packet with Protocol2PacketHandler::txRxPacket(),
   /// @description gets the error from the packet.
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for write
   /// @param length Length of the data for write
   /// @param data Data for write
-  /// @param error Dynamixel hardware error
+  /// @param error Mercury hardware error
   /// @return communication results which come from Protocol2PacketHandler::txRxPacket()
   ////////////////////////////////////////////////////////////////////////////////
   int writeTxRx           (PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error = 0);
@@ -386,7 +386,7 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @brief The function that calls Protocol2PacketHandler::writeTxOnly() for writing 1 byte data
   /// @description The function calls Protocol2PacketHandler::writeTxOnly() for writing 1 byte data.
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for write
   /// @param data Data for write
   /// @return communication results which come from Protocol2PacketHandler::writeTxOnly()
@@ -398,10 +398,10 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @description The function calls Protocol2PacketHandler::writeTxRx() for writing 1 byte data and receves the packet,
   /// @description gets the error from the packet.
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for write
   /// @param data Data for write
-  /// @param error Dynamixel hardware error
+  /// @param error Mercury hardware error
   /// @return communication results which come from Protocol2PacketHandler::writeTxRx()
   ////////////////////////////////////////////////////////////////////////////////
   int write1ByteTxRx      (PortHandler *port, uint8_t id, uint16_t address, uint8_t data, uint8_t *error = 0);
@@ -410,7 +410,7 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @brief The function that calls Protocol2PacketHandler::writeTxOnly() for writing 2 byte data
   /// @description The function calls Protocol2PacketHandler::writeTxOnly() for writing 2 byte data.
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for write
   /// @param data Data for write
   /// @return communication results which come from Protocol2PacketHandler::writeTxOnly()
@@ -422,10 +422,10 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @description The function calls Protocol2PacketHandler::writeTxRx() for writing 2 byte data and receves the packet,
   /// @description gets the error from the packet.
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for write
   /// @param data Data for write
-  /// @param error Dynamixel hardware error
+  /// @param error Mercury hardware error
   /// @return communication results which come from Protocol2PacketHandler::writeTxRx()
   ////////////////////////////////////////////////////////////////////////////////
   int write2ByteTxRx      (PortHandler *port, uint8_t id, uint16_t address, uint16_t data, uint8_t *error = 0);
@@ -434,7 +434,7 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @brief The function that calls Protocol2PacketHandler::writeTxOnly() for writing 4 byte data
   /// @description The function calls Protocol2PacketHandler::writeTxOnly() for writing 4 byte data.
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for write
   /// @param data Data for write
   /// @return communication results which come from Protocol2PacketHandler::writeTxOnly()
@@ -446,21 +446,21 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   /// @description The function calls Protocol2PacketHandler::writeTxRx() for writing 4 byte data and receves the packet,
   /// @description gets the error from the packet.
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for write
   /// @param data Data for write
-  /// @param error Dynamixel hardware error
+  /// @param error Mercury hardware error
   /// @return communication results which come from Protocol2PacketHandler::writeTxRx()
   ////////////////////////////////////////////////////////////////////////////////
   int write4ByteTxRx      (PortHandler *port, uint8_t id, uint16_t address, uint32_t data, uint8_t *error = 0);
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Dynamixel register
-  /// @description The function makes an instruction packet with INST_REG_WRITE and the data for writing on the Dynamixel register,
+  /// @brief The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Mercury register
+  /// @description The function makes an instruction packet with INST_REG_WRITE and the data for writing on the Mercury register,
   /// @description transmits the packet with Protocol2PacketHandler::txPacket().
-  /// @description The data written in the register will act when INST_ACTION instruction packet is transmitted to the Dynamixel.
+  /// @description The data written in the register will act when INST_ACTION instruction packet is transmitted to the Mercury.
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for write
   /// @param length Length of the data for write
   /// @param data Data for write
@@ -469,17 +469,17 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   int regWriteTxOnly  (PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data);
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Dynamixel register, and receives the packet
-  /// @description The function makes an instruction packet with INST_REG_WRITE and the data for writing on the Dynamixel register,
+  /// @brief The function that transmits INST_REG_WRITE instruction packet with the data for writing on the Mercury register, and receives the packet
+  /// @description The function makes an instruction packet with INST_REG_WRITE and the data for writing on the Mercury register,
   /// @description transmits and receives the packet with Protocol2PacketHandler::txRxPacket(),
   /// @description gets the error from the packet.
-  /// @description The data written in the register will act when INST_ACTION instruction packet is transmitted to the Dynamixel.
+  /// @description The data written in the register will act when INST_ACTION instruction packet is transmitted to the Mercury.
   /// @param port PortHandler instance
-  /// @param id Dynamixel ID
+  /// @param id Mercury ID
   /// @param address Address of the data for write
   /// @param length Length of the data for write
   /// @param data Data for write
-  /// @param error Dynamixel hardware error
+  /// @param error Mercury hardware error
   /// @return communication results which come from Protocol2PacketHandler::txRxPacket()
   ////////////////////////////////////////////////////////////////////////////////
   int regWriteTxRx        (PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error = 0);

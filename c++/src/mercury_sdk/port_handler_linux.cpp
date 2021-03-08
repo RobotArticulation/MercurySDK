@@ -1,7 +1,7 @@
 /*******************************************************************************
 * Copyright (C) 2021 <Robot Articulation/code@robotarticulation.com> 
 *
-* Source files modified to support the ercury range of digital servo motors from Robot Articulation
+* Source files modified to support the Mercury range of digital servo motors from Robot Articulation
 *******************************************************************************/
 
 /*******************************************************************************
@@ -57,9 +57,6 @@
                            // $ sudo udevadm control --reload-rules
                            // $ sudo udevadm trigger --action=add
                            // $ cat /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
-                           //
-                           // or if you have another good idea that can be an alternatives,
-                           // please give us advice via github issue https://github.com/ROBOTIS-GIT/DynamixelSDK/issues
 
 using namespace mercury;
 

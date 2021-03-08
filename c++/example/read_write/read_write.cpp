@@ -1,4 +1,10 @@
 /*******************************************************************************
+* Copyright (C) 2021 <Robot Articulation/code@robotarticulation.com> 
+*
+* Source files modified to support the Mercury range of digital servo motors from Robot Articulation
+*******************************************************************************/
+
+/*******************************************************************************
 * Copyright 2017 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +20,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Author: Ryu Woon Jung (Leon) */
+/* Original author: Zerom, Leon (RyuWoon Jung) */
 
 //
 // *********     Read and Write Example      *********
@@ -35,23 +41,23 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "mercury_sdk.h"                                  // Uses Dynamixel SDK library
+#include "mercury_sdk.h"                                  // Uses Mercury SDK library
 
 #define ADDR_MX_TORQUE_ENABLE           0x30                // Mercury Control table register addresses
 #define ADDR_MX_GOAL_POSITION           0x4e
 #define ADDR_MX_PRESENT_POSITION        0x56
 
 // Default setting
-#define DXL_ID                          1                   // Mercury ID: 1
+#define MCY_ID                          1                   // Mercury ID: 1
 #define BAUDRATE                        1000000
 #define DEVICENAME                      "/dev/ttyACM0"      // Check which port is being used on your controller
                                                             // ex) Windows: "COM1"   Linux: "/dev/ttyUSB0" Mac: "/dev/tty.usbserial-*"
 
 #define TORQUE_ENABLE                   1                   // Value for enabling the torque
 #define TORQUE_DISABLE                  0                   // Value for disabling the torque
-#define DXL_MINIMUM_POSITION_VALUE      100                 // Dynamixel will rotate between this value
-#define DXL_MAXIMUM_POSITION_VALUE      400                // and this value (note that the Dynamixel would not move when the position value is out of movable range. Check e-manual about the range of the Dynamixel you use.)
-#define DXL_MOVING_STATUS_THRESHOLD     2                  // Dynamixel moving status threshold
+#define MCY_MINIMUM_POSITION_VALUE      100                 // Mercury will rotate between this value
+#define MCY_MAXIMUM_POSITION_VALUE      400                // and this value (note that the Mercury would not move when the position value is out of movable range. Check e-manual about the range of the Mercury you use.)
+#define MCY_MOVING_STATUS_THRESHOLD     2                  // Mercury moving status threshold
 
 #define ESC_ASCII_VALUE                 0x1b
 
@@ -116,11 +122,11 @@ int main()
   mercury::PacketHandler *packetHandler = mercury::PacketHandler::getPacketHandler();
 
   int index = 0;
-  int dxl_comm_result = COMM_TX_FAIL;             // Communication result
-  int dxl_goal_position[2] = {DXL_MINIMUM_POSITION_VALUE, DXL_MAXIMUM_POSITION_VALUE};         // Goal position
+  int mcy_comm_result = COMM_TX_FAIL;             // Communication result
+  int mcy_goal_position[2] = {MCY_MINIMUM_POSITION_VALUE, MCY_MAXIMUM_POSITION_VALUE};         // Goal position
 
-  uint8_t dxl_error = 0;                          // Dynamixel error
-  uint32_t dxl_present_position = 0;              // Present position
+  uint8_t mcy_error = 0;                          // Mercury error
+  uint32_t mcy_present_position = 0;              // Present position
 
   // Open port
   if (portHandler->openPort())
@@ -148,15 +154,15 @@ int main()
     return 0;
   }
 
-  // Enable Dynamixel Torque
-  dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, DXL_ID, ADDR_MX_TORQUE_ENABLE, TORQUE_ENABLE, &dxl_error);
-  if (dxl_comm_result != COMM_SUCCESS)
+  // Enable Mercury Torque
+  mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_MX_TORQUE_ENABLE, TORQUE_ENABLE, &mcy_error);
+  if (mcy_comm_result != COMM_SUCCESS)
   {
-    printf("%s\n", packetHandler->getTxRxResult(dxl_comm_result));
+    printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
   }
-  else if (dxl_error != 0)
+  else if (mcy_error != 0)
   {
-    printf("%s\n", packetHandler->getRxPacketError(dxl_error));
+    printf("%s\n", packetHandler->getRxPacketError(mcy_error));
   }
   else
   {
@@ -170,14 +176,14 @@ int main()
       break;
 
     // Write goal position
-    dxl_comm_result = packetHandler->write4ByteTxRx(portHandler, DXL_ID, ADDR_MX_GOAL_POSITION, dxl_goal_position[index], &dxl_error);
-    if (dxl_comm_result != COMM_SUCCESS)
+    mcy_comm_result = packetHandler->write4ByteTxRx(portHandler, MCY_ID, ADDR_MX_GOAL_POSITION, mcy_goal_position[index], &mcy_error);
+    if (mcy_comm_result != COMM_SUCCESS)
     {
-      printf("%s\n", packetHandler->getTxRxResult(dxl_comm_result));
+      printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
     }
-    else if (dxl_error != 0)
+    else if (mcy_error != 0)
     {
-      printf("%s\n", packetHandler->getRxPacketError(dxl_error));
+      printf("%s\n", packetHandler->getRxPacketError(mcy_error));
     }
 
     do
@@ -187,19 +193,19 @@ int main()
 #endif
 
       // Read present position
-      dxl_comm_result = packetHandler->read4ByteTxRx(portHandler, DXL_ID, ADDR_MX_PRESENT_POSITION, &dxl_present_position, &dxl_error);
-      if (dxl_comm_result != COMM_SUCCESS)
+      mcy_comm_result = packetHandler->read4ByteTxRx(portHandler, MCY_ID, ADDR_MX_PRESENT_POSITION, &mcy_present_position, &mcy_error);
+      if (mcy_comm_result != COMM_SUCCESS)
       {
-        printf("%s\n", packetHandler->getTxRxResult(dxl_comm_result));
+        printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
       }
-      else if (dxl_error != 0)
+      else if (mcy_error != 0)
       {
-        printf("%s\n", packetHandler->getRxPacketError(dxl_error));
+        printf("%s\n", packetHandler->getRxPacketError(mcy_error));
       }
 
-      printf("[ID:%03d] GoalPos:%03d  PresPos:%03d\n", DXL_ID, dxl_goal_position[index], dxl_present_position);
+      printf("[ID:%03d] GoalPos:%03d  PresPos:%03d\n", MCY_ID, mcy_goal_position[index], mcy_present_position);
 
-    }while((labs(dxl_goal_position[index] - dxl_present_position) > DXL_MOVING_STATUS_THRESHOLD));
+    }while((labs(mcy_goal_position[index] - mcy_present_position) > MCY_MOVING_STATUS_THRESHOLD));
 
     // Change goal position
     if (index == 0)
@@ -212,15 +218,15 @@ int main()
     }
   }
 
-  // Disable Dynamixel Torque
-  dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, DXL_ID, ADDR_MX_TORQUE_ENABLE, TORQUE_DISABLE, &dxl_error);
-  if (dxl_comm_result != COMM_SUCCESS)
+  // Disable Mercury Torque
+  mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_MX_TORQUE_ENABLE, TORQUE_DISABLE, &mcy_error);
+  if (mcy_comm_result != COMM_SUCCESS)
   {
-    printf("%s\n", packetHandler->getTxRxResult(dxl_comm_result));
+    printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
   }
-  else if (dxl_error != 0)
+  else if (mcy_error != 0)
   {
-    printf("%s\n", packetHandler->getRxPacketError(dxl_error));
+    printf("%s\n", packetHandler->getRxPacketError(mcy_error));
   }
 
   // Close port

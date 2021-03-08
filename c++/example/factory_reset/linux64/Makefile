@@ -3,7 +3,7 @@
 ##################################################
 
 ##################################################
-# Note - this is a modified version of the Dynamixel SDK factor_reset example
+# Note - this is a modified version of the Dynamixel SDK factory_reset example
 # Original AUTHOR : ROBOTIS Ltd.
 ##################################################
 

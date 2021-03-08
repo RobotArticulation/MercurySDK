@@ -1,4 +1,10 @@
 /*******************************************************************************
+* Copyright (C) 2021 <Robot Articulation/code@robotarticulation.com> 
+*
+* Source files modified to support the Mercury range of digital servo motors from Robot Articulation
+*******************************************************************************/
+
+/*******************************************************************************
 * Copyright 2017 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +20,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Author: Ryu Woon Jung (Leon) */
+/* Original author: Zerom, Leon (RyuWoon Jung) */
 
 //
 // *********     Factory Reset Example      *********
@@ -35,16 +41,16 @@
 #include "mercury_sdk.h"                                  // Uses Mercury SDK library
 
 // Control table address
-#define ADDR_PRO_BAUDRATE               4                   // Control table address is different in Dynamixel model
+#define ADDR_PRO_BAUDRATE               4                   // Control table address is different in Mercury model
 
 // Default setting
-#define DXL_ID                          1                   // Dynamixel ID: 1
+#define MCY_ID                          1                   // Mercury ID: 1
 #define BAUDRATE                        1000000
 #define DEVICENAME                      "/dev/ttyACM0"      // Check which port is being used on your controller
                                                             // ex) Windows: "COM1"   Linux: "/dev/ttyUSB0" Mac: "/dev/tty.usbserial-*"
 
-#define FACTORYRST_DEFAULTBAUDRATE      1000000             // Dynamixel baudrate set by factoryreset
-#define NEW_BAUDNUM                     3                   // New baudnum to recover Dynamixel baudrate as it was
+#define FACTORYRST_DEFAULTBAUDRATE      1000000             // Mercury baudrate set by factoryreset
+#define NEW_BAUDNUM                     3                   // New baudnum to recover Mercury baudrate as it was
 #define OPERATION_MODE                  0x01                // 0xFF : reset all values
                                                             // 0x01 : reset all values except ID
                                                             // 0x02 : reset all values except ID and baudrate
@@ -118,10 +124,10 @@ int main()
   // Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
   mercury::PacketHandler *packetHandler = mercury::PacketHandler::getPacketHandler();
 
-  int dxl_comm_result = COMM_TX_FAIL;             // Communication result
+  int mcy_comm_result = COMM_TX_FAIL;             // Communication result
 
-  uint8_t dxl_error = 0;                          // Dynamixel error
-  uint8_t dxl_baudnum_read;                       // Read baudnum
+  uint8_t mcy_error = 0;                          // Mercury error
+  uint8_t mcy_baudnum_read;                       // Read baudnum
 
   // Open port
   if (portHandler->openPort())
@@ -153,26 +159,26 @@ int main()
   printf("Now the controller baudrate is : %d\n", portHandler->getBaudRate());
 
   // Try factoryreset
-  printf("[ID:%03d] Try factoryreset : ", DXL_ID);
-  dxl_comm_result = packetHandler->factoryReset(portHandler, DXL_ID, OPERATION_MODE, &dxl_error);
-  if (dxl_comm_result != COMM_SUCCESS)
+  printf("[ID:%03d] Try factoryreset : ", MCY_ID);
+  mcy_comm_result = packetHandler->factoryReset(portHandler, MCY_ID, OPERATION_MODE, &mcy_error);
+  if (mcy_comm_result != COMM_SUCCESS)
   {
     printf("Aborted\n");
-    printf("%s\n", packetHandler->getTxRxResult(dxl_comm_result));
+    printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
     return 0;
   }
-  else if (dxl_error != 0)
+  else if (mcy_error != 0)
   {
-    printf("%s\n", packetHandler->getRxPacketError(dxl_error));
+    printf("%s\n", packetHandler->getRxPacketError(mcy_error));
   }
   
   // Wait for reset
   printf("Wait for reset...\n");
   msecSleep(2000);
 
-  printf("[ID:%03d] factoryReset Success!\n", DXL_ID);
+  printf("[ID:%03d] factoryReset Success!\n", MCY_ID);
 
-  // Set controller baudrate to Dynamixel default baudrate
+  // Set controller baudrate to Mercury default baudrate
   if (portHandler->setBaudRate(FACTORYRST_DEFAULTBAUDRATE))
   {
     printf("Succeed to change the controller baudrate to : %d\n", FACTORYRST_DEFAULTBAUDRATE);
@@ -185,34 +191,34 @@ int main()
     return 0;
   }
 
-  // Read Dynamixel baudnum
-  dxl_comm_result = packetHandler->read1ByteTxRx(portHandler, DXL_ID, ADDR_PRO_BAUDRATE, &dxl_baudnum_read, &dxl_error);
-  if (dxl_comm_result != COMM_SUCCESS)
+  // Read Mercury baudnum
+  mcy_comm_result = packetHandler->read1ByteTxRx(portHandler, MCY_ID, ADDR_PRO_BAUDRATE, &mcy_baudnum_read, &mcy_error);
+  if (mcy_comm_result != COMM_SUCCESS)
   {
-    printf("%s\n", packetHandler->getTxRxResult(dxl_comm_result));
+    printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
   }
-  else if (dxl_error != 0)
+  else if (mcy_error != 0)
   {
-    printf("%s\n", packetHandler->getRxPacketError(dxl_error));
+    printf("%s\n", packetHandler->getRxPacketError(mcy_error));
   }
   else
   {
-    printf("[ID:%03d] DXL baudnum is now : %d\n", DXL_ID, dxl_baudnum_read);
+    printf("[ID:%03d] DXL baudnum is now : %d\n", MCY_ID, mcy_baudnum_read);
   }
 
   // Write new baudnum
-  dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, DXL_ID, ADDR_PRO_BAUDRATE, NEW_BAUDNUM, &dxl_error);
-  if (dxl_comm_result != COMM_SUCCESS)
+  mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_PRO_BAUDRATE, NEW_BAUDNUM, &mcy_error);
+  if (mcy_comm_result != COMM_SUCCESS)
   {
-    printf("%s\n", packetHandler->getTxRxResult(dxl_comm_result));
+    printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
   }
-  else if (dxl_error != 0)
+  else if (mcy_error != 0)
   {
-    printf("%s\n", packetHandler->getRxPacketError(dxl_error));
+    printf("%s\n", packetHandler->getRxPacketError(mcy_error));
   }
   else
   {
-    printf("[ID:%03d] Set Dynamixel baudnum to : %d\n", DXL_ID, NEW_BAUDNUM);
+    printf("[ID:%03d] Set Mercury baudnum to : %d\n", MCY_ID, NEW_BAUDNUM);
   }
 
   // Set port baudrate to BAUDRATE
@@ -230,19 +236,19 @@ int main()
 
   msecSleep(200);
 
-  // Read Dynamixel baudnum
-  dxl_comm_result = packetHandler->read1ByteTxRx(portHandler, DXL_ID, ADDR_PRO_BAUDRATE, &dxl_baudnum_read, &dxl_error);
-  if (dxl_comm_result != COMM_SUCCESS)
+  // Read Mercury baudnum
+  mcy_comm_result = packetHandler->read1ByteTxRx(portHandler, MCY_ID, ADDR_PRO_BAUDRATE, &mcy_baudnum_read, &mcy_error);
+  if (mcy_comm_result != COMM_SUCCESS)
   {
-    printf("%s\n", packetHandler->getTxRxResult(dxl_comm_result));
+    printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
   }
-  else if (dxl_error != 0)
+  else if (mcy_error != 0)
   {
-    printf("%s\n", packetHandler->getRxPacketError(dxl_error));
+    printf("%s\n", packetHandler->getRxPacketError(mcy_error));
   }
   else
   {
-    printf("[ID:%03d] Dynamixel Baudnum is now : %d\n", DXL_ID, dxl_baudnum_read);
+    printf("[ID:%03d] Mercury Baudnum is now : %d\n", MCY_ID, mcy_baudnum_read);
   }
 
   // Close port

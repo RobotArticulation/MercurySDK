@@ -1,7 +1,7 @@
 /*******************************************************************************
 * Copyright (C) 2021 <Robot Articulation/code@robotarticulation.com> 
 *
-* Source files modified to support the ercury range of digital servo motors from Robot Articulation
+* Source files modified to support the Mercury range of digital servo motors from Robot Articulation
 *******************************************************************************/
 
 /*******************************************************************************

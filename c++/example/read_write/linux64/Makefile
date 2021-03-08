@@ -3,7 +3,7 @@
 ##################################################
 
 ##################################################
-# Note - this is a modified version of the Dynamixel SDK ping example
+# Note - this is a modified version of the Dynamixel SDK read_write example
 # Original AUTHOR : ROBOTIS Ltd.
 ##################################################
 
