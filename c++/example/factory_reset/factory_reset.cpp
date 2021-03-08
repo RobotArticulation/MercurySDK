@@ -19,14 +19,7 @@
 //
 // *********     Factory Reset Example      *********
 //
-//
-// Available Dynamixel model on this example : All models using Protocol 2.0
-// This example is tested with a Dynamixel PRO 54-200, and an USB2DYNAMIXEL
-// Be sure that Dynamixel PRO properties are already set as %% ID : 1 / Baudnum : 1 (Baudrate : 57600)
-//
-
-// Be aware that:
-// This example resets all properties of Dynamixel to default values, such as %% ID : 1 / Baudnum : 1 (Baudrate : 57600)
+// This example was tested with a Mercury M65, and a USB2Mercury
 //
 
 #if defined(__linux__) || defined(__APPLE__)
@@ -118,12 +111,12 @@ int main()
   // Initialize PortHandler instance
   // Set the port path
   // Get methods and members of PortHandlerLinux or PortHandlerWindows
-  dynamixel::PortHandler *portHandler = dynamixel::PortHandler::getPortHandler(DEVICENAME);
+  mercury::PortHandler *portHandler = mercury::PortHandler::getPortHandler(DEVICENAME);
 
   // Initialize PacketHandler instance
   // Set the protocol version
   // Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
-  dynamixel::PacketHandler *packetHandler = dynamixel::PacketHandler::getPacketHandler();
+  mercury::PacketHandler *packetHandler = mercury::PacketHandler::getPacketHandler();
 
   int dxl_comm_result = COMM_TX_FAIL;             // Communication result
 
