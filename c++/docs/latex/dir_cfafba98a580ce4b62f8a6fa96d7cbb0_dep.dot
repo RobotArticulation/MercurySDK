@@ -1,0 +1,20 @@
+digraph "example" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_cfafba98a580ce4b62f8a6fa96d7cbb0 {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_cfafba98a580ce4b62f8a6fa96d7cbb0.html"];
+    dir_cfafba98a580ce4b62f8a6fa96d7cbb0 [shape=plaintext label="example"];
+    dir_316bd9d9469a324f399524aa5a873105 [shape=box label="action" color="black" fillcolor="white" style="filled" URL="dir_316bd9d9469a324f399524aa5a873105.html"];
+    dir_9be1d918521237f25c80d453cb636123 [shape=box label="factory_reset" color="black" fillcolor="white" style="filled" URL="dir_9be1d918521237f25c80d453cb636123.html"];
+    dir_9b47d53d3cfac1ab4e55cf4a7fa96ce2 [shape=box label="ping" color="black" fillcolor="white" style="filled" URL="dir_9b47d53d3cfac1ab4e55cf4a7fa96ce2.html"];
+    dir_d34b74cac8777047891976844082c1d5 [shape=box label="read_write" color="black" fillcolor="white" style="filled" URL="dir_d34b74cac8777047891976844082c1d5.html"];
+    dir_cbcd2f099b954654dfa34b6022435d31 [shape=box label="reg_write" color="black" fillcolor="white" style="filled" URL="dir_cbcd2f099b954654dfa34b6022435d31.html"];
+  }
+  dir_d44c64559bbebec7f509842c48db8b23 [shape=box label="include" fillcolor="white" style="filled" color="red" URL="dir_d44c64559bbebec7f509842c48db8b23.html"];
+  dir_316bd9d9469a324f399524aa5a873105->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="1", labeldistance=1.5 headhref="dir_000001_000006.html"];
+  dir_d34b74cac8777047891976844082c1d5->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="1", labeldistance=1.5 headhref="dir_000004_000006.html"];
+  dir_9be1d918521237f25c80d453cb636123->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="1", labeldistance=1.5 headhref="dir_000002_000006.html"];
+  dir_9b47d53d3cfac1ab4e55cf4a7fa96ce2->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="1", labeldistance=1.5 headhref="dir_000003_000006.html"];
+  dir_cbcd2f099b954654dfa34b6022435d31->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="1", labeldistance=1.5 headhref="dir_000005_000006.html"];
+}

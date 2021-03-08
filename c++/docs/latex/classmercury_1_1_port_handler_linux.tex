@@ -1,0 +1,344 @@
+\hypertarget{classmercury_1_1_port_handler_linux}{}\doxysection{mercury\+::Port\+Handler\+Linux Class Reference}
+\label{classmercury_1_1_port_handler_linux}\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+
+
+The class for control port in Linux.  
+
+
+
+
+{\ttfamily \#include $<$port\+\_\+handler\+\_\+linux.\+h$>$}
+
+
+
+Inheritance diagram for mercury\+::Port\+Handler\+Linux\+:
+% FIG 0
+
+
+Collaboration diagram for mercury\+::Port\+Handler\+Linux\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmercury_1_1_port_handler_linux_ac47ba79fd979eaaf39c89f6cfb5aada6}{Port\+Handler\+Linux}} (const char $\ast$port\+\_\+name)
+\begin{DoxyCompactList}\small\item\em The function that initializes instance of \mbox{\hyperlink{classmercury_1_1_port_handler}{Port\+Handler}} and gets port\+\_\+name @description The function initializes instance of \mbox{\hyperlink{classmercury_1_1_port_handler}{Port\+Handler}} and gets port\+\_\+name. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classmercury_1_1_port_handler_linux_ad950209aa592c09365d824ae1f21b28d}{$\sim$\+Port\+Handler\+Linux}} ()
+\begin{DoxyCompactList}\small\item\em The function that closes the port @description The function calls \mbox{\hyperlink{classmercury_1_1_port_handler_linux_ab224a54b1137daa5b542eb6ad38491da}{Port\+Handler\+Linux\+::close\+Port()}} to close the port. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmercury_1_1_port_handler_linux_aa28ad8fa7617a396f5fd347e716af964}{open\+Port}} ()
+\begin{DoxyCompactList}\small\item\em The function that opens the port @description The function calls \mbox{\hyperlink{classmercury_1_1_port_handler_linux_a31c5d6a569cec58d20f9041f100a637c}{Port\+Handler\+Linux\+::set\+Baud\+Rate()}} to open the port. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmercury_1_1_port_handler_linux_ab224a54b1137daa5b542eb6ad38491da}{close\+Port}} ()
+\begin{DoxyCompactList}\small\item\em The function that closes the port @description The function closes the port. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmercury_1_1_port_handler_linux_a13b3b62f0ba3b441e20c91ca0ccbc311}{clear\+Port}} ()
+\begin{DoxyCompactList}\small\item\em The function that clears the port @description The function clears the port. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmercury_1_1_port_handler_linux_a91530ad73312a7c3a8e52c219d2b04f5}{set\+Port\+Name}} (const char $\ast$port\+\_\+name)
+\begin{DoxyCompactList}\small\item\em The function that sets port name into the port handler @description The function sets port name into the port handler. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{classmercury_1_1_port_handler_linux_a2bfe34d53f78e0266de06e9cd4e58193}{get\+Port\+Name}} ()
+\begin{DoxyCompactList}\small\item\em The function that returns port name set into the port handler @description The function returns current port name set into the port handler. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmercury_1_1_port_handler_linux_a31c5d6a569cec58d20f9041f100a637c}{set\+Baud\+Rate}} (const int baudrate)
+\begin{DoxyCompactList}\small\item\em The function that sets baudrate into the port handler @description The function sets baudrate into the port handler. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classmercury_1_1_port_handler_linux_aa2deb65e4f97877e9d1b4b84c7b4d433}{get\+Baud\+Rate}} ()
+\begin{DoxyCompactList}\small\item\em The function that returns current baudrate set into the port handler @description The function returns current baudrate set into the port handler. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classmercury_1_1_port_handler_linux_a632cebf3de5cd02825ba3493f47e28fa}{get\+Bytes\+Available}} ()
+\begin{DoxyCompactList}\small\item\em The function that checks how much bytes are able to be read from the port buffer @description The function checks how much bytes are able to be read from the port buffer @description and returns the number. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classmercury_1_1_port_handler_linux_ac4667b4e9350fffa2163ee547cce1b88}{read\+Port}} (uint8\+\_\+t $\ast$packet, int length)
+\begin{DoxyCompactList}\small\item\em The function that reads bytes from the port buffer @description The function gets bytes from the port buffer, @description and returns a number of bytes read. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classmercury_1_1_port_handler_linux_af9688d8e104e1a083958347091f234d7}{write\+Port}} (uint8\+\_\+t $\ast$packet, int length)
+\begin{DoxyCompactList}\small\item\em The function that writes bytes on the port buffer @description The function writes bytes on the port buffer, @description and returns a number of bytes which are successfully written. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmercury_1_1_port_handler_linux_a3b3e75d2f295fb4453b2f5a531110c7e}{set\+Packet\+Timeout}} (uint16\+\_\+t packet\+\_\+length)
+\begin{DoxyCompactList}\small\item\em The function that sets and starts stopwatch for watching packet timeout @description The function sets the stopwatch by getting current time and the time of packet timeout with packet\+\_\+length. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmercury_1_1_port_handler_linux_af998c701488acf2581dbc5f5a36a3588}{set\+Packet\+Timeout}} (double msec)
+\begin{DoxyCompactList}\small\item\em The function that sets and starts stopwatch for watching packet timeout @description The function sets the stopwatch by getting current time and the time of packet timeout with msec. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmercury_1_1_port_handler_linux_a389d65f59f704306acda863748638918}{is\+Packet\+Timeout}} ()
+\begin{DoxyCompactList}\small\item\em The function that checks whether packet timeout is occurred @description The function checks whether current time is passed by the time of packet timeout from the time set by \mbox{\hyperlink{classmercury_1_1_port_handler_linux_a3b3e75d2f295fb4453b2f5a531110c7e}{Port\+Handler\+Linux\+::set\+Packet\+Timeout()}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The class for control port in Linux. 
+
+Definition at line 54 of file port\+\_\+handler\+\_\+linux.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_ac47ba79fd979eaaf39c89f6cfb5aada6}\label{classmercury_1_1_port_handler_linux_ac47ba79fd979eaaf39c89f6cfb5aada6}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!PortHandlerLinux@{PortHandlerLinux}}
+\index{PortHandlerLinux@{PortHandlerLinux}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{PortHandlerLinux()}{PortHandlerLinux()}}
+{\footnotesize\ttfamily mercury\+::\+Port\+Handler\+Linux\+::\+Port\+Handler\+Linux (\begin{DoxyParamCaption}\item[{const char $\ast$}]{port\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+The function that initializes instance of \mbox{\hyperlink{classmercury_1_1_port_handler}{Port\+Handler}} and gets port\+\_\+name @description The function initializes instance of \mbox{\hyperlink{classmercury_1_1_port_handler}{Port\+Handler}} and gets port\+\_\+name. 
+
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_ad950209aa592c09365d824ae1f21b28d}\label{classmercury_1_1_port_handler_linux_ad950209aa592c09365d824ae1f21b28d}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!````~PortHandlerLinux@{$\sim$PortHandlerLinux}}
+\index{````~PortHandlerLinux@{$\sim$PortHandlerLinux}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{$\sim$PortHandlerLinux()}{~PortHandlerLinux()}}
+{\footnotesize\ttfamily virtual mercury\+::\+Port\+Handler\+Linux\+::$\sim$\+Port\+Handler\+Linux (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+The function that closes the port @description The function calls \mbox{\hyperlink{classmercury_1_1_port_handler_linux_ab224a54b1137daa5b542eb6ad38491da}{Port\+Handler\+Linux\+::close\+Port()}} to close the port. 
+
+
+
+Definition at line 101 of file port\+\_\+handler\+\_\+linux.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_a13b3b62f0ba3b441e20c91ca0ccbc311}\label{classmercury_1_1_port_handler_linux_a13b3b62f0ba3b441e20c91ca0ccbc311}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!clearPort@{clearPort}}
+\index{clearPort@{clearPort}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{clearPort()}{clearPort()}}
+{\footnotesize\ttfamily void mercury\+::\+Port\+Handler\+Linux\+::clear\+Port (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+The function that clears the port @description The function clears the port. 
+
+
+
+Implements \mbox{\hyperlink{classmercury_1_1_port_handler_accf37c8838c1ce3042a0127ceeb89c48}{mercury\+::\+Port\+Handler}}.
+
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_ab224a54b1137daa5b542eb6ad38491da}\label{classmercury_1_1_port_handler_linux_ab224a54b1137daa5b542eb6ad38491da}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!closePort@{closePort}}
+\index{closePort@{closePort}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{closePort()}{closePort()}}
+{\footnotesize\ttfamily void mercury\+::\+Port\+Handler\+Linux\+::close\+Port (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+The function that closes the port @description The function closes the port. 
+
+
+
+Implements \mbox{\hyperlink{classmercury_1_1_port_handler_ae23da4458668b517e96ee6f572ad3564}{mercury\+::\+Port\+Handler}}.
+
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_aa2deb65e4f97877e9d1b4b84c7b4d433}\label{classmercury_1_1_port_handler_linux_aa2deb65e4f97877e9d1b4b84c7b4d433}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!getBaudRate@{getBaudRate}}
+\index{getBaudRate@{getBaudRate}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{getBaudRate()}{getBaudRate()}}
+{\footnotesize\ttfamily int mercury\+::\+Port\+Handler\+Linux\+::get\+Baud\+Rate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+The function that returns current baudrate set into the port handler @description The function returns current baudrate set into the port handler. 
+
+\begin{DoxyReturn}{Returns}
+Baudrate 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classmercury_1_1_port_handler_a686c731714c095ac194847cd585643ea}{mercury\+::\+Port\+Handler}}.
+
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_a632cebf3de5cd02825ba3493f47e28fa}\label{classmercury_1_1_port_handler_linux_a632cebf3de5cd02825ba3493f47e28fa}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!getBytesAvailable@{getBytesAvailable}}
+\index{getBytesAvailable@{getBytesAvailable}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{getBytesAvailable()}{getBytesAvailable()}}
+{\footnotesize\ttfamily int mercury\+::\+Port\+Handler\+Linux\+::get\+Bytes\+Available (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+The function that checks how much bytes are able to be read from the port buffer @description The function checks how much bytes are able to be read from the port buffer @description and returns the number. 
+
+\begin{DoxyReturn}{Returns}
+Length of read-\/able bytes in the port buffer 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classmercury_1_1_port_handler_a2c0a25741b4b8d15e19e619ed7b5a148}{mercury\+::\+Port\+Handler}}.
+
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_a2bfe34d53f78e0266de06e9cd4e58193}\label{classmercury_1_1_port_handler_linux_a2bfe34d53f78e0266de06e9cd4e58193}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!getPortName@{getPortName}}
+\index{getPortName@{getPortName}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{getPortName()}{getPortName()}}
+{\footnotesize\ttfamily char$\ast$ mercury\+::\+Port\+Handler\+Linux\+::get\+Port\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+The function that returns port name set into the port handler @description The function returns current port name set into the port handler. 
+
+\begin{DoxyReturn}{Returns}
+Port name 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classmercury_1_1_port_handler_ab6e0df491f6a6b4f927401e60c0c9c5c}{mercury\+::\+Port\+Handler}}.
+
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_a389d65f59f704306acda863748638918}\label{classmercury_1_1_port_handler_linux_a389d65f59f704306acda863748638918}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!isPacketTimeout@{isPacketTimeout}}
+\index{isPacketTimeout@{isPacketTimeout}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{isPacketTimeout()}{isPacketTimeout()}}
+{\footnotesize\ttfamily bool mercury\+::\+Port\+Handler\+Linux\+::is\+Packet\+Timeout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+The function that checks whether packet timeout is occurred @description The function checks whether current time is passed by the time of packet timeout from the time set by \mbox{\hyperlink{classmercury_1_1_port_handler_linux_a3b3e75d2f295fb4453b2f5a531110c7e}{Port\+Handler\+Linux\+::set\+Packet\+Timeout()}}. 
+
+
+
+Implements \mbox{\hyperlink{classmercury_1_1_port_handler_a6733438255ede3d34738842e10cd8fc2}{mercury\+::\+Port\+Handler}}.
+
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_aa28ad8fa7617a396f5fd347e716af964}\label{classmercury_1_1_port_handler_linux_aa28ad8fa7617a396f5fd347e716af964}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!openPort@{openPort}}
+\index{openPort@{openPort}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{openPort()}{openPort()}}
+{\footnotesize\ttfamily bool mercury\+::\+Port\+Handler\+Linux\+::open\+Port (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+The function that opens the port @description The function calls \mbox{\hyperlink{classmercury_1_1_port_handler_linux_a31c5d6a569cec58d20f9041f100a637c}{Port\+Handler\+Linux\+::set\+Baud\+Rate()}} to open the port. 
+
+\begin{DoxyReturn}{Returns}
+communication results which come from \mbox{\hyperlink{classmercury_1_1_port_handler_linux_a31c5d6a569cec58d20f9041f100a637c}{Port\+Handler\+Linux\+::set\+Baud\+Rate()}} 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classmercury_1_1_port_handler_a5f65f9a73969cc170582da2d0e11f510}{mercury\+::\+Port\+Handler}}.
+
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_ac4667b4e9350fffa2163ee547cce1b88}\label{classmercury_1_1_port_handler_linux_ac4667b4e9350fffa2163ee547cce1b88}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!readPort@{readPort}}
+\index{readPort@{readPort}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{readPort()}{readPort()}}
+{\footnotesize\ttfamily int mercury\+::\+Port\+Handler\+Linux\+::read\+Port (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{packet,  }\item[{int}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+The function that reads bytes from the port buffer @description The function gets bytes from the port buffer, @description and returns a number of bytes read. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em packet} & Buffer for the packet received \\
+\hline
+{\em length} & Length of the buffer for read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 
+
+when error was occurred 
+
+or Length of bytes read 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classmercury_1_1_port_handler_afa6f52d7b95c5ffd8f0c92477d517c79}{mercury\+::\+Port\+Handler}}.
+
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_a31c5d6a569cec58d20f9041f100a637c}\label{classmercury_1_1_port_handler_linux_a31c5d6a569cec58d20f9041f100a637c}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!setBaudRate@{setBaudRate}}
+\index{setBaudRate@{setBaudRate}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{setBaudRate()}{setBaudRate()}}
+{\footnotesize\ttfamily bool mercury\+::\+Port\+Handler\+Linux\+::set\+Baud\+Rate (\begin{DoxyParamCaption}\item[{const int}]{baudrate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+The function that sets baudrate into the port handler @description The function sets baudrate into the port handler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em baudrate} & Baudrate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+false 
+
+when error was occurred during port opening 
+
+or true 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classmercury_1_1_port_handler_a663168c32580a532ccb328544565f06d}{mercury\+::\+Port\+Handler}}.
+
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_af998c701488acf2581dbc5f5a36a3588}\label{classmercury_1_1_port_handler_linux_af998c701488acf2581dbc5f5a36a3588}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!setPacketTimeout@{setPacketTimeout}}
+\index{setPacketTimeout@{setPacketTimeout}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{setPacketTimeout()}{setPacketTimeout()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void mercury\+::\+Port\+Handler\+Linux\+::set\+Packet\+Timeout (\begin{DoxyParamCaption}\item[{double}]{msec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+The function that sets and starts stopwatch for watching packet timeout @description The function sets the stopwatch by getting current time and the time of packet timeout with msec. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em packet\+\_\+length} & Length of the packet expected to be received \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classmercury_1_1_port_handler_ae61a4953ef52be49401af210acf820a4}{mercury\+::\+Port\+Handler}}.
+
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_a3b3e75d2f295fb4453b2f5a531110c7e}\label{classmercury_1_1_port_handler_linux_a3b3e75d2f295fb4453b2f5a531110c7e}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!setPacketTimeout@{setPacketTimeout}}
+\index{setPacketTimeout@{setPacketTimeout}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{setPacketTimeout()}{setPacketTimeout()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void mercury\+::\+Port\+Handler\+Linux\+::set\+Packet\+Timeout (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{packet\+\_\+length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+The function that sets and starts stopwatch for watching packet timeout @description The function sets the stopwatch by getting current time and the time of packet timeout with packet\+\_\+length. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em packet\+\_\+length} & Length of the packet expected to be received \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classmercury_1_1_port_handler_ae79ec2448529ffc2f1788da26142d164}{mercury\+::\+Port\+Handler}}.
+
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_a91530ad73312a7c3a8e52c219d2b04f5}\label{classmercury_1_1_port_handler_linux_a91530ad73312a7c3a8e52c219d2b04f5}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!setPortName@{setPortName}}
+\index{setPortName@{setPortName}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{setPortName()}{setPortName()}}
+{\footnotesize\ttfamily void mercury\+::\+Port\+Handler\+Linux\+::set\+Port\+Name (\begin{DoxyParamCaption}\item[{const char $\ast$}]{port\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+The function that sets port name into the port handler @description The function sets port name into the port handler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em port\+\_\+name} & Port name \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classmercury_1_1_port_handler_adb0bff39482904066c1bdd7713441e9e}{mercury\+::\+Port\+Handler}}.
+
+\mbox{\Hypertarget{classmercury_1_1_port_handler_linux_af9688d8e104e1a083958347091f234d7}\label{classmercury_1_1_port_handler_linux_af9688d8e104e1a083958347091f234d7}} 
+\index{mercury::PortHandlerLinux@{mercury::PortHandlerLinux}!writePort@{writePort}}
+\index{writePort@{writePort}!mercury::PortHandlerLinux@{mercury::PortHandlerLinux}}
+\doxysubsubsection{\texorpdfstring{writePort()}{writePort()}}
+{\footnotesize\ttfamily int mercury\+::\+Port\+Handler\+Linux\+::write\+Port (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{packet,  }\item[{int}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+The function that writes bytes on the port buffer @description The function writes bytes on the port buffer, @description and returns a number of bytes which are successfully written. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em packet} & Buffer which would be written on the port buffer \\
+\hline
+{\em length} & Length of the buffer for write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 
+
+when error was occurred 
+
+or Length of bytes written 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classmercury_1_1_port_handler_ad26c3a106d6b668b6fae3d2f0afeab9e}{mercury\+::\+Port\+Handler}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/mercury\+\_\+sdk/\mbox{\hyperlink{port__handler__linux_8h}{port\+\_\+handler\+\_\+linux.\+h}}\end{DoxyCompactItemize}

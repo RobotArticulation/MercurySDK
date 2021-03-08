@@ -1,0 +1,150 @@
+\hypertarget{factory__reset_8cpp}{}\doxysection{example/factory\+\_\+reset/factory\+\_\+reset.cpp File Reference}
+\label{factory__reset_8cpp}\index{example/factory\_reset/factory\_reset.cpp@{example/factory\_reset/factory\_reset.cpp}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}mercury\+\_\+sdk.\+h\char`\"{}}\newline
+Include dependency graph for factory\+\_\+reset.\+cpp\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{factory__reset_8cpp_a5390e0b539a7eada59379c017f0447fa}{A\+D\+D\+R\+\_\+\+P\+R\+O\+\_\+\+B\+A\+U\+D\+R\+A\+TE}}~4
+\item 
+\#define \mbox{\hyperlink{factory__reset_8cpp_ab3bbb33ca0e2b6d2e429ee8b52cb20a4}{M\+C\+Y\+\_\+\+ID}}~1
+\item 
+\#define \mbox{\hyperlink{factory__reset_8cpp_a734bbab06e1a9fd2e5522db0221ff6e3}{B\+A\+U\+D\+R\+A\+TE}}~1000000
+\item 
+\#define \mbox{\hyperlink{factory__reset_8cpp_abca33c097566d788d5163e433fc84150}{D\+E\+V\+I\+C\+E\+N\+A\+ME}}~\char`\"{}/dev/tty\+A\+C\+M0\char`\"{}
+\item 
+\#define \mbox{\hyperlink{factory__reset_8cpp_a5d1bf2cd64d923c88861276422f00df9}{F\+A\+C\+T\+O\+R\+Y\+R\+S\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+B\+A\+U\+D\+R\+A\+TE}}~1000000
+\item 
+\#define \mbox{\hyperlink{factory__reset_8cpp_ac7661752dbae6f668b88eb720d3db829}{N\+E\+W\+\_\+\+B\+A\+U\+D\+N\+UM}}~3
+\item 
+\#define \mbox{\hyperlink{factory__reset_8cpp_ab8ebc851dff20d45401b1dcb16f2b92f}{O\+P\+E\+R\+A\+T\+I\+O\+N\+\_\+\+M\+O\+DE}}~0x01
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{factory__reset_8cpp_a160f6d2893bb6b89ab3ad5d863c20e3d}{getch}} ()
+\item 
+int \mbox{\hyperlink{factory__reset_8cpp_a97e9b1fe8d4c010474637a654aad6566}{kbhit}} (void)
+\item 
+void \mbox{\hyperlink{factory__reset_8cpp_a253021d5795fb03a08e166b1cd914bf1}{msec\+Sleep}} (int wait\+Time)
+\item 
+int \mbox{\hyperlink{factory__reset_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{factory__reset_8cpp_a5390e0b539a7eada59379c017f0447fa}\label{factory__reset_8cpp_a5390e0b539a7eada59379c017f0447fa}} 
+\index{factory\_reset.cpp@{factory\_reset.cpp}!ADDR\_PRO\_BAUDRATE@{ADDR\_PRO\_BAUDRATE}}
+\index{ADDR\_PRO\_BAUDRATE@{ADDR\_PRO\_BAUDRATE}!factory\_reset.cpp@{factory\_reset.cpp}}
+\doxysubsubsection{\texorpdfstring{ADDR\_PRO\_BAUDRATE}{ADDR\_PRO\_BAUDRATE}}
+{\footnotesize\ttfamily \#define A\+D\+D\+R\+\_\+\+P\+R\+O\+\_\+\+B\+A\+U\+D\+R\+A\+TE~4}
+
+
+
+Definition at line 44 of file factory\+\_\+reset.\+cpp.
+
+\mbox{\Hypertarget{factory__reset_8cpp_a734bbab06e1a9fd2e5522db0221ff6e3}\label{factory__reset_8cpp_a734bbab06e1a9fd2e5522db0221ff6e3}} 
+\index{factory\_reset.cpp@{factory\_reset.cpp}!BAUDRATE@{BAUDRATE}}
+\index{BAUDRATE@{BAUDRATE}!factory\_reset.cpp@{factory\_reset.cpp}}
+\doxysubsubsection{\texorpdfstring{BAUDRATE}{BAUDRATE}}
+{\footnotesize\ttfamily \#define B\+A\+U\+D\+R\+A\+TE~1000000}
+
+
+
+Definition at line 48 of file factory\+\_\+reset.\+cpp.
+
+\mbox{\Hypertarget{factory__reset_8cpp_abca33c097566d788d5163e433fc84150}\label{factory__reset_8cpp_abca33c097566d788d5163e433fc84150}} 
+\index{factory\_reset.cpp@{factory\_reset.cpp}!DEVICENAME@{DEVICENAME}}
+\index{DEVICENAME@{DEVICENAME}!factory\_reset.cpp@{factory\_reset.cpp}}
+\doxysubsubsection{\texorpdfstring{DEVICENAME}{DEVICENAME}}
+{\footnotesize\ttfamily \#define D\+E\+V\+I\+C\+E\+N\+A\+ME~\char`\"{}/dev/tty\+A\+C\+M0\char`\"{}}
+
+
+
+Definition at line 49 of file factory\+\_\+reset.\+cpp.
+
+\mbox{\Hypertarget{factory__reset_8cpp_a5d1bf2cd64d923c88861276422f00df9}\label{factory__reset_8cpp_a5d1bf2cd64d923c88861276422f00df9}} 
+\index{factory\_reset.cpp@{factory\_reset.cpp}!FACTORYRST\_DEFAULTBAUDRATE@{FACTORYRST\_DEFAULTBAUDRATE}}
+\index{FACTORYRST\_DEFAULTBAUDRATE@{FACTORYRST\_DEFAULTBAUDRATE}!factory\_reset.cpp@{factory\_reset.cpp}}
+\doxysubsubsection{\texorpdfstring{FACTORYRST\_DEFAULTBAUDRATE}{FACTORYRST\_DEFAULTBAUDRATE}}
+{\footnotesize\ttfamily \#define F\+A\+C\+T\+O\+R\+Y\+R\+S\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+B\+A\+U\+D\+R\+A\+TE~1000000}
+
+
+
+Definition at line 52 of file factory\+\_\+reset.\+cpp.
+
+\mbox{\Hypertarget{factory__reset_8cpp_ab3bbb33ca0e2b6d2e429ee8b52cb20a4}\label{factory__reset_8cpp_ab3bbb33ca0e2b6d2e429ee8b52cb20a4}} 
+\index{factory\_reset.cpp@{factory\_reset.cpp}!MCY\_ID@{MCY\_ID}}
+\index{MCY\_ID@{MCY\_ID}!factory\_reset.cpp@{factory\_reset.cpp}}
+\doxysubsubsection{\texorpdfstring{MCY\_ID}{MCY\_ID}}
+{\footnotesize\ttfamily \#define M\+C\+Y\+\_\+\+ID~1}
+
+
+
+Definition at line 47 of file factory\+\_\+reset.\+cpp.
+
+\mbox{\Hypertarget{factory__reset_8cpp_ac7661752dbae6f668b88eb720d3db829}\label{factory__reset_8cpp_ac7661752dbae6f668b88eb720d3db829}} 
+\index{factory\_reset.cpp@{factory\_reset.cpp}!NEW\_BAUDNUM@{NEW\_BAUDNUM}}
+\index{NEW\_BAUDNUM@{NEW\_BAUDNUM}!factory\_reset.cpp@{factory\_reset.cpp}}
+\doxysubsubsection{\texorpdfstring{NEW\_BAUDNUM}{NEW\_BAUDNUM}}
+{\footnotesize\ttfamily \#define N\+E\+W\+\_\+\+B\+A\+U\+D\+N\+UM~3}
+
+
+
+Definition at line 53 of file factory\+\_\+reset.\+cpp.
+
+\mbox{\Hypertarget{factory__reset_8cpp_ab8ebc851dff20d45401b1dcb16f2b92f}\label{factory__reset_8cpp_ab8ebc851dff20d45401b1dcb16f2b92f}} 
+\index{factory\_reset.cpp@{factory\_reset.cpp}!OPERATION\_MODE@{OPERATION\_MODE}}
+\index{OPERATION\_MODE@{OPERATION\_MODE}!factory\_reset.cpp@{factory\_reset.cpp}}
+\doxysubsubsection{\texorpdfstring{OPERATION\_MODE}{OPERATION\_MODE}}
+{\footnotesize\ttfamily \#define O\+P\+E\+R\+A\+T\+I\+O\+N\+\_\+\+M\+O\+DE~0x01}
+
+
+
+Definition at line 54 of file factory\+\_\+reset.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{factory__reset_8cpp_a160f6d2893bb6b89ab3ad5d863c20e3d}\label{factory__reset_8cpp_a160f6d2893bb6b89ab3ad5d863c20e3d}} 
+\index{factory\_reset.cpp@{factory\_reset.cpp}!getch@{getch}}
+\index{getch@{getch}!factory\_reset.cpp@{factory\_reset.cpp}}
+\doxysubsubsection{\texorpdfstring{getch()}{getch()}}
+{\footnotesize\ttfamily int getch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 58 of file factory\+\_\+reset.\+cpp.
+
+\mbox{\Hypertarget{factory__reset_8cpp_a97e9b1fe8d4c010474637a654aad6566}\label{factory__reset_8cpp_a97e9b1fe8d4c010474637a654aad6566}} 
+\index{factory\_reset.cpp@{factory\_reset.cpp}!kbhit@{kbhit}}
+\index{kbhit@{kbhit}!factory\_reset.cpp@{factory\_reset.cpp}}
+\doxysubsubsection{\texorpdfstring{kbhit()}{kbhit()}}
+{\footnotesize\ttfamily int kbhit (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 75 of file factory\+\_\+reset.\+cpp.
+
+\mbox{\Hypertarget{factory__reset_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{factory__reset_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{factory\_reset.cpp@{factory\_reset.cpp}!main@{main}}
+\index{main@{main}!factory\_reset.cpp@{factory\_reset.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 115 of file factory\+\_\+reset.\+cpp.
+
+\mbox{\Hypertarget{factory__reset_8cpp_a253021d5795fb03a08e166b1cd914bf1}\label{factory__reset_8cpp_a253021d5795fb03a08e166b1cd914bf1}} 
+\index{factory\_reset.cpp@{factory\_reset.cpp}!msecSleep@{msecSleep}}
+\index{msecSleep@{msecSleep}!factory\_reset.cpp@{factory\_reset.cpp}}
+\doxysubsubsection{\texorpdfstring{msecSleep()}{msecSleep()}}
+{\footnotesize\ttfamily void msec\+Sleep (\begin{DoxyParamCaption}\item[{int}]{wait\+Time }\end{DoxyParamCaption})}
+
+
+
+Definition at line 106 of file factory\+\_\+reset.\+cpp.
+

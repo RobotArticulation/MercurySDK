@@ -1,0 +1,199 @@
+\hypertarget{read__write_8cpp}{}\doxysection{example/read\+\_\+write/read\+\_\+write.cpp File Reference}
+\label{read__write_8cpp}\index{example/read\_write/read\_write.cpp@{example/read\_write/read\_write.cpp}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}mercury\+\_\+sdk.\+h\char`\"{}}\newline
+Include dependency graph for read\+\_\+write.\+cpp\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{read__write_8cpp_ae3e086578be012205df2a4ccc3efa923}{A\+D\+D\+R\+\_\+\+M\+X\+\_\+\+T\+O\+R\+Q\+U\+E\+\_\+\+E\+N\+A\+B\+LE}}~0x30
+\item 
+\#define \mbox{\hyperlink{read__write_8cpp_a6064e78707e97b2b880158e200b96f30}{A\+D\+D\+R\+\_\+\+M\+X\+\_\+\+G\+O\+A\+L\+\_\+\+P\+O\+S\+I\+T\+I\+ON}}~0x4e
+\item 
+\#define \mbox{\hyperlink{read__write_8cpp_a8b1038b0d5e9180ff0a8be9d28b7e97e}{A\+D\+D\+R\+\_\+\+M\+X\+\_\+\+P\+R\+E\+S\+E\+N\+T\+\_\+\+P\+O\+S\+I\+T\+I\+ON}}~0x56
+\item 
+\#define \mbox{\hyperlink{read__write_8cpp_ab3bbb33ca0e2b6d2e429ee8b52cb20a4}{M\+C\+Y\+\_\+\+ID}}~1
+\item 
+\#define \mbox{\hyperlink{read__write_8cpp_a734bbab06e1a9fd2e5522db0221ff6e3}{B\+A\+U\+D\+R\+A\+TE}}~1000000
+\item 
+\#define \mbox{\hyperlink{read__write_8cpp_abca33c097566d788d5163e433fc84150}{D\+E\+V\+I\+C\+E\+N\+A\+ME}}~\char`\"{}/dev/tty\+A\+C\+M0\char`\"{}
+\item 
+\#define \mbox{\hyperlink{read__write_8cpp_a8db41fdd2468c5664c70b17a82cf339f}{T\+O\+R\+Q\+U\+E\+\_\+\+E\+N\+A\+B\+LE}}~1
+\item 
+\#define \mbox{\hyperlink{read__write_8cpp_afee6f2063609cb3bdc9402823f88f18d}{T\+O\+R\+Q\+U\+E\+\_\+\+D\+I\+S\+A\+B\+LE}}~0
+\item 
+\#define \mbox{\hyperlink{read__write_8cpp_aa9327ba9c7b7540ce2abcd6a3cac1da9}{M\+C\+Y\+\_\+\+M\+I\+N\+I\+M\+U\+M\+\_\+\+P\+O\+S\+I\+T\+I\+O\+N\+\_\+\+V\+A\+L\+UE}}~100
+\item 
+\#define \mbox{\hyperlink{read__write_8cpp_a0e952aebfe58992664bbee19c624df15}{M\+C\+Y\+\_\+\+M\+A\+X\+I\+M\+U\+M\+\_\+\+P\+O\+S\+I\+T\+I\+O\+N\+\_\+\+V\+A\+L\+UE}}~400
+\item 
+\#define \mbox{\hyperlink{read__write_8cpp_a1fbf0823cc970b2a657b0b3bbf7afb48}{M\+C\+Y\+\_\+\+M\+O\+V\+I\+N\+G\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}}~2
+\item 
+\#define \mbox{\hyperlink{read__write_8cpp_a6e88c2a4c1660829989805b441c6f267}{E\+S\+C\+\_\+\+A\+S\+C\+I\+I\+\_\+\+V\+A\+L\+UE}}~0x1b
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{read__write_8cpp_a160f6d2893bb6b89ab3ad5d863c20e3d}{getch}} ()
+\item 
+int \mbox{\hyperlink{read__write_8cpp_a97e9b1fe8d4c010474637a654aad6566}{kbhit}} (void)
+\item 
+int \mbox{\hyperlink{read__write_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{read__write_8cpp_a6064e78707e97b2b880158e200b96f30}\label{read__write_8cpp_a6064e78707e97b2b880158e200b96f30}} 
+\index{read\_write.cpp@{read\_write.cpp}!ADDR\_MX\_GOAL\_POSITION@{ADDR\_MX\_GOAL\_POSITION}}
+\index{ADDR\_MX\_GOAL\_POSITION@{ADDR\_MX\_GOAL\_POSITION}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{ADDR\_MX\_GOAL\_POSITION}{ADDR\_MX\_GOAL\_POSITION}}
+{\footnotesize\ttfamily \#define A\+D\+D\+R\+\_\+\+M\+X\+\_\+\+G\+O\+A\+L\+\_\+\+P\+O\+S\+I\+T\+I\+ON~0x4e}
+
+
+
+Definition at line 47 of file read\+\_\+write.\+cpp.
+
+\mbox{\Hypertarget{read__write_8cpp_a8b1038b0d5e9180ff0a8be9d28b7e97e}\label{read__write_8cpp_a8b1038b0d5e9180ff0a8be9d28b7e97e}} 
+\index{read\_write.cpp@{read\_write.cpp}!ADDR\_MX\_PRESENT\_POSITION@{ADDR\_MX\_PRESENT\_POSITION}}
+\index{ADDR\_MX\_PRESENT\_POSITION@{ADDR\_MX\_PRESENT\_POSITION}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{ADDR\_MX\_PRESENT\_POSITION}{ADDR\_MX\_PRESENT\_POSITION}}
+{\footnotesize\ttfamily \#define A\+D\+D\+R\+\_\+\+M\+X\+\_\+\+P\+R\+E\+S\+E\+N\+T\+\_\+\+P\+O\+S\+I\+T\+I\+ON~0x56}
+
+
+
+Definition at line 48 of file read\+\_\+write.\+cpp.
+
+\mbox{\Hypertarget{read__write_8cpp_ae3e086578be012205df2a4ccc3efa923}\label{read__write_8cpp_ae3e086578be012205df2a4ccc3efa923}} 
+\index{read\_write.cpp@{read\_write.cpp}!ADDR\_MX\_TORQUE\_ENABLE@{ADDR\_MX\_TORQUE\_ENABLE}}
+\index{ADDR\_MX\_TORQUE\_ENABLE@{ADDR\_MX\_TORQUE\_ENABLE}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{ADDR\_MX\_TORQUE\_ENABLE}{ADDR\_MX\_TORQUE\_ENABLE}}
+{\footnotesize\ttfamily \#define A\+D\+D\+R\+\_\+\+M\+X\+\_\+\+T\+O\+R\+Q\+U\+E\+\_\+\+E\+N\+A\+B\+LE~0x30}
+
+
+
+Definition at line 46 of file read\+\_\+write.\+cpp.
+
+\mbox{\Hypertarget{read__write_8cpp_a734bbab06e1a9fd2e5522db0221ff6e3}\label{read__write_8cpp_a734bbab06e1a9fd2e5522db0221ff6e3}} 
+\index{read\_write.cpp@{read\_write.cpp}!BAUDRATE@{BAUDRATE}}
+\index{BAUDRATE@{BAUDRATE}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{BAUDRATE}{BAUDRATE}}
+{\footnotesize\ttfamily \#define B\+A\+U\+D\+R\+A\+TE~1000000}
+
+
+
+Definition at line 52 of file read\+\_\+write.\+cpp.
+
+\mbox{\Hypertarget{read__write_8cpp_abca33c097566d788d5163e433fc84150}\label{read__write_8cpp_abca33c097566d788d5163e433fc84150}} 
+\index{read\_write.cpp@{read\_write.cpp}!DEVICENAME@{DEVICENAME}}
+\index{DEVICENAME@{DEVICENAME}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{DEVICENAME}{DEVICENAME}}
+{\footnotesize\ttfamily \#define D\+E\+V\+I\+C\+E\+N\+A\+ME~\char`\"{}/dev/tty\+A\+C\+M0\char`\"{}}
+
+
+
+Definition at line 53 of file read\+\_\+write.\+cpp.
+
+\mbox{\Hypertarget{read__write_8cpp_a6e88c2a4c1660829989805b441c6f267}\label{read__write_8cpp_a6e88c2a4c1660829989805b441c6f267}} 
+\index{read\_write.cpp@{read\_write.cpp}!ESC\_ASCII\_VALUE@{ESC\_ASCII\_VALUE}}
+\index{ESC\_ASCII\_VALUE@{ESC\_ASCII\_VALUE}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{ESC\_ASCII\_VALUE}{ESC\_ASCII\_VALUE}}
+{\footnotesize\ttfamily \#define E\+S\+C\+\_\+\+A\+S\+C\+I\+I\+\_\+\+V\+A\+L\+UE~0x1b}
+
+
+
+Definition at line 62 of file read\+\_\+write.\+cpp.
+
+\mbox{\Hypertarget{read__write_8cpp_ab3bbb33ca0e2b6d2e429ee8b52cb20a4}\label{read__write_8cpp_ab3bbb33ca0e2b6d2e429ee8b52cb20a4}} 
+\index{read\_write.cpp@{read\_write.cpp}!MCY\_ID@{MCY\_ID}}
+\index{MCY\_ID@{MCY\_ID}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{MCY\_ID}{MCY\_ID}}
+{\footnotesize\ttfamily \#define M\+C\+Y\+\_\+\+ID~1}
+
+
+
+Definition at line 51 of file read\+\_\+write.\+cpp.
+
+\mbox{\Hypertarget{read__write_8cpp_a0e952aebfe58992664bbee19c624df15}\label{read__write_8cpp_a0e952aebfe58992664bbee19c624df15}} 
+\index{read\_write.cpp@{read\_write.cpp}!MCY\_MAXIMUM\_POSITION\_VALUE@{MCY\_MAXIMUM\_POSITION\_VALUE}}
+\index{MCY\_MAXIMUM\_POSITION\_VALUE@{MCY\_MAXIMUM\_POSITION\_VALUE}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{MCY\_MAXIMUM\_POSITION\_VALUE}{MCY\_MAXIMUM\_POSITION\_VALUE}}
+{\footnotesize\ttfamily \#define M\+C\+Y\+\_\+\+M\+A\+X\+I\+M\+U\+M\+\_\+\+P\+O\+S\+I\+T\+I\+O\+N\+\_\+\+V\+A\+L\+UE~400}
+
+
+
+Definition at line 59 of file read\+\_\+write.\+cpp.
+
+\mbox{\Hypertarget{read__write_8cpp_aa9327ba9c7b7540ce2abcd6a3cac1da9}\label{read__write_8cpp_aa9327ba9c7b7540ce2abcd6a3cac1da9}} 
+\index{read\_write.cpp@{read\_write.cpp}!MCY\_MINIMUM\_POSITION\_VALUE@{MCY\_MINIMUM\_POSITION\_VALUE}}
+\index{MCY\_MINIMUM\_POSITION\_VALUE@{MCY\_MINIMUM\_POSITION\_VALUE}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{MCY\_MINIMUM\_POSITION\_VALUE}{MCY\_MINIMUM\_POSITION\_VALUE}}
+{\footnotesize\ttfamily \#define M\+C\+Y\+\_\+\+M\+I\+N\+I\+M\+U\+M\+\_\+\+P\+O\+S\+I\+T\+I\+O\+N\+\_\+\+V\+A\+L\+UE~100}
+
+
+
+Definition at line 58 of file read\+\_\+write.\+cpp.
+
+\mbox{\Hypertarget{read__write_8cpp_a1fbf0823cc970b2a657b0b3bbf7afb48}\label{read__write_8cpp_a1fbf0823cc970b2a657b0b3bbf7afb48}} 
+\index{read\_write.cpp@{read\_write.cpp}!MCY\_MOVING\_STATUS\_THRESHOLD@{MCY\_MOVING\_STATUS\_THRESHOLD}}
+\index{MCY\_MOVING\_STATUS\_THRESHOLD@{MCY\_MOVING\_STATUS\_THRESHOLD}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{MCY\_MOVING\_STATUS\_THRESHOLD}{MCY\_MOVING\_STATUS\_THRESHOLD}}
+{\footnotesize\ttfamily \#define M\+C\+Y\+\_\+\+M\+O\+V\+I\+N\+G\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD~2}
+
+
+
+Definition at line 60 of file read\+\_\+write.\+cpp.
+
+\mbox{\Hypertarget{read__write_8cpp_afee6f2063609cb3bdc9402823f88f18d}\label{read__write_8cpp_afee6f2063609cb3bdc9402823f88f18d}} 
+\index{read\_write.cpp@{read\_write.cpp}!TORQUE\_DISABLE@{TORQUE\_DISABLE}}
+\index{TORQUE\_DISABLE@{TORQUE\_DISABLE}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{TORQUE\_DISABLE}{TORQUE\_DISABLE}}
+{\footnotesize\ttfamily \#define T\+O\+R\+Q\+U\+E\+\_\+\+D\+I\+S\+A\+B\+LE~0}
+
+
+
+Definition at line 57 of file read\+\_\+write.\+cpp.
+
+\mbox{\Hypertarget{read__write_8cpp_a8db41fdd2468c5664c70b17a82cf339f}\label{read__write_8cpp_a8db41fdd2468c5664c70b17a82cf339f}} 
+\index{read\_write.cpp@{read\_write.cpp}!TORQUE\_ENABLE@{TORQUE\_ENABLE}}
+\index{TORQUE\_ENABLE@{TORQUE\_ENABLE}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{TORQUE\_ENABLE}{TORQUE\_ENABLE}}
+{\footnotesize\ttfamily \#define T\+O\+R\+Q\+U\+E\+\_\+\+E\+N\+A\+B\+LE~1}
+
+
+
+Definition at line 56 of file read\+\_\+write.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{read__write_8cpp_a160f6d2893bb6b89ab3ad5d863c20e3d}\label{read__write_8cpp_a160f6d2893bb6b89ab3ad5d863c20e3d}} 
+\index{read\_write.cpp@{read\_write.cpp}!getch@{getch}}
+\index{getch@{getch}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{getch()}{getch()}}
+{\footnotesize\ttfamily int getch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 64 of file read\+\_\+write.\+cpp.
+
+\mbox{\Hypertarget{read__write_8cpp_a97e9b1fe8d4c010474637a654aad6566}\label{read__write_8cpp_a97e9b1fe8d4c010474637a654aad6566}} 
+\index{read\_write.cpp@{read\_write.cpp}!kbhit@{kbhit}}
+\index{kbhit@{kbhit}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{kbhit()}{kbhit()}}
+{\footnotesize\ttfamily int kbhit (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 81 of file read\+\_\+write.\+cpp.
+
+\mbox{\Hypertarget{read__write_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{read__write_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{read\_write.cpp@{read\_write.cpp}!main@{main}}
+\index{main@{main}!read\_write.cpp@{read\_write.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 112 of file read\+\_\+write.\+cpp.
+

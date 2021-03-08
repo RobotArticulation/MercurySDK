@@ -1,0 +1,139 @@
+\hypertarget{action_8cpp}{}\doxysection{example/action/action.cpp File Reference}
+\label{action_8cpp}\index{example/action/action.cpp@{example/action/action.cpp}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}mercury\+\_\+sdk.\+h\char`\"{}}\newline
+Include dependency graph for action.\+cpp\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{action_8cpp_ae3e086578be012205df2a4ccc3efa923}{A\+D\+D\+R\+\_\+\+M\+X\+\_\+\+T\+O\+R\+Q\+U\+E\+\_\+\+E\+N\+A\+B\+LE}}~0x30
+\item 
+\#define \mbox{\hyperlink{action_8cpp_ab3bbb33ca0e2b6d2e429ee8b52cb20a4}{M\+C\+Y\+\_\+\+ID}}~1
+\item 
+\#define \mbox{\hyperlink{action_8cpp_a734bbab06e1a9fd2e5522db0221ff6e3}{B\+A\+U\+D\+R\+A\+TE}}~1000000
+\item 
+\#define \mbox{\hyperlink{action_8cpp_abca33c097566d788d5163e433fc84150}{D\+E\+V\+I\+C\+E\+N\+A\+ME}}~\char`\"{}/dev/tty\+A\+C\+M0\char`\"{}
+\item 
+\#define \mbox{\hyperlink{action_8cpp_a8db41fdd2468c5664c70b17a82cf339f}{T\+O\+R\+Q\+U\+E\+\_\+\+E\+N\+A\+B\+LE}}~1
+\item 
+\#define \mbox{\hyperlink{action_8cpp_afee6f2063609cb3bdc9402823f88f18d}{T\+O\+R\+Q\+U\+E\+\_\+\+D\+I\+S\+A\+B\+LE}}~0
+\item 
+\#define \mbox{\hyperlink{action_8cpp_a6e88c2a4c1660829989805b441c6f267}{E\+S\+C\+\_\+\+A\+S\+C\+I\+I\+\_\+\+V\+A\+L\+UE}}~0x1b
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{action_8cpp_a160f6d2893bb6b89ab3ad5d863c20e3d}{getch}} ()
+\item 
+int \mbox{\hyperlink{action_8cpp_a97e9b1fe8d4c010474637a654aad6566}{kbhit}} (void)
+\item 
+int \mbox{\hyperlink{action_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{action_8cpp_ae3e086578be012205df2a4ccc3efa923}\label{action_8cpp_ae3e086578be012205df2a4ccc3efa923}} 
+\index{action.cpp@{action.cpp}!ADDR\_MX\_TORQUE\_ENABLE@{ADDR\_MX\_TORQUE\_ENABLE}}
+\index{ADDR\_MX\_TORQUE\_ENABLE@{ADDR\_MX\_TORQUE\_ENABLE}!action.cpp@{action.cpp}}
+\doxysubsubsection{\texorpdfstring{ADDR\_MX\_TORQUE\_ENABLE}{ADDR\_MX\_TORQUE\_ENABLE}}
+{\footnotesize\ttfamily \#define A\+D\+D\+R\+\_\+\+M\+X\+\_\+\+T\+O\+R\+Q\+U\+E\+\_\+\+E\+N\+A\+B\+LE~0x30}
+
+
+
+Definition at line 45 of file action.\+cpp.
+
+\mbox{\Hypertarget{action_8cpp_a734bbab06e1a9fd2e5522db0221ff6e3}\label{action_8cpp_a734bbab06e1a9fd2e5522db0221ff6e3}} 
+\index{action.cpp@{action.cpp}!BAUDRATE@{BAUDRATE}}
+\index{BAUDRATE@{BAUDRATE}!action.cpp@{action.cpp}}
+\doxysubsubsection{\texorpdfstring{BAUDRATE}{BAUDRATE}}
+{\footnotesize\ttfamily \#define B\+A\+U\+D\+R\+A\+TE~1000000}
+
+
+
+Definition at line 49 of file action.\+cpp.
+
+\mbox{\Hypertarget{action_8cpp_abca33c097566d788d5163e433fc84150}\label{action_8cpp_abca33c097566d788d5163e433fc84150}} 
+\index{action.cpp@{action.cpp}!DEVICENAME@{DEVICENAME}}
+\index{DEVICENAME@{DEVICENAME}!action.cpp@{action.cpp}}
+\doxysubsubsection{\texorpdfstring{DEVICENAME}{DEVICENAME}}
+{\footnotesize\ttfamily \#define D\+E\+V\+I\+C\+E\+N\+A\+ME~\char`\"{}/dev/tty\+A\+C\+M0\char`\"{}}
+
+
+
+Definition at line 50 of file action.\+cpp.
+
+\mbox{\Hypertarget{action_8cpp_a6e88c2a4c1660829989805b441c6f267}\label{action_8cpp_a6e88c2a4c1660829989805b441c6f267}} 
+\index{action.cpp@{action.cpp}!ESC\_ASCII\_VALUE@{ESC\_ASCII\_VALUE}}
+\index{ESC\_ASCII\_VALUE@{ESC\_ASCII\_VALUE}!action.cpp@{action.cpp}}
+\doxysubsubsection{\texorpdfstring{ESC\_ASCII\_VALUE}{ESC\_ASCII\_VALUE}}
+{\footnotesize\ttfamily \#define E\+S\+C\+\_\+\+A\+S\+C\+I\+I\+\_\+\+V\+A\+L\+UE~0x1b}
+
+
+
+Definition at line 56 of file action.\+cpp.
+
+\mbox{\Hypertarget{action_8cpp_ab3bbb33ca0e2b6d2e429ee8b52cb20a4}\label{action_8cpp_ab3bbb33ca0e2b6d2e429ee8b52cb20a4}} 
+\index{action.cpp@{action.cpp}!MCY\_ID@{MCY\_ID}}
+\index{MCY\_ID@{MCY\_ID}!action.cpp@{action.cpp}}
+\doxysubsubsection{\texorpdfstring{MCY\_ID}{MCY\_ID}}
+{\footnotesize\ttfamily \#define M\+C\+Y\+\_\+\+ID~1}
+
+
+
+Definition at line 48 of file action.\+cpp.
+
+\mbox{\Hypertarget{action_8cpp_afee6f2063609cb3bdc9402823f88f18d}\label{action_8cpp_afee6f2063609cb3bdc9402823f88f18d}} 
+\index{action.cpp@{action.cpp}!TORQUE\_DISABLE@{TORQUE\_DISABLE}}
+\index{TORQUE\_DISABLE@{TORQUE\_DISABLE}!action.cpp@{action.cpp}}
+\doxysubsubsection{\texorpdfstring{TORQUE\_DISABLE}{TORQUE\_DISABLE}}
+{\footnotesize\ttfamily \#define T\+O\+R\+Q\+U\+E\+\_\+\+D\+I\+S\+A\+B\+LE~0}
+
+
+
+Definition at line 54 of file action.\+cpp.
+
+\mbox{\Hypertarget{action_8cpp_a8db41fdd2468c5664c70b17a82cf339f}\label{action_8cpp_a8db41fdd2468c5664c70b17a82cf339f}} 
+\index{action.cpp@{action.cpp}!TORQUE\_ENABLE@{TORQUE\_ENABLE}}
+\index{TORQUE\_ENABLE@{TORQUE\_ENABLE}!action.cpp@{action.cpp}}
+\doxysubsubsection{\texorpdfstring{TORQUE\_ENABLE}{TORQUE\_ENABLE}}
+{\footnotesize\ttfamily \#define T\+O\+R\+Q\+U\+E\+\_\+\+E\+N\+A\+B\+LE~1}
+
+
+
+Definition at line 53 of file action.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{action_8cpp_a160f6d2893bb6b89ab3ad5d863c20e3d}\label{action_8cpp_a160f6d2893bb6b89ab3ad5d863c20e3d}} 
+\index{action.cpp@{action.cpp}!getch@{getch}}
+\index{getch@{getch}!action.cpp@{action.cpp}}
+\doxysubsubsection{\texorpdfstring{getch()}{getch()}}
+{\footnotesize\ttfamily int getch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 58 of file action.\+cpp.
+
+\mbox{\Hypertarget{action_8cpp_a97e9b1fe8d4c010474637a654aad6566}\label{action_8cpp_a97e9b1fe8d4c010474637a654aad6566}} 
+\index{action.cpp@{action.cpp}!kbhit@{kbhit}}
+\index{kbhit@{kbhit}!action.cpp@{action.cpp}}
+\doxysubsubsection{\texorpdfstring{kbhit()}{kbhit()}}
+{\footnotesize\ttfamily int kbhit (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 75 of file action.\+cpp.
+
+\mbox{\Hypertarget{action_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{action_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{action.cpp@{action.cpp}!main@{main}}
+\index{main@{main}!action.cpp@{action.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 106 of file action.\+cpp.
+
