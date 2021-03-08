@@ -1,4 +1,10 @@
 /*******************************************************************************
+* Copyright (C) 2021 <Robot Articulation/code@robotarticulation.com> 
+*
+* Source files modified to support the ercury range of digital servo motors from Robot Articulation
+*******************************************************************************/
+
+/*******************************************************************************
 * Copyright 2017 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,10 +20,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-////////////////////////////////////////////////////////////////////////////////
-/// @file The file for Dynamixel packet control
-/// @author Zerom, Leon (RyuWoon Jung)
-////////////////////////////////////////////////////////////////////////////////
+/* Original author: Zerom, Leon (RyuWoon Jung) */
 
 #ifndef INCLUDE_MERCURY_SDK_PACKETHANDLER_H_
 #define INCLUDE_MERCURY_SDK_PACKETHANDLER_H_

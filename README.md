@@ -1,7 +1,5 @@
 ![RobotArticulation logo](http://robotarticulation.com/img/logos/RobotArticulation_header.png?format=1000w)
 
-<!-- ![RobotArticulation logo](file:///home/wigir/dev/website/robotarticulation.github.io/img/logos/RobotArticulation_header_logo.png?format=1000w) -->
-
 # MercurySDK
 This is the repository for the software development kit (SDK) for the Mercury range of digital servos
 
