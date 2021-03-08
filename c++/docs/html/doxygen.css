@@ -1269,8 +1269,10 @@ dl.section dd {
 
 #projectlogo
 {
+	padding-left: 20px;
+	padding-right: 20px;
 	text-align: center;
-	vertical-align: bottom;
+	vertical-align: center;
 	border-collapse: separate;
 }
  
