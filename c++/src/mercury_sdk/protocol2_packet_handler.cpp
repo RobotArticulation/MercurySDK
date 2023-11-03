@@ -307,6 +307,12 @@ int Protocol2PacketHandler::txPacket(PortHandler *port, uint8_t *txpacket)
     return COMM_TX_FAIL;
   }
 
+  // printf("Tx packet: \n\r");
+  // for (int i = 0; i < total_packet_length; i++) {
+  //   printf("%02x ", txpacket[i]);
+  // }
+  // printf("\n\r");
+
   return COMM_SUCCESS;
 }
 
@@ -730,6 +736,12 @@ int Protocol2PacketHandler::readTxRx(PortHandler *port, uint8_t id, uint16_t add
     }
     //memcpy(data, &rxpacket[PKT_PARAMETER0+1], length);
   }
+
+  // printf("Rx packet: \n\r");
+  // for (int i = 0; i < PKT_PARAMETER0 + 1 + length+2; i++) {
+  //   printf("%02x ", rxpacket[i]);
+  // }
+  // printf("\n\r");
 
   free(rxpacket);
   //delete[] rxpacket;
