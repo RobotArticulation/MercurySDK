@@ -26,12 +26,7 @@ include_directories(
 
 set(MERCURY_SDK_SOURCES
   src/mercury_sdk/packet_handler.cpp
-  src/mercury_sdk/protocol1_packet_handler.cpp
   src/mercury_sdk/protocol2_packet_handler.cpp
-  src/mercury_sdk/group_sync_read.cpp
-  src/mercury_sdk/group_sync_write.cpp
-  src/mercury_sdk/group_bulk_read.cpp
-  src/mercury_sdk/group_bulk_write.cpp
   src/mercury_sdk/port_handler.cpp
 )
 
