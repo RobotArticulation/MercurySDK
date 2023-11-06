@@ -956,3 +956,34 @@ int Protocol2PacketHandler::regWriteTxRx(PortHandler *port, uint8_t id, uint16_t
   //delete[] txpacket;
   return result;
 }
+
+int Protocol2PacketHandler::syncReadTx(PortHandler *port, uint16_t start_address, uint16_t data_length, uint8_t *param, uint16_t param_length)
+{
+  int result                  = COMM_TX_FAIL;
+
+  uint8_t *txpacket           = (uint8_t *)malloc(param_length + 14 + (param_length / 3));
+  // 14: HEADER0 HEADER1 HEADER2 RESERVED ID LEN_L LEN_H INST START_ADDR_L START_ADDR_H DATA_LEN_L DATA_LEN_H CRC16_L CRC16_H
+
+  if (txpacket == NULL)
+    return result;
+  
+  txpacket[PKT_ID]            = BROADCAST_ID;
+  txpacket[PKT_LENGTH_L]      = MCY_LOBYTE(param_length + 7); // 7: INST START_ADDR_L START_ADDR_H DATA_LEN_L DATA_LEN_H CRC16_L CRC16_H
+  txpacket[PKT_LENGTH_H]      = MCY_HIBYTE(param_length + 7); // 7: INST START_ADDR_L START_ADDR_H DATA_LEN_L DATA_LEN_H CRC16_L CRC16_H
+  txpacket[PKT_INSTRUCTION]   = INST_SYNC_READ;
+  txpacket[PKT_PARAMETER0+0]  = MCY_LOBYTE(start_address);
+  txpacket[PKT_PARAMETER0+1]  = MCY_HIBYTE(start_address);
+  txpacket[PKT_PARAMETER0+2]  = MCY_LOBYTE(data_length);
+  txpacket[PKT_PARAMETER0+3]  = MCY_HIBYTE(data_length);
+
+  for (uint16_t s = 0; s < param_length; s++)
+    txpacket[PKT_PARAMETER0+4+s] = param[s];
+  //memcpy(&txpacket[PKT_PARAMETER0+4], param, param_length);
+
+  result = txPacket(port, txpacket);
+  if (result == COMM_SUCCESS)
+    port->setPacketTimeout((uint16_t)((11 + data_length) * param_length));
+
+  free(txpacket);
+  return result;
+}

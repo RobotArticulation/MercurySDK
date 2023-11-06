@@ -58,6 +58,7 @@
 #define INST_FACTORY_RESET      6
 #define INST_REBOOT             8
 #define INST_STATUS             85      // 0x55
+#define INST_SYNC_READ          130     // 0x82
 
 // Communication Result
 #define COMM_SUCCESS        0       // tx or rx packet communication success
@@ -519,6 +520,19 @@ class WINDECLSPEC PacketHandler
   /// @return communication results which come from PacketHandler::txRxPacket()
   ////////////////////////////////////////////////////////////////////////////////
   virtual int regWriteTxRx    (PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data, uint8_t *error = 0) = 0;
+
+  ////////////////////////////////////////////////////////////////////////////////
+  /// @brief The function that transmits INST_SYNC_READ instruction packet
+  /// @description The function makes an instruction packet with INST_SYNC_READ,
+  /// @description transmits the packet with PacketHandler::txPacket().
+  /// @param port PortHandler instance
+  /// @param start_address Address of the data for Sync Read
+  /// @param data_length Length of the data for Sync Read
+  /// @param param Parameter for Sync Read
+  /// @param param_length Length of the data for Sync Read
+  /// @return communication results which come from PacketHandler::txPacket()
+  ////////////////////////////////////////////////////////////////////////////////
+  virtual int syncReadTx      (PortHandler *port, uint16_t start_address, uint16_t data_length, uint8_t *param, uint16_t param_length) = 0;
 };
 
 }

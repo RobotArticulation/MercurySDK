@@ -53,7 +53,8 @@ LIBRARIES  += -lrt
 SOURCES  = src/mercury_sdk/packet_handler.cpp \
            src/mercury_sdk/port_handler.cpp \
            src/mercury_sdk/protocol2_packet_handler.cpp \
-           src/mercury_sdk/port_handler_linux.cpp \
+		   src/mercury_sdk/port_handler_linux.cpp \
+           src/mercury_sdk/group_sync_read.cpp \
 
 
 OBJECTS=$(addsuffix .o,$(addprefix $(DIR_OBJS)/,$(basename $(notdir $(SOURCES)))))
