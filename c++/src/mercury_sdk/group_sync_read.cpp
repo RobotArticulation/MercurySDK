@@ -19,24 +19,21 @@
 #include <algorithm>
 
 #if defined(__linux__)
-#include "group_sync_read.h"
+#include "../../include/mercury_sdk/group_sync_read.h"
 #elif defined(__APPLE__)
 #include "group_sync_read.h"
 #elif defined(_WIN32) || defined(_WIN64)
 #define WINDLLEXPORT
 #include "group_sync_read.h"
-#elif defined(ARDUINO) || defined(__OPENCR__) || defined(__OPENCM904__)
-#include "../../include/dynamixel_sdk/group_sync_read.h"
+#elif defined(ARDUINO) || defined(__OPENCR__) || defined(__OPENCM904__) || defined(ARDUINO_OpenRB)
+#include "../../include/mercury_sdk/group_sync_read.h"
 #endif
 
 using namespace mercury;
 
 GroupSyncRead::GroupSyncRead(PortHandler *port, PacketHandler *ph, uint16_t start_address, uint16_t data_length)
-  : port_(port),
-    ph_(ph),
+  : GroupHandler(port, ph),
     last_result_(false),
-    is_param_changed_(false),
-    param_(0),
     start_address_(start_address),
     data_length_(data_length)
 {
@@ -201,5 +198,5 @@ bool GroupSyncRead::getError(uint8_t id, uint8_t* error)
   // TODO : check protocol version, last_result_, data_list
   // if (ph_->getProtocolVersion() == 1.0 || last_result_ == false || error_list_.find(id) == error_list_.end())
 
-  return (error[0] = error_list_[id][0]);
+  return error[0] = error_list_[id][0];
 }

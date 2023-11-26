@@ -41,7 +41,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "mercury_sdk.h"                                  // Uses Mercury SDK library
+#include "mercury_sdk/mercury_sdk.h"                                  // Uses Mercury SDK library
 
 #define ADDR_MX_TORQUE_ENABLE           0x30                // Mercury Control table register addresses
 #define ADDR_MX_GOAL_POSITION           0x4e
@@ -56,7 +56,7 @@
 #define TORQUE_ENABLE                   1                   // Value for enabling the torque
 #define TORQUE_DISABLE                  0                   // Value for disabling the torque
 #define MCY_MINIMUM_POSITION_VALUE      100                 // Mercury will rotate between this value
-#define MCY_MAXIMUM_POSITION_VALUE      400                // and this value (note that the Mercury would not move when the position value is out of movable range. Check e-manual about the range of the Mercury you use.)
+#define MCY_MAXIMUM_POSITION_VALUE      1000                // and this value (note that the Mercury would not move when the position value is out of movable range. Check e-manual about the range of the Mercury you use.)
 #define MCY_MOVING_STATUS_THRESHOLD     2                  // Mercury moving status threshold
 
 #define ESC_ASCII_VALUE                 0x1b

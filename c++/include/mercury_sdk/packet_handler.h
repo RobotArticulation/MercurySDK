@@ -56,6 +56,7 @@
 #define INST_REG_WRITE          4
 #define INST_ACTION             5
 #define INST_FACTORY_RESET      6
+#define INST_SYNC_WRITE         131     // 0x83
 #define INST_REBOOT             8
 #define INST_STATUS             85      // 0x55
 #define INST_SYNC_READ          130     // 0x82
@@ -533,6 +534,21 @@ class WINDECLSPEC PacketHandler
   /// @return communication results which come from PacketHandler::txPacket()
   ////////////////////////////////////////////////////////////////////////////////
   virtual int syncReadTx      (PortHandler *port, uint16_t start_address, uint16_t data_length, uint8_t *param, uint16_t param_length) = 0;
+
+  ////////////////////////////////////////////////////////////////////////////////
+  /// @brief The function that transmits INST_SYNC_WRITE instruction packet
+  /// @description The function makes an instruction packet with INST_SYNC_WRITE,
+  /// @description transmits the packet with PacketHandler::txRxPacket().
+  /// @param port PortHandler instance
+  /// @param start_address Address of the data for Sync Write
+  /// @param data_length Length of the data for Sync Write
+  /// @param param Parameter for Sync Write
+  /// @param param_length Length of the data for Sync Write
+  /// @return communication results which come from PacketHandler::txRxPacket()
+  ////////////////////////////////////////////////////////////////////////////////
+  virtual int syncWriteTxOnly (PortHandler *port, uint16_t start_address, uint16_t data_length, uint8_t *param, uint16_t param_length) = 0;
+
+
 };
 
 }

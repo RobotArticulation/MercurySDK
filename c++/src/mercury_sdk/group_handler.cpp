@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2021 <Robot Articulation/code@robotarticulation.com> 
+* Copyright 2017 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -14,12 +14,26 @@
 * limitations under the License.
 *******************************************************************************/
 
-#ifndef INCLUDE_MERCURY_SDK_MERCURYSDK_H_
-#define INCLUDE_MERCURY_SDK_MERCURYSDK_H_
+/* Author: Honghyun Kim */
 
-#include "group_sync_read.h"
-#include "group_sync_write.h"
-#include "packet_handler.h"
-#include "port_handler.h"
+#if defined(__linux__)
+#include "group_handler.h"
+#elif defined(__APPLE__)
+#include "group_handler.h"
+#elif defined(_WIN32) || defined(_WIN64)
+#define WINDLLEXPORT
+#include "group_handler.h"
+#elif defined(ARDUINO) || defined(__OPENCR__) || defined(__OPENCM904__)
+#include "../../include/mercury_sdk/group_handler.h"
+#endif
 
-#endif /* INCLUDE_MERCURY_SDK_MERCURYSDK_H_ */	
+using namespace mercury;
+
+GroupHandler::GroupHandler(PortHandler *port, PacketHandler *ph)
+ : port_(port),
+   ph_(ph),
+   is_param_changed_(false),
+   param_(0)
+{
+
+}

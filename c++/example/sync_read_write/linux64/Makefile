@@ -30,7 +30,7 @@
 TARGET      = sync_read_write
 
 # important directories used by assorted rules and other variables
-DIR_MCY    = ../../../..
+DIR_MCY    = ../../..
 DIR_OBJS   = .objects
 
 # compiler options
@@ -45,8 +45,8 @@ FORMAT      = -m64
 #---------------------------------------------------------------------
 # Core components (all of these are likely going to be needed)
 #---------------------------------------------------------------------
-INCLUDES   += -I$(DIR_MCY)/include/dynamixel_sdk
-LIBRARIES  += -ldxl_x64_cpp
+INCLUDES   += -I$(DIR_MCY)/include/mercury_sdk
+LIBRARIES  += -lmercury_sdk_x64_cpp
 LIBRARIES  += -lrt
 
 #---------------------------------------------------------------------

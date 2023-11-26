@@ -15,7 +15,7 @@
 *******************************************************************************/
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @file The file for Mercury Sync Read
+/// @file The file for Dynamixel Sync Read
 /// @author Zerom, Leon (RyuWoon Jung)
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -23,37 +23,29 @@
 #define MERCURY_SDK_INCLUDE_MERCURY_SDK_GROUPSYNCREAD_H_
 
 
-#include <map>
-#include <vector>
 #include "port_handler.h"
 #include "packet_handler.h"
+#include "group_handler.h"
 
 namespace mercury
 {
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief The class for reading multiple Mercury data from same address with same length at once
+/// @brief The class for reading multiple Dynamixel data from same address with same length at once
 ////////////////////////////////////////////////////////////////////////////////
-class WINDECLSPEC GroupSyncRead
+class WINDECLSPEC GroupSyncRead : public GroupHandler
 {
- private:
-  PortHandler    *port_;
-  PacketHandler  *ph_;
+protected:
+    std::map<uint8_t, uint8_t *> error_list_; // <id, error>
 
-  std::vector<uint8_t>            id_list_;
-  std::map<uint8_t, uint8_t *>    data_list_;  // <id, data>
-  std::map<uint8_t, uint8_t *>    error_list_; // <id, error>
+    bool last_result_;
 
-  bool            last_result_;
-  bool            is_param_changed_;
+    uint16_t start_address_;
+    uint16_t data_length_;
 
-  uint8_t        *param_;
-  uint16_t        start_address_;
-  uint16_t        data_length_;
+    void makeParam();
 
-  void    makeParam();
-
- public:
+public:
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that Initializes instance for Sync Read
   /// @param port PortHandler instance
@@ -69,20 +61,8 @@ class WINDECLSPEC GroupSyncRead
   ~GroupSyncRead() { clearParam(); }
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that returns PortHandler instance
-  /// @return PortHandler instance
-  ////////////////////////////////////////////////////////////////////////////////
-  PortHandler     *getPortHandler()   { return port_; }
-
-  ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that returns PacketHandler instance
-  /// @return PacketHandler instance
-  ////////////////////////////////////////////////////////////////////////////////
-  PacketHandler   *getPacketHandler() { return ph_; }
-
-  ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that adds id, start_address, data_length to the Sync Read list
-  /// @param id Mercury ID
+  /// @param id Dynamixel ID
   /// @return false
   /// @return   when the ID exists already in the list
   /// @return   when the protocol1.0 has been used
@@ -92,7 +72,7 @@ class WINDECLSPEC GroupSyncRead
 
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that removes id from the Sync Read list
-  /// @param id Mercury ID
+  /// @param id Dynamixel ID
   ////////////////////////////////////////////////////////////////////////////////
   void    removeParam (uint8_t id);
 
@@ -111,7 +91,7 @@ class WINDECLSPEC GroupSyncRead
   int     txPacket();
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that receives the packet which might be come from the Mercury
+  /// @brief The function that receives the packet which might be come from the Dynamixel
   /// @return COMM_NOT_AVAILABLE
   /// @return   when the list for Sync Read is empty
   /// @return   when the protocol1.0 has been used
@@ -122,7 +102,7 @@ class WINDECLSPEC GroupSyncRead
   int     rxPacket();
 
   ////////////////////////////////////////////////////////////////////////////////
-  /// @brief The function that transmits and receives the packet which might be come from the Mercury
+  /// @brief The function that transmits and receives the packet which might be come from the Dynamixel
   /// @return COMM_NOT_AVAILABLE
   /// @return   when the protocol1.0 has been used
   /// @return COMM_RX_FAIL
@@ -135,7 +115,7 @@ class WINDECLSPEC GroupSyncRead
 
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that checks whether there are available data which might be received by GroupSyncRead::rxPacket or GroupSyncRead::txRxPacket
-  /// @param id Mercury ID
+  /// @param id Dynamixel ID
   /// @param address Address of the data for read
   /// @param data_length Length of the data for read
   /// @return false
@@ -147,7 +127,7 @@ class WINDECLSPEC GroupSyncRead
 
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that gets the data which might be received by GroupSyncRead::rxPacket or GroupSyncRead::txRxPacket
-  /// @param id Mercury ID
+  /// @param id Dynamixel ID
   /// @param address Address of the data for read
   /// @data_length Length of the data for read
   /// @return data value
@@ -156,10 +136,10 @@ class WINDECLSPEC GroupSyncRead
 
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that gets the error which might be received by GroupSyncRead::rxPacket or GroupSyncRead::txRxPacket
-  /// @param id Mercury ID
-  /// @error error of Mercury
+  /// @param id Dynamixel ID
+  /// @error error of Dynamixel
   /// @return true
-  /// @return   when Mercury returned specific error byte
+  /// @return   when Dynamixel returned specific error byte
   /// @return or false 
   ////////////////////////////////////////////////////////////////////////////////
   bool        getError    (uint8_t id, uint8_t* error);

@@ -50,15 +50,15 @@ LIBRARIES  += -lrt
 #---------------------------------------------------------------------
 # SDK Files
 #---------------------------------------------------------------------
-SOURCES  = src/mercury_sdk/packet_handler.cpp \
+SOURCES  = src/mercury_sdk/group_sync_read.cpp \
+		   src/mercury_sdk/group_sync_write.cpp \
+		   src/mercury_sdk/group_handler.cpp \
+		   src/mercury_sdk/packet_handler.cpp \
            src/mercury_sdk/port_handler.cpp \
            src/mercury_sdk/protocol2_packet_handler.cpp \
 		   src/mercury_sdk/port_handler_linux.cpp \
-           src/mercury_sdk/group_sync_read.cpp \
-
 
 OBJECTS=$(addsuffix .o,$(addprefix $(DIR_OBJS)/,$(basename $(notdir $(SOURCES)))))
-
 
 #---------------------------------------------------------------------
 # COMPILING RULES
