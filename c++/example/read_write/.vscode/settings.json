@@ -1,0 +1,11 @@
+{
+    "makefile.makefilePath": "./linux64",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "${workspaceRoot}/linux64",
+            "binaryPath": "${workspaceRoot}/linux64/read_write",
+            "binaryArgs": []
+        }
+    ],
+    "makefile.makeDirectory": "./linux64"
+}

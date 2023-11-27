@@ -53,7 +53,7 @@
 #define MCY1_ID                         1                   // Mercury#1 ID: 1
 #define MCY2_ID                         2                   // Mercury#2 ID: 2
 #define BAUDRATE                        1000000
-#define DEVICENAME                      "/dev/ttyACM0"      // Check which port is being used on your controller
+#define DEVICENAME                      "/dev/ttyACM1"      // Check which port is being used on your controller
                                                             // ex) Windows: "COM1"   Linux: "/dev/ttyUSB0" Mac: "/dev/tty.usbserial-*"
 
 #define TORQUE_ENABLE                   1                   // Value for enabling the torque
