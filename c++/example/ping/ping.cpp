@@ -25,7 +25,7 @@
 //
 // *********     ping Example      *********
 //
-// This example is tested with a Mercury M65, and a USB2Mercury
+// This example is tested with a Mercury M1, and a USB2Mercury
 //
 
 #if defined(__linux__) || defined(__APPLE__)
@@ -36,6 +36,9 @@
 #include <conio.h>
 #endif
 
+#include <vector>
+#include <algorithm>
+
 #include <stdio.h>
 #include "mercury_sdk.h"                                   // Uses Mercury SDK library
 
@@ -44,6 +47,7 @@
 #define BAUDRATE                        1000000
 #define DEVICENAME                     "/dev/ttyACM1"      // Check which port is being used on your controller
                                                             // ex) Windows: "COM1"   Linux: "/dev/ttyUSB0" Mac: "/dev/tty.usbserial-*"
+//#define USE_BROADCAST_PING
 
 int getch()
 {
@@ -135,6 +139,25 @@ int main()
     getch();
     return 0;
   }
+
+#ifdef  USE_BROADCAST_PING
+
+  std::vector<uint8_t> id_list {}; 
+  mcy_comm_result = packetHandler->broadcastPing(portHandler, id_list);
+  if (mcy_comm_result != COMM_SUCCESS)
+  {
+    printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
+  }
+  else 
+  {
+      std::for_each(id_list.begin(), id_list.end(), [](uint8_t id) {
+        printf("[ID:%03d] ping Succeeded. Mercury model number : %hhu\n", id);
+      });
+  }
+
+  return 0;
+
+#endif
 
   // Try to ping the Mercury
   // Get Mercury model number
