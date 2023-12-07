@@ -108,7 +108,7 @@ public:
   /// @return COMM_RX_FAIL
   /// @return   when there is no packet recieved
   /// @return COMM_SUCCESS
-  /// @return   when there is packet recieved
+  /// @return   when there is packgroupBulkWrite_-et recieved
   /// @return or the other communication results which come from GroupBulkRead::txPacket or GroupBulkRead::rxPacket
   ////////////////////////////////////////////////////////////////////////////////
   int     txRxPacket();
