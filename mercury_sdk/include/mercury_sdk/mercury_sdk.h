@@ -17,6 +17,8 @@
 #ifndef INCLUDE_MERCURY_SDK_MERCURYSDK_H_
 #define INCLUDE_MERCURY_SDK_MERCURYSDK_H_
 
+#include "group_sync_read.h"
+#include "group_sync_write.h"
 #include "packet_handler.h"
 #include "port_handler.h"
 
