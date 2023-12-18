@@ -23,9 +23,10 @@
 #define MERCURY_SDK_INCLUDE_MERCURY_SDK_GROUPSYNCREAD_H_
 
 
+#include <map>
+#include <vector>
 #include "port_handler.h"
 #include "packet_handler.h"
-#include "group_handler.h"
 
 namespace mercury
 {
@@ -33,19 +34,26 @@ namespace mercury
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief The class for reading multiple Dynamixel data from same address with same length at once
 ////////////////////////////////////////////////////////////////////////////////
-class WINDECLSPEC GroupSyncRead : public GroupHandler
+class WINDECLSPEC GroupSyncRead
 {
-protected:
-    std::map<uint8_t, uint8_t *> error_list_; // <id, error>
+ private:
+  PortHandler    *port_;
+  PacketHandler  *ph_;
 
-    bool last_result_;
+  std::vector<uint8_t>            id_list_;
+  std::map<uint8_t, uint8_t *>    data_list_;  // <id, data>
+  std::map<uint8_t, uint8_t *>    error_list_; // <id, error>
 
-    uint16_t start_address_;
-    uint16_t data_length_;
+  bool            last_result_;
+  bool            is_param_changed_;
 
-    void makeParam();
+  uint8_t        *param_;
+  uint16_t        start_address_;
+  uint16_t        data_length_;
 
-public:
+  void    makeParam();
+
+ public:
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that Initializes instance for Sync Read
   /// @param port PortHandler instance
@@ -59,6 +67,18 @@ public:
   /// @brief The function that calls clearParam function to clear the parameter list for Sync Read
   ////////////////////////////////////////////////////////////////////////////////
   ~GroupSyncRead() { clearParam(); }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  /// @brief The function that returns PortHandler instance
+  /// @return PortHandler instance
+  ////////////////////////////////////////////////////////////////////////////////
+  PortHandler     *getPortHandler()   { return port_; }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  /// @brief The function that returns PacketHandler instance
+  /// @return PacketHandler instance
+  ////////////////////////////////////////////////////////////////////////////////
+  PacketHandler   *getPacketHandler() { return ph_; }
 
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that adds id, start_address, data_length to the Sync Read list
@@ -108,7 +128,7 @@ public:
   /// @return COMM_RX_FAIL
   /// @return   when there is no packet recieved
   /// @return COMM_SUCCESS
-  /// @return   when there is packgroupBulkWrite_-et recieved
+  /// @return   when there is packet recieved
   /// @return or the other communication results which come from GroupBulkRead::txPacket or GroupBulkRead::rxPacket
   ////////////////////////////////////////////////////////////////////////////////
   int     txRxPacket();
