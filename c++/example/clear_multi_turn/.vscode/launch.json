@@ -4,7 +4,7 @@
             "name": "Makefile",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/linux64/ping",
+            "program": "${workspaceFolder}/linux64/clear_multi_turn",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

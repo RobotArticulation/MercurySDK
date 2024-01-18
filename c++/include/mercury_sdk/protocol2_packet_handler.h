@@ -190,6 +190,17 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   int reboot          (PortHandler *port, uint8_t id, uint8_t *error = 0);
 
   ////////////////////////////////////////////////////////////////////////////////
+  /// @brief The function that resets the multi-turn revolution count
+  /// @description The function makes an instruction packet with INST_CLEAR,
+  /// @description transmits the packet with Protocol2PacketHandler::txRxPacket().
+  /// @param port PortHandler instance
+  /// @param id Mercury ID
+  /// @param error Mercury hardware error or Result Fail (0x01) or 0 (success) 
+  /// @return communication results which come from Protocol2PacketHandler::txRxPacket()
+  ////////////////////////////////////////////////////////////////////////////////
+  int clearMultiTurn  (PortHandler *port, uint8_t id, uint8_t *error = 0);
+
+  ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that makes Mercury reset as it was produced in the factory
   /// @description The function makes an instruction packet with INST_FACTORY_RESET,
   /// @description transmits the packet with Protocol2PacketHandler::txRxPacket().

@@ -28,6 +28,7 @@
 #if defined(__linux__) || defined(__APPLE__)
 #include <fcntl.h>
 #include <termios.h>
+#include <unistd.h>
 #define STDIN_FILENO 0
 #elif defined(_WIN32) || defined(_WIN64)
 #include <conio.h>
@@ -37,10 +38,12 @@
 #include <stdio.h>
 #include "../../include/mercury_sdk/mercury_sdk.h"                                 // Uses Mercury SDK library
 
+bool synchroniseMotor(mercury::PortHandler *portHandler, mercury::PacketHandler *packetHandler, uint8_t id);
+
 // Control table address
 #define ADDR_MCY_TORQUE_ENABLE           0x30                // Mercury Control table register addresses
 #define ADDR_MCY_GOAL_POSITION           0x4e
-#define ADDR_MCY_PRESENT_POSITION        0x56
+#define ADDR_MCY_PRESENT_POSITION        0x5a
 
 // Data Byte Length
 #define LEN_MCY_GOAL_POSITION           4
@@ -50,8 +53,8 @@
 #define PROTOCOL_VERSION                2.0                 // See which protocol version is used in the Mercury
 
 // Default setting
-#define MCY1_ID                         1                   // Mercury#1 ID: 1
-#define MCY2_ID                         2                   // Mercury#2 ID: 2
+#define MCY1_ID                         1                  // Mercury#1 ID: 1
+#define MCY2_ID                          2                   // Mercury#2 ID: 2
 #define BAUDRATE                        1000000
 #define DEVICENAME                      "/dev/ttyACM1"      // Check which port is being used on your controller
                                                             // ex) Windows: "COM1"   Linux: "/dev/ttyUSB0" Mac: "/dev/tty.usbserial-*"
@@ -168,37 +171,50 @@ int main()
     return 0;
   }
 
+  synchroniseMotor(portHandler, packetHandler, MCY1_ID);
+
+  if (mcy2_present) {
+    synchroniseMotor(portHandler, packetHandler, MCY2_ID);
+  }
+
+
   // Enable Mercury#1 Torque
   mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY1_ID, ADDR_MCY_TORQUE_ENABLE, TORQUE_ENABLE, &mcy_error);
   if (mcy_comm_result != COMM_SUCCESS)
   {
-    printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
+    printf("Mercury#%d: %s\n", MCY1_ID, packetHandler->getTxRxResult(mcy_comm_result));
   }
   else if (mcy_error != 0)
   {
-    printf("%s\n", packetHandler->getRxPacketError(mcy_error));
+    printf("Mercury#%d torque enabled failed: %s\n", MCY1_ID, packetHandler->getRxPacketError(mcy_error));
   }
   else
   {
     printf("Mercury#%d has been successfully connected \n", MCY1_ID);
   }
 
-  if (mcy2_present) {
+  usleep(1000);
+
+
+  if (mcy2_present) { 
     // Enable Mercury#2 Torque
     mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY2_ID, ADDR_MCY_TORQUE_ENABLE, TORQUE_ENABLE, &mcy_error);
     if (mcy_comm_result != COMM_SUCCESS)
     {
-      printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
+      printf("Mercury#%d: %s\n", MCY2_ID, packetHandler->getTxRxResult(mcy_comm_result));
     }
     else if (mcy_error != 0)
     {
-      printf("%s\n", packetHandler->getRxPacketError(mcy_error));
+      printf("Mercury#%d torque enabled failed: %s\n", MCY2_ID, packetHandler->getRxPacketError(mcy_error));
     }
     else
     {
       printf("Mercury#%d has been successfully connected \n", MCY2_ID);
     }
   }
+
+  printf("Press any key to continue! (or press ESC to quit!)\n");
+  getch();
 
   // Add parameter storage for Mercury#1 present position value
   mcy_addparam_result = groupSyncRead.addParam(MCY1_ID);
@@ -209,6 +225,8 @@ int main()
   }
 
   if (mcy2_present) {
+
+      usleep(1000);
     // Add parameter storage for Mercury#2 present position value
     mcy_addparam_result = groupSyncRead.addParam(MCY2_ID);
     if (mcy_addparam_result != true)
@@ -218,11 +236,60 @@ int main()
     }
   }
 
+
+// while(1) {
+
+//       mcy_comm_result = groupSyncRead.txRxPacket();
+//       if (mcy_comm_result != COMM_SUCCESS)
+//       {
+//         printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
+//       }
+//       else if (groupSyncRead.getError(MCY1_ID, &mcy_error))
+//       {
+//         printf("[ID:%03d] %s\n", MCY1_ID, packetHandler->getRxPacketError(mcy_error));
+//       }
+//       else if (mcy2_present && groupSyncRead.getError(MCY2_ID, &mcy_error))
+//       {
+//         printf("[ID:%03d] %s\n", MCY2_ID, packetHandler->getRxPacketError(mcy_error));
+//       }
+
+//       mcy_getdata_result = groupSyncRead.isAvailable(MCY1_ID, ADDR_MCY_PRESENT_POSITION, LEN_MCY_PRESENT_POSITION);
+//       if (mcy_getdata_result != true) {
+//         printf("No data available \n");
+//       }
+
+//       mcy1_present_position = groupSyncRead.getData(MCY1_ID, ADDR_MCY_PRESENT_POSITION, LEN_MCY_PRESENT_POSITION);
+
+//       printf ("present position = %d \n", mcy1_present_position);
+
+//       #if defined(__linux__)
+//         usleep(1000);
+// #endif
+
+// }
+
+
+
+
+
+
+
+
+
+  int iteration = 0;
   while(1)
   {
-    printf("Press any key to continue! (or press ESC to quit!)\n");
-    if (getch() == ESC_ASCII_VALUE)
-      break;
+#if defined(__linux__)
+        usleep(100000);
+#endif
+
+    iteration++;
+
+    printf("Iteration:%03d\t\n", iteration);
+
+    // printf("Press any key to continue! (or press ESC to quit!)\n");
+    // if (getch() == ESC_ASCII_VALUE)
+    //   break;
 
     // Allocate goal position value into byte array
     param_goal_position[0] = MCY_LOBYTE(MCY_LOWORD(mcy_goal_position[index]));
@@ -239,6 +306,8 @@ int main()
     }
 
     if (mcy2_present) {
+
+        usleep(1000);
       // Add Mercury#2 goal position value to the Syncwrite parameter storage
       mcy_addparam_result = groupSyncWrite.addParam(MCY2_ID, param_goal_position);
       if (mcy_addparam_result != true)
@@ -255,8 +324,13 @@ int main()
     // Clear syncwrite parameter storage
     groupSyncWrite.clearParam();
 
+
     do
     {
+#if defined(__linux__)
+        usleep(100000);
+#endif
+
       // Syncread present position
       mcy_comm_result = groupSyncRead.txRxPacket();
       if (mcy_comm_result != COMM_SUCCESS)
@@ -277,10 +351,13 @@ int main()
       if (mcy_getdata_result != true)
       {
         fprintf(stderr, "[ID:%03d] groupSyncRead getdata failed", MCY1_ID);
-        return 0;
+        continue; 
+        //return 0;
       }
 
       if (mcy2_present) {
+
+          usleep(1000);
         // Check if groupsyncread data of Mercury#2 is available
         mcy_getdata_result = groupSyncRead.isAvailable(MCY2_ID, ADDR_MCY_PRESENT_POSITION, LEN_MCY_PRESENT_POSITION);
         if (mcy_getdata_result != true)
@@ -292,23 +369,26 @@ int main()
 
       // Get Mercury#1 present position value
       mcy1_present_position = groupSyncRead.getData(MCY1_ID, ADDR_MCY_PRESENT_POSITION, LEN_MCY_PRESENT_POSITION);
-
+      
       if (mcy2_present) {
+          usleep(1000);
       // Get Mercury#2 present position value
         mcy2_present_position = groupSyncRead.getData(MCY2_ID, ADDR_MCY_PRESENT_POSITION, LEN_MCY_PRESENT_POSITION);
-        printf("[ID:%03d] GoalPos:%03d  PresPos:%03d\t[ID:%03d] GoalPos:%03d  PresPos:%03d\n", MCY1_ID, mcy_goal_position[index], mcy1_present_position, MCY2_ID, mcy_goal_position[index], mcy2_present_position);
+        printf("[ID:%03d] GoalPos1:%03d  PresPos:%03d\t[ID:%03d] GoalPos:%03d  PresPos:%03d\n", MCY1_ID, mcy_goal_position[index], mcy1_present_position, MCY2_ID, mcy_goal_position[index], mcy2_present_position);
+      } else {
+        printf("[ID:%03d] GoalPos1:%03d  PresPos:%03d\t\n", (int)MCY1_ID, mcy_goal_position[index], mcy1_present_position);
       }
 
-      printf("[ID:%03d] GoalPos:%03d  PresPos:%03d\t[ID:%03d]\n", MCY1_ID, mcy_goal_position[index], mcy1_present_position);
 
-    }while((abs(mcy_goal_position[index] - mcy1_present_position) > MCY_MOVING_STATUS_THRESHOLD) || (mcy2_present && (abs(mcy_goal_position[index] - mcy2_present_position) > MCY_MOVING_STATUS_THRESHOLD)));
+
+    }while((abs(mcy_goal_position[index] - mcy1_present_position) > MCY_MOVING_STATUS_THRESHOLD) /*|| (mcy2_present && (abs(mcy_goal_position[index] - mcy2_present_position) > MCY_MOVING_STATUS_THRESHOLD))*/);
 
     // Change goal position
     if (index == 0)
     {
       index = 1;
     }
-    else
+    else 
     {
       index = 0;
     }
@@ -326,6 +406,8 @@ int main()
   }
 
   if (mcy2_present) {
+
+      usleep(1000);
     // Disable Mercury#2 Torque
     mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY2_ID, ADDR_MCY_TORQUE_ENABLE, TORQUE_DISABLE, &mcy_error);
     if (mcy_comm_result != COMM_SUCCESS)
@@ -342,4 +424,62 @@ int main()
   portHandler->closePort();
 
   return 0;
+}
+
+bool synchroniseMotor(mercury::PortHandler *portHandler, mercury::PacketHandler *packetHandler, uint8_t id) {
+
+ // read the hardware status register to confirm
+  const uint8_t synchronise_enable  = 0x02;
+  const uint8_t ADDR_MX_HARDWARE_STATUS_L = 0x6b;
+
+  uint8_t mcy_hardware_status = 0;
+  uint8_t mcy_error_l = 0;                          // Mercury error
+  int mcy_comm_result_l = COMM_TX_FAIL;             // Communication result
+
+  bool is_synchronising = false;
+  do {
+    
+    mcy_comm_result_l = packetHandler->read1ByteTxRx(portHandler, id, ADDR_MX_HARDWARE_STATUS_L, &mcy_hardware_status, &mcy_error_l);
+
+    if (mcy_comm_result_l != COMM_SUCCESS)
+    {
+      printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result_l));
+      return 0;
+    }
+    else if (mcy_error_l != 0)
+    {
+      printf("%s\n", packetHandler->getRxPacketError(mcy_error_l));
+    }
+    else {
+      if (mcy_hardware_status & 0x02) { // motor not synchronised
+        if (is_synchronising) {
+          printf("Mercury is synchronising... \n");
+
+  #if defined(__linux__)
+          usleep(1000000);
+  #endif
+          continue;
+        }
+
+        mcy_comm_result_l = packetHandler->write1ByteTxRx(portHandler, id, ADDR_MCY_TORQUE_ENABLE, synchronise_enable, &mcy_error_l);
+        if (mcy_comm_result_l != COMM_SUCCESS)
+        {
+          printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result_l));
+          return 0;
+        }
+        else if (mcy_error_l != 0)
+        {
+          printf("%s\n", packetHandler->getRxPacketError(mcy_error_l));
+          return 0;
+        }
+        else
+        {
+          printf("Mercury has been successfully connected \n");
+          is_synchronising = true;
+        }
+      }
+    }
+  } while (mcy_hardware_status & synchronise_enable);
+
+  return 1;
 }

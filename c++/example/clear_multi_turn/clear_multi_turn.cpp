@@ -20,13 +20,10 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Original author: Zerom, Leon (RyuWoon Jung) */
-
 //
-// *********     Read and Write Example      *********
+// *********     Clear Multiturn Example      *********
 //
-// This example is tested with a Mercury M65, and a USB2Mercury. 
-// Ensure that the Mercury servo is in position control mode prior to running this example.
+// This example is tested with a Mercury M1, and a USB2Mercury
 //
 
 #if defined(__linux__) || defined(__APPLE__)
@@ -41,28 +38,31 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "mercury_sdk/mercury_sdk.h"                                  // Uses Mercury SDK library
+#include "mercury_sdk.h"                                   // Uses Mercury SDK library
 
-bool synchroniseMotor(mercury::PortHandler *portHandler, mercury::PacketHandler *packetHandler);
+// Control table address
+#define ADDR_OPERATING_MODE             0x06                  // Control table address is different in Mercury model
+#define ADDR_TORQUE_ENABLE              0x30
+#define ADDR_GOAL_POSITION              0x4e
+#define ADDR_PRESENT_POSITION           0x5a
 
-#define ADDR_MCY_TORQUE_ENABLE           0x30                // Mercury Control table register addresses
-#define ADDR_MCY_GOAL_POSITION           0x4e
-#define ADDR_MCY_PRESENT_POSITION        0x56
-#define ADDR_MCY_HARDWARE_STATUS         0x6b
+// Protocol version
+#define PROTOCOL_VERSION                2.0                 // See which protocol version is used in the Mercury
 
 // Default setting
 #define MCY_ID                          1                   // Mercury ID: 1
 #define BAUDRATE                        1000000
 #define DEVICENAME                      "/dev/ttyACM1"      // Check which port is being used on your controller
-                                                            // ex) Windows: "COM1"   Linux: "/dev/ttyUSB0" Mac: "/dev/tty.usbserial-*"
+                                                            // eg: Windows: "COM1"   Linux: "/dev/ttyACM0" 
 
 #define TORQUE_ENABLE                   1                   // Value for enabling the torque
 #define TORQUE_DISABLE                  0                   // Value for disabling the torque
-#define MCY_MINIMUM_POSITION_VALUE      100                 // Mercury will rotate between this value
-#define MCY_MAXIMUM_POSITION_VALUE      1000                // and this value (note that the Mercury would not move when the position value is out of movable range. Check e-manual about the range of the Mercury you use.)
-#define MCY_MOVING_STATUS_THRESHOLD     2                  // Mercury moving status threshold
+#define MAX_POSITION_VALUE              10000
+#define DXL_MOVING_STATUS_THRESHOLD     20                  // Mercury moving status threshold
+#define EXT_POSITION_CONTROL_MODE       3                   // Value for extended position control mode (operating mode)
 
 #define ESC_ASCII_VALUE                 0x1b
+#define SPACE_ASCII_VALUE               0x20
 
 int getch()
 {
@@ -112,6 +112,15 @@ int kbhit(void)
 #endif
 }
 
+void msecSleep(int waitTime)
+{
+#if defined(__linux__) || defined(__APPLE__)
+  usleep(waitTime * 1000);
+#elif defined(_WIN32) || defined(_WIN64)
+  _sleep(waitTime);
+#endif
+}
+
 int main()
 {
   // Initialize PortHandler instance
@@ -124,12 +133,10 @@ int main()
   // Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
   mercury::PacketHandler *packetHandler = mercury::PacketHandler::getPacketHandler();
 
-  int index = 0;
   int mcy_comm_result = COMM_TX_FAIL;             // Communication result
-  int mcy_goal_position[2] = {MCY_MINIMUM_POSITION_VALUE, MCY_MAXIMUM_POSITION_VALUE};         // Goal position
 
   uint8_t mcy_error = 0;                          // Mercury error
-  uint32_t mcy_present_position = 0;              // Present position
+  int32_t mcy_present_position = 0;               // Present position
 
   // Open port
   if (portHandler->openPort())
@@ -157,11 +164,8 @@ int main()
     return 0;
   }
 
-  if (!synchroniseMotor(portHandler, packetHandler))
-    return 0;
-
-  // Enable Mercury Torque
-  mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_MCY_TORQUE_ENABLE, TORQUE_ENABLE, &mcy_error);
+  uint8_t operating_mode = 0;
+  mcy_comm_result = packetHandler->readTxRx(portHandler, MCY_ID, ADDR_OPERATING_MODE, 0x01, &operating_mode, &mcy_error);
   if (mcy_comm_result != COMM_SUCCESS)
   {
     printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
@@ -172,21 +176,52 @@ int main()
   }
   else
   {
+    if (operating_mode != EXT_POSITION_CONTROL_MODE)
+    {
+      // Set operating mode to extended position control mode
+      mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_OPERATING_MODE, EXT_POSITION_CONTROL_MODE, &mcy_error);
+      if (mcy_comm_result != COMM_SUCCESS)
+      {
+        printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
+      }
+      else if (mcy_error != 0)
+      {
+        printf("%s\n", packetHandler->getRxPacketError(mcy_error));
+      }
+      else
+      {
+        // This is a rom write, so add a delay of 1s
+        usleep(1e06);
+        printf("Operating mode changed to extended position control mode. \n");
+      }
+    }
+  }
+  
+  // Enable Mercury Torque
+   mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_TORQUE_ENABLE, TORQUE_ENABLE, &mcy_error);
+  if (mcy_comm_result != COMM_SUCCESS)
+  {
+    printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
+  }
+  else if (mcy_error != 0)
+  { 
+    printf("%s\n", packetHandler->getRxPacketError(mcy_error));
+  }
+  else
+  {
     printf("Mercury has been successfully connected \n");
   }
 
   while(1)
   {
-    printf("Press any key to continue! (or press ESC to quit!)\n");
-    if (getch() == ESC_ASCII_VALUE)
-      break;
+    printf("  Press SPACE key to clear multi-turn information! (or press ESC to quit!)\n");
 
     // Write goal position
-    mcy_comm_result = packetHandler->write4ByteTxRx(portHandler, MCY_ID, ADDR_MCY_GOAL_POSITION, mcy_goal_position[index], &mcy_error);
+    mcy_comm_result = packetHandler->write4ByteTxRx(portHandler, MCY_ID, ADDR_GOAL_POSITION, MAX_POSITION_VALUE, &mcy_error);
     if (mcy_comm_result != COMM_SUCCESS)
     {
       printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
-    }
+    } 
     else if (mcy_error != 0)
     {
       printf("%s\n", packetHandler->getRxPacketError(mcy_error));
@@ -194,12 +229,8 @@ int main()
 
     do
     {
-  #if defined(__linux__)
-        usleep(10000);
-  #endif
-
       // Read present position
-      mcy_comm_result = packetHandler->read4ByteTxRx(portHandler, MCY_ID, ADDR_MCY_PRESENT_POSITION, &mcy_present_position, &mcy_error);
+      mcy_comm_result = packetHandler->read4ByteTxRx(portHandler, MCY_ID, ADDR_PRESENT_POSITION, (uint32_t*)&mcy_present_position, &mcy_error);
       if (mcy_comm_result != COMM_SUCCESS)
       {
         printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
@@ -209,23 +240,66 @@ int main()
         printf("%s\n", packetHandler->getRxPacketError(mcy_error));
       }
 
-      printf("[ID:%03d] GoalPos:%03d  PresPos:%03d\n", MCY_ID, mcy_goal_position[index], mcy_present_position);
+      printf("  [ID:%03d] GoalPos:%03d  PresPos:%03d\r", MCY_ID, MAX_POSITION_VALUE, mcy_present_position);
 
-    }while((labs(mcy_goal_position[index] - mcy_present_position) > MCY_MOVING_STATUS_THRESHOLD));
+      usleep(10000);
 
-    // Change goal position
-    if (index == 0)
+    }while((abs(MAX_POSITION_VALUE - mcy_present_position) > DXL_MOVING_STATUS_THRESHOLD));
+
+    // we've reached the goal position
+
+    char c = getch();
+    if (c == SPACE_ASCII_VALUE)
     {
-      index = 1;
+        printf("\n  Clearing Multi-Turn Information... \n");
+
+        // Clear Multi-Turn Information
+        mcy_comm_result = packetHandler->clearMultiTurn(portHandler, MCY_ID, &mcy_error);
+        if (mcy_comm_result != COMM_SUCCESS)
+        {
+          printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
+        }
+        else if (mcy_error != 0)
+        {
+          printf("%s\n", packetHandler->getRxPacketError(mcy_error));
+        }
+
+        // Write the present position to the goal position. This will move servo to same position after x number of revolutions
+        mcy_comm_result = packetHandler->write4ByteTxRx(portHandler, MCY_ID, ADDR_GOAL_POSITION, mcy_present_position, &mcy_error);
+        if (mcy_comm_result != COMM_SUCCESS)
+        {
+          printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
+        }
+        else if (mcy_error != 0)
+        {
+          printf("%s\n", packetHandler->getRxPacketError(mcy_error));
+        }
+
+        msecSleep(300);
     }
-    else
+    else if (c == ESC_ASCII_VALUE)
+      break;
+
+    do
     {
-      index = 0;
-    }
-  }
+      // Read present position
+      mcy_comm_result = packetHandler->read4ByteTxRx(portHandler, MCY_ID, ADDR_PRESENT_POSITION, (uint32_t*)&mcy_present_position, &mcy_error);
+      if (mcy_comm_result != COMM_SUCCESS)
+      {
+        printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
+      }
+      else if (mcy_error != 0)
+      {
+        printf("%s\n", packetHandler->getRxPacketError(mcy_error));
+      }
+
+      printf("  [ID:%03d] GoalPos:%03d  PresPos:%03d\r", MCY_ID, MAX_POSITION_VALUE, mcy_present_position);
+
+    }while((abs(MAX_POSITION_VALUE - mcy_present_position) > DXL_MOVING_STATUS_THRESHOLD));
+ }
 
   // Disable Mercury Torque
-  mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_MCY_TORQUE_ENABLE, TORQUE_DISABLE, &mcy_error);
+  mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_TORQUE_ENABLE, TORQUE_DISABLE, &mcy_error);
   if (mcy_comm_result != COMM_SUCCESS)
   {
     printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
@@ -239,62 +313,4 @@ int main()
   portHandler->closePort();
 
   return 0;
-}
-
-bool synchroniseMotor(mercury::PortHandler *portHandler, mercury::PacketHandler *packetHandler) {
-
- // read the hardware status register to confirm
-  const uint8_t synchronise_enable  = 0x02;
-  const uint8_t ADDR_MCY_HARDWARE_STATUS_L = 0x6b;
-
-  uint8_t mcy_hardware_status = 0;
-  uint8_t mcy_error_l = 0;                          // Mercury error
-  int mcy_comm_result_l = COMM_TX_FAIL;             // Communication result
-
-  bool is_synchronising = false;
-  do {
-    
-    mcy_comm_result_l = packetHandler->read1ByteTxRx(portHandler, MCY_ID, ADDR_MCY_HARDWARE_STATUS_L, &mcy_hardware_status, &mcy_error_l);
-
-    if (mcy_comm_result_l != COMM_SUCCESS)
-    {
-      printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result_l));
-      return 0;
-    }
-    else if (mcy_error_l != 0)
-    {
-      printf("%s\n", packetHandler->getRxPacketError(mcy_error_l));
-    }
-    else {
-      if (mcy_hardware_status & 0x02) { // motor not synchronised
-        if (is_synchronising) {
-          printf("Mercury is synchronising... \n");
-
-  #if defined(__linux__)
-          usleep(1000000);
-  #endif
-          continue;
-        }
-
-        mcy_comm_result_l = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_MCY_TORQUE_ENABLE, synchronise_enable, &mcy_error_l);
-        if (mcy_comm_result_l != COMM_SUCCESS)
-        {
-          printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result_l));
-          return 0;
-        }
-        else if (mcy_error_l != 0)
-        {
-          printf("%s\n", packetHandler->getRxPacketError(mcy_error_l));
-          return 0;
-        }
-        else
-        {
-          printf("Mercury has been successfully connected \n");
-          is_synchronising = true;
-        }
-      }
-    }
-  } while (mcy_hardware_status & synchronise_enable);
-
-  return 1;
 }

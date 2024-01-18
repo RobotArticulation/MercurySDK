@@ -45,7 +45,7 @@
 // Default setting
 #define MCY_ID                          1                   // Mercury ID: 1
 #define BAUDRATE                        1000000
-#define DEVICENAME                     "/dev/ttyACM1"      // Check which port is being used on your controller
+#define DEVICENAME                     "/dev/ttyACM0"      // Check which port is being used on your controller
                                                             // ex) Windows: "COM1"   Linux: "/dev/ttyUSB0" Mac: "/dev/tty.usbserial-*"
 //#define USE_BROADCAST_PING
 

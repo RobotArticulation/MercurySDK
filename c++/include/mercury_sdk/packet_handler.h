@@ -58,6 +58,7 @@
 #define INST_FACTORY_RESET      6
 #define INST_SYNC_WRITE         131     // 0x83
 #define INST_REBOOT             8
+#define INST_CLEAR              16      // 0x10
 #define INST_STATUS             85      // 0x55
 #define INST_SYNC_READ          130     // 0x82
 
@@ -226,6 +227,17 @@ class WINDECLSPEC PacketHandler
   /// @return COMM_NOT_AVAILABLE
   ////////////////////////////////////////////////////////////////////////////////
   virtual int reboot          (PortHandler *port, uint8_t id, uint8_t *error = 0) = 0;
+
+  ////////////////////////////////////////////////////////////////////////////////
+  /// @brief The function that resets the multi-turn revolution count
+  /// @description The function makes an instruction packet with INST_CLEAR,
+  /// @description transmits the packet with Protocol2PacketHandler::txRxPacket().
+  /// @param port PortHandler instance
+  /// @param id Mercury ID
+  /// @param error Mercury hardware error or Result Fail (0x01) or 0 (success) 
+  /// @return communication results which come from Protocol2PacketHandler::txRxPacket()
+  ////////////////////////////////////////////////////////////////////////////////
+  virtual int clearMultiTurn  (PortHandler *port, uint8_t id, uint8_t *error = 0) = 0;
 
   ////////////////////////////////////////////////////////////////////////////////
   /// @brief The function that makes Mercury reset as it was produced in the factory
