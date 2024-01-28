@@ -521,6 +521,18 @@ class WINDECLSPEC Protocol2PacketHandler : public PacketHandler
   ////////////////////////////////////////////////////////////////////////////////
   int syncWriteTxOnly (PortHandler *port, uint16_t start_address, uint16_t data_length, uint8_t *param, uint16_t param_length);
 
+  ////////////////////////////////////////////////////////////////////////////////
+  /// @brief The function that synchronises the servo
+  /// @description This function will synchronise the target Mercury servo.
+  /// @description transmits the packet with PacketHandler::txRxPacket().
+  /// @param port PortHandler instance
+  /// @param id Mercury ID
+  /// @param force synchronisation
+  /// @param error Mercury hardware error
+  /// @return communication results 
+  ////////////////////////////////////////////////////////////////////////////////
+  int synchronise (PortHandler *port, uint8_t id, uint8_t *error);
+
 };
 
 }

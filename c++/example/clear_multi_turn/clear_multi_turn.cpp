@@ -57,7 +57,7 @@
 
 #define TORQUE_ENABLE                   1                   // Value for enabling the torque
 #define TORQUE_DISABLE                  0                   // Value for disabling the torque
-#define MAX_POSITION_VALUE              10000
+#define MAX_POSITION_VALUE              -1
 #define DXL_MOVING_STATUS_THRESHOLD     20                  // Mercury moving status threshold
 #define EXT_POSITION_CONTROL_MODE       3                   // Value for extended position control mode (operating mode)
 
@@ -178,6 +178,21 @@ int main()
   {
     if (operating_mode != EXT_POSITION_CONTROL_MODE)
     {
+      mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_TORQUE_ENABLE, 0, &mcy_error);
+      if (mcy_comm_result != COMM_SUCCESS)
+      {
+        printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
+      }
+      else if (mcy_error != 0)
+      { 
+        printf("%s\n", packetHandler->getRxPacketError(mcy_error));
+      }
+      else
+      {
+        printf("Control_enable has been disabled \n");
+      }
+
+
       // Set operating mode to extended position control mode
       mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_OPERATING_MODE, EXT_POSITION_CONTROL_MODE, &mcy_error);
       if (mcy_comm_result != COMM_SUCCESS)
@@ -240,7 +255,7 @@ int main()
         printf("%s\n", packetHandler->getRxPacketError(mcy_error));
       }
 
-      printf("  [ID:%03d] GoalPos:%03d  PresPos:%03d\r", MCY_ID, MAX_POSITION_VALUE, mcy_present_position);
+      printf("[ID:%03d] GoalPos:%03d  PresPos:%03d \n", MCY_ID, MAX_POSITION_VALUE, mcy_present_position);
 
       usleep(10000);
 
@@ -253,6 +268,8 @@ int main()
     {
         printf("\n  Clearing Multi-Turn Information... \n");
 
+        //printf("[ID:%03d] GoalPos:%03d New PresPos:%03d \n", MCY_ID, MAX_POSITION_VALUE, (mcy_present_position - 8192) % 16384);
+
         // Clear Multi-Turn Information
         mcy_comm_result = packetHandler->clearMultiTurn(portHandler, MCY_ID, &mcy_error);
         if (mcy_comm_result != COMM_SUCCESS)
@@ -263,6 +280,8 @@ int main()
         {
           printf("%s\n", packetHandler->getRxPacketError(mcy_error));
         }
+
+        printf("[ID:%03d] GoalPos:%03d New PresPos:%03d \n", MCY_ID, MAX_POSITION_VALUE, (mcy_present_position - 8192) % 16384);
 
         // Write the present position to the goal position. This will move servo to same position after x number of revolutions
         mcy_comm_result = packetHandler->write4ByteTxRx(portHandler, MCY_ID, ADDR_GOAL_POSITION, mcy_present_position, &mcy_error);
@@ -292,8 +311,7 @@ int main()
       {
         printf("%s\n", packetHandler->getRxPacketError(mcy_error));
       }
-
-      printf("  [ID:%03d] GoalPos:%03d  PresPos:%03d\r", MCY_ID, MAX_POSITION_VALUE, mcy_present_position);
+      usleep(1000);
 
     }while((abs(MAX_POSITION_VALUE - mcy_present_position) > DXL_MOVING_STATUS_THRESHOLD));
  }

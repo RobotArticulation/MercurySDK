@@ -37,7 +37,6 @@
 #endif
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 
 #define TXPACKET_MAX_LEN    (1*1024)
@@ -1034,4 +1033,47 @@ int Protocol2PacketHandler::syncWriteTxOnly(PortHandler *port, uint16_t start_ad
   free(txpacket);
   //delete[] txpacket;
   return result;
+}
+
+int Protocol2PacketHandler::synchronise (PortHandler *port, uint8_t id, uint8_t *error = 0)
+{
+  const uint8_t synchronise_enable  = 0x02;
+  const uint8_t ADDR_MCY_CONTROL_ENABLE = 0x30;
+  const uint8_t ADDR_MX_HARDWARE_STATUS_L = 0x6b;
+
+  uint8_t mcy_hardware_status = 0;
+  int mcy_comm_result = COMM_TX_FAIL;             // Communication result
+
+  bool is_synchronising = false;
+
+  do
+  {
+    mcy_comm_result = read1ByteTxRx(port, id, ADDR_MX_HARDWARE_STATUS_L, &mcy_hardware_status, error);
+    if (mcy_comm_result != COMM_SUCCESS)
+    {
+      return mcy_comm_result;
+    }
+
+    if (mcy_hardware_status & 0x02) // motor not synchronised
+    {
+      if (is_synchronising)
+      {
+
+  #if defined(__linux__)
+          usleep(1000000);
+  #endif
+          continue;
+      }
+
+      mcy_comm_result = write1ByteTxRx(port, id, ADDR_MCY_CONTROL_ENABLE, synchronise_enable, error);
+      if (mcy_comm_result != COMM_SUCCESS)
+      {
+          return mcy_comm_result;
+      }
+      is_synchronising = true;
+
+    }
+  } while (mcy_hardware_status & synchronise_enable);
+
+  return mcy_comm_result;
 }

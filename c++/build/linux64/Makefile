@@ -35,8 +35,9 @@ SYMLINK     = ln -s
 MKDIR       = mkdir
 CC          = gcc
 CX          = g++
-CCFLAGS     = -O0 -DLINUX -D_GNU_SOURCE -Wall -c $(INCLUDES) $(FORMAT) -fPIC -g
-CXFLAGS     = -O0 -DLINUX -D_GNU_SOURCE -Wall -c $(INCLUDES) $(FORMAT) -fPIC -g
+CCFLAGS     = -O0 -DLINUX -std=c++20 -D_GNU_SOURCE -Wall -c $(INCLUDES) $(FORMAT) -fPIC -g
+CXFLAGS     = -O0 -DLINUX -std=c++20 -D_GNU_SOURCE -Wall -c $(INCLUDES) $(FORMAT) -fPIC -g
+CXXFLAGS 	= -std=c++20 -Wall -O0
 # CCFLAGS     = -O2 -O3 -DLINUX -D_GNU_SOURCE -Wall -c $(INCLUDES) $(FORMAT) -fPIC -g
 # CXFLAGS     = -O2 -O3 -DLINUX -D_GNU_SOURCE -Wall -c $(INCLUDES) $(FORMAT) -fPIC -g
 FORMAT     = -m64
