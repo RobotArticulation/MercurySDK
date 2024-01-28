@@ -144,8 +144,6 @@ void PortHandlerLinux::setPacketTimeout(uint16_t packet_length)
 {
   packet_start_time_  = getCurrentTime();
   packet_timeout_     = (tx_time_per_byte * (double)packet_length) + (LATENCY_TIMER * 2.0) + 2.0;
-
-  printf("Timeout=%f\n", packet_timeout_);
 }
 
 void PortHandlerLinux::setPacketTimeout(double msec)
@@ -158,8 +156,6 @@ bool PortHandlerLinux::isPacketTimeout()
 {
   if(getTimeSinceStart() > packet_timeout_)
   {
-    printf("Overflow Timeout=%f\n", getTimeSinceStart() - packet_timeout_);
-
     packet_timeout_ = 0;
     return true;
   }
