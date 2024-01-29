@@ -135,9 +135,9 @@ int main()
     uint8_t id;
     int32_t mcy_present_position;
   };
-   std::vector<mcy_servo> mcy_servos{{1, 0}, {3, 0}};
-  //std::vector<mcy_servo> mcy_servos{{1, 0}, {2, 0},{3, 0}};
-
+ 
+  std::vector<mcy_servo> mcy_servos{{1, 0}, {2, 0}};
+ 
   int index = 0;
   int mcy_comm_result = COMM_TX_FAIL;                                                   // Communication result
   bool mcy_addparam_result = false;                                                    // addParam result
@@ -240,6 +240,13 @@ int main()
     usleep(100000);
 #endif
 
+    if (kbhit()) 
+    {
+      int ch = getch();
+      if (ch == ESC_ASCII_VALUE)
+        break;
+    }
+
     iteration++;
 
     printf("Iteration:%03d\t\n", iteration);
@@ -314,10 +321,7 @@ int main()
       }
       printf("\t\n");
 
-    } while (
-      (abs(mcy_goal_position[index] - mcy_servos.at(0).mcy_present_position) > MCY_MOVING_STATUS_THRESHOLD)); // ||
-      // (abs(mcy_goal_position[index] - mcy_servos.at(1).mcy_present_position) > MCY_MOVING_STATUS_THRESHOLD) ||
-      //(abs(mcy_goal_position[index] - mcy_servos.at(2).mcy_present_position) > MCY_MOVING_STATUS_THRESHOLD));
+    } while ((abs(mcy_goal_position[index] - mcy_servos.at(0).mcy_present_position) > MCY_MOVING_STATUS_THRESHOLD)); 
 
     // Change goal position
     if (index == 0)
@@ -330,32 +334,24 @@ int main()
     }
   }
 
-  // Disable Mercury#1 Torque
-  // mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY1_ID, ADDR_MCY_TORQUE_ENABLE, TORQUE_DISABLE, &mcy_error);
-  // if (mcy_comm_result != COMM_SUCCESS)
-  // {
-  //   printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
-  // }
-  // else if (mcy_error != 0)
-  // {
-  //   printf("%s\n", packetHandler->getRxPacketError(mcy_error));
-  // }
+  for (mcy_servo servo : mcy_servos)
+  {
+    mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, servo.id, ADDR_MCY_TORQUE_ENABLE, TORQUE_DISABLE, &mcy_error);
+    if (mcy_comm_result != COMM_SUCCESS)
+    {
+      printf("Mercury#%d: %s\n", servo.id, packetHandler->getTxRxResult(mcy_comm_result));
+    }
+    else if (mcy_error != 0)
+    {
+      printf("Mercury#%d torque disable failed: %s\n", servo.id, packetHandler->getRxPacketError(mcy_error));
+    }
+    else
+    {
+      printf("Mercury#%d has been successfully disconnected \n", servo.id);
+    }
 
-  // if (mcy2_present)
-  // {
-
-  //   usleep(1000);
-  //   // Disable Mercury#2 Torque
-  //   mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY2_ID, ADDR_MCY_TORQUE_ENABLE, TORQUE_DISABLE, &mcy_error);
-  //   if (mcy_comm_result != COMM_SUCCESS)
-  //   {
-  //     printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result));
-  //   }
-  //   else if (mcy_error != 0)
-  //   {
-  //     printf("%s\n", packetHandler->getRxPacketError(mcy_error));
-  //   }
-  // }
+    usleep(1000);
+  }
 
   // Close port
   portHandler->closePort();

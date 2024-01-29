@@ -252,7 +252,7 @@ void Protocol2PacketHandler::removeStuffing(uint8_t *packet)
   for (i = 0; i < packet_length_in - 2; i++)  // except CRC
   {
     if (packet[i+PKT_INSTRUCTION] == 0xFD && packet[i+PKT_INSTRUCTION+1] == 0xFD && packet[i+PKT_INSTRUCTION-1] == 0xFF && packet[i+PKT_INSTRUCTION-2] == 0xFF)
-    {   // FF FF FD FD
+    {   
       packet_length_out--;
       i++;
     }
@@ -306,12 +306,6 @@ int Protocol2PacketHandler::txPacket(PortHandler *port, uint8_t *txpacket)
     return COMM_TX_FAIL;
   }
 
-  // printf("Tx packet: \n\r");
-  // for (int i = 0; i < total_packet_length; i++) {
-  //   printf("%02x ", txpacket[i]);
-  // }
-  // printf("\n\r");
-
   return COMM_SUCCESS;
 }
 
@@ -346,7 +340,7 @@ int Protocol2PacketHandler::rxPacket(PortHandler *port, uint8_t *rxpacket)
           // remove the first byte in the packet
           for (uint16_t s = 0; s < rx_length - 1; s++)
             rxpacket[s] = rxpacket[1 + s];
-          //memcpy(&rxpacket[0], &rxpacket[idx], rx_length - idx);
+
           rx_length -= 1;
           continue;
         }
@@ -396,7 +390,7 @@ int Protocol2PacketHandler::rxPacket(PortHandler *port, uint8_t *rxpacket)
         // remove unnecessary packets
         for (uint16_t s = 0; s < rx_length - idx; s++)
           rxpacket[s] = rxpacket[idx + s];
-        //memcpy(&rxpacket[0], &rxpacket[idx], rx_length - idx);
+
         rx_length -= idx;
       }
     }
@@ -440,12 +434,6 @@ int Protocol2PacketHandler::txRxPacket(PortHandler *port, uint8_t *txpacket, uin
   if (result != COMM_SUCCESS)
     return result;
 
-  // // (Instruction == BulkRead or SyncRead) == this function is not available.
-  // if (txpacket[PKT_INSTRUCTION] == INST_BULK_READ || txpacket[PKT_INSTRUCTION] == INST_SYNC_READ)
-  //   result = COMM_NOT_AVAILABLE;
-
-  // (ID == Broadcast ID) == no need to wait for status packet or not available.
-  // (Instruction == action) == no need to wait for status packet
   if (txpacket[PKT_ID] == BROADCAST_ID || txpacket[PKT_INSTRUCTION] == INST_ACTION)
   {
     port->is_using_ = false;
@@ -532,13 +520,12 @@ int Protocol2PacketHandler::broadcastPing(PortHandler *port, std::vector<uint8_t
   }
 
   // set rx timeout
-  //port->setPacketTimeout((uint16_t)(wait_length * 30));
   port->setPacketTimeout(((double)wait_length * tx_time_per_byte) + (3.0 * (double)MAX_ID) + 16.0);
 
   while(1)
   {
     rx_length += port->readPort(&rxpacket[rx_length], wait_length - rx_length);
-    if (port->isPacketTimeout() == true)// || rx_length >= wait_length)
+    if (port->isPacketTimeout() == true)
       break;
   }
 
@@ -689,7 +676,6 @@ int Protocol2PacketHandler::readRx(PortHandler *port, uint8_t id, uint16_t lengt
 {
   int result                  = COMM_TX_FAIL;
   uint8_t *rxpacket           = (uint8_t *)malloc(RXPACKET_MAX_LEN);
-  //(length + 11 + (length/3));  // (length/3): consider stuffing
   
   if (rxpacket == NULL)
     return result;
@@ -707,11 +693,9 @@ int Protocol2PacketHandler::readRx(PortHandler *port, uint8_t id, uint16_t lengt
     {
       data[s] = rxpacket[PKT_PARAMETER0 + 1 + s];
     }
-    //memcpy(data, &rxpacket[PKT_PARAMETER0+1], length);
   }
 
   free(rxpacket);
-  //delete[] rxpacket;
   return result;
 }
 
@@ -721,7 +705,6 @@ int Protocol2PacketHandler::readTxRx(PortHandler *port, uint8_t id, uint16_t add
 
   uint8_t txpacket[14]        = {0};
   uint8_t *rxpacket           = (uint8_t *)malloc(RXPACKET_MAX_LEN);
-  //(length + 11 + (length/3));  // (length/3): consider stuffing
 
   if (rxpacket == NULL)
     return result;
@@ -751,17 +734,9 @@ int Protocol2PacketHandler::readTxRx(PortHandler *port, uint8_t id, uint16_t add
     {
       data[s] = rxpacket[PKT_PARAMETER0 + 1 + s];
     }
-    //memcpy(data, &rxpacket[PKT_PARAMETER0+1], length);
   }
 
-  // printf("Rx packet: \n\r");
-  // for (int i = 0; i < PKT_PARAMETER0 + 1 + length+2; i++) {
-  //   printf("%02x ", rxpacket[i]);
-  // }
-  // printf("\n\r");
-
   free(rxpacket);
-  //delete[] rxpacket;
   return result;
 }
 
@@ -828,7 +803,6 @@ int Protocol2PacketHandler::read4ByteTxRx(PortHandler *port, uint8_t id, uint16_
   return result;
 }
 
-
 int Protocol2PacketHandler::writeTxOnly(PortHandler *port, uint8_t id, uint16_t address, uint16_t length, uint8_t *data)
 {
   int result                  = COMM_TX_FAIL;
@@ -847,13 +821,11 @@ int Protocol2PacketHandler::writeTxOnly(PortHandler *port, uint8_t id, uint16_t 
 
   for (uint16_t s = 0; s < length; s++)
     txpacket[PKT_PARAMETER0+2+s] = data[s];
-  //memcpy(&txpacket[PKT_PARAMETER0+2], data, length);
 
   result = txPacket(port, txpacket);
   port->is_using_ = false;
 
   free(txpacket);
-  //delete[] txpacket;
   return result;
 }
 
@@ -876,12 +848,10 @@ int Protocol2PacketHandler::writeTxRx(PortHandler *port, uint8_t id, uint16_t ad
 
   for (uint16_t s = 0; s < length; s++)
     txpacket[PKT_PARAMETER0+2+s] = data[s];
-  //memcpy(&txpacket[PKT_PARAMETER0+2], data, length);
 
   result = txRxPacket(port, txpacket, rxpacket, error);
 
   free(txpacket);
-  //delete[] txpacket;
   return result;
 }
 
@@ -936,13 +906,11 @@ int Protocol2PacketHandler::regWriteTxOnly(PortHandler *port, uint8_t id, uint16
 
   for (uint16_t s = 0; s < length; s++)
     txpacket[PKT_PARAMETER0+2+s] = data[s];
-  //memcpy(&txpacket[PKT_PARAMETER0+2], data, length);
 
   result = txPacket(port, txpacket);
   port->is_using_ = false;
 
   free(txpacket);
-  //delete[] txpacket;
   return result;
 }
 
@@ -965,12 +933,10 @@ int Protocol2PacketHandler::regWriteTxRx(PortHandler *port, uint8_t id, uint16_t
 
   for (uint16_t s = 0; s < length; s++)
     txpacket[PKT_PARAMETER0+2+s] = data[s];
-  //memcpy(&txpacket[PKT_PARAMETER0+2], data, length);
 
   result = txRxPacket(port, txpacket, rxpacket, error);
 
   free(txpacket);
-  //delete[] txpacket;
   return result;
 }
 
@@ -995,7 +961,6 @@ int Protocol2PacketHandler::syncReadTx(PortHandler *port, uint16_t start_address
 
   for (uint16_t s = 0; s < param_length; s++)
     txpacket[PKT_PARAMETER0+4+s] = param[s];
-  //memcpy(&txpacket[PKT_PARAMETER0+4], param, param_length);
 
   result = txPacket(port, txpacket);
   if (result == COMM_SUCCESS)
@@ -1010,7 +975,6 @@ int Protocol2PacketHandler::syncWriteTxOnly(PortHandler *port, uint16_t start_ad
   int result                  = COMM_TX_FAIL;
 
   uint8_t *txpacket           = (uint8_t *)malloc(param_length + 14 + (param_length / 3));
-  // 14: HEADER0 HEADER1 HEADER2 RESERVED ID LEN_L LEN_H INST START_ADDR_L START_ADDR_H DATA_LEN_L DATA_LEN_H CRC16_L CRC16_H
 
   if (txpacket == NULL)
     return result;
@@ -1026,12 +990,10 @@ int Protocol2PacketHandler::syncWriteTxOnly(PortHandler *port, uint16_t start_ad
 
   for (uint16_t s = 0; s < param_length; s++)
     txpacket[PKT_PARAMETER0+4+s] = param[s];
-  //memcpy(&txpacket[PKT_PARAMETER0+4], param, param_length);
 
   result = txRxPacket(port, txpacket, 0, 0);
 
   free(txpacket);
-  //delete[] txpacket;
   return result;
 }
 
