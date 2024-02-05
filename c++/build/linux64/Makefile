@@ -35,11 +35,10 @@ SYMLINK     = ln -s
 MKDIR       = mkdir
 CC          = gcc
 CX          = g++
-CCFLAGS     = -O0 -DLINUX -std=c++20 -D_GNU_SOURCE -Wall -c $(INCLUDES) $(FORMAT) -fPIC -g
-CXFLAGS     = -O0 -DLINUX -std=c++20 -D_GNU_SOURCE -Wall -c $(INCLUDES) $(FORMAT) -fPIC -g
-CXXFLAGS 	= -std=c++20 -Wall -O0
-# CCFLAGS     = -O2 -O3 -DLINUX -D_GNU_SOURCE -Wall -c $(INCLUDES) $(FORMAT) -fPIC -g
-# CXFLAGS     = -O2 -O3 -DLINUX -D_GNU_SOURCE -Wall -c $(INCLUDES) $(FORMAT) -fPIC -g
+# CCFLAGS     = -O0 -DLINUX -std=c++20 -D_GNU_SOURCE -Wall -c $(INCLUDES) $(FORMAT) -fPIC -g
+# CXFLAGS     = -O0 -DLINUX -std=c++20 -D_GNU_SOURCE -Wall -c $(INCLUDES) $(FORMAT) -fPIC -g
+CCFLAGS     = -O2 -O3 -DLINUX -D_GNU_SOURCE -Wall -c $(INCLUDES) $(FORMAT) -fPIC -g
+CXFLAGS     = -O2 -O3 -DLINUX -D_GNU_SOURCE -Wall -c $(INCLUDES) $(FORMAT) -fPIC -g
 FORMAT     = -m64
 INCLUDES    += -I$(DIR_MCY)/include/mercury_sdk
 
@@ -98,16 +97,9 @@ uninstall:
 
 reinstall: uninstall install
 
-
 #---------------------------------------------------------------------
 # Make rules for all .c and .cpp files in each directory
 #---------------------------------------------------------------------
-
-$(DIR_OBJS)/%.o: $(DIR_MCY)/src/mercury_sdk/%.c
-	$(CC) $(CCFLAGS) -c $? -o $@
-
-$(DIR_OBJS)/%.o: $(DIR_MCY)/src/mercury_sdk/%.cpp
-	$(CX) $(CXFLAGS) -c $? -o $@
 
 $(DIR_OBJS)/%.o: $(DIR_MCY)/src/mercury_sdk/%.c
 	$(CC) $(CCFLAGS) -c $? -o $@

@@ -47,7 +47,7 @@ bool synchroniseMotor(mercury::PortHandler *portHandler, mercury::PacketHandler 
 
 #define ADDR_MCY_TORQUE_ENABLE           0x30                // Mercury Control table register addresses
 #define ADDR_MCY_GOAL_POSITION           0x4e
-#define ADDR_MCY_PRESENT_POSITION        0x56
+#define ADDR_MCY_PRESENT_POSITION        0x5a
 #define ADDR_MCY_HARDWARE_STATUS         0x6b
 
 // Default setting

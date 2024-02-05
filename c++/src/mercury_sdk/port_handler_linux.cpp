@@ -154,6 +154,8 @@ void PortHandlerLinux::setPacketTimeout(double msec)
 
 bool PortHandlerLinux::isPacketTimeout()
 {
+  double timeSinceStart = getTimeSinceStart();
+  //printf("timeSinceStart=[%f] packet_timeout_=[%f]\n", timeSinceStart, packet_timeout_);
   if(getTimeSinceStart() > packet_timeout_)
   {
     packet_timeout_ = 0;

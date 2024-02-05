@@ -39,6 +39,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <debug_config.h>
+
 #define TXPACKET_MAX_LEN    (1*1024)
 #define RXPACKET_MAX_LEN    (1*1024)
 
@@ -94,7 +96,7 @@ const char *Protocol2PacketHandler::getTxRxResult(int result)
       return "[TxRxResult] Now recieving status packet!";
 
     case COMM_RX_TIMEOUT:
-      return "[TxRxResult] There is no status packet!";
+      return "[TxRxResult] Timeout - There is no status packet!";
 
     case COMM_RX_CORRUPT:
       return "[TxRxResult] Incorrect status packet!";
@@ -297,6 +299,15 @@ int Protocol2PacketHandler::txPacket(PortHandler *port, uint8_t *txpacket)
   txpacket[total_packet_length - 2] = MCY_LOBYTE(crc);
   txpacket[total_packet_length - 1] = MCY_HIBYTE(crc);
 
+
+#ifdef DEBUG_TX_PACKET
+  printf("Debug txPacket: ");
+  for (int j=0; j<total_packet_length; j++) {
+    printf ("%02x ", txpacket[j]);
+  }
+  printf ("\n");
+#endif
+
   // tx packet
   port->clearPort();
   written_packet_length = port->writePort(txpacket, total_packet_length);
@@ -350,7 +361,7 @@ int Protocol2PacketHandler::rxPacket(PortHandler *port, uint8_t *rxpacket)
         {
           wait_length = MCY_MAKEWORD(rxpacket[PKT_LENGTH_L], rxpacket[PKT_LENGTH_H]) + PKT_LENGTH_H + 1;
           continue;
-        }
+        } 
 
         if (rx_length < wait_length)
         {
@@ -416,6 +427,17 @@ int Protocol2PacketHandler::rxPacket(PortHandler *port, uint8_t *rxpacket)
     Sleep(0);
 #endif
   }
+
+
+#ifdef DEBUG_RX_PACKET
+    int total_packet_length = 7 + rxpacket[5];
+    printf("Debug rxPacket: ");
+    for (int j=0; j<total_packet_length; j++) {
+      printf ("%02x ", rxpacket[j]);
+    }
+    printf ("\n");
+#endif
+
   port->is_using_ = false;
 
   if (result == COMM_SUCCESS)
