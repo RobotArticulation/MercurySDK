@@ -37,6 +37,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
+#include <algorithm>
 #include <string>
 #include "../../include/mercury_sdk/mercury_sdk.h" // Uses Mercury SDK library
 
@@ -51,7 +52,7 @@
 
 // Default setting
 #define BAUDRATE 1000000
-#define DEVICENAME "/dev/ttyACM2" // Check which port is being used on your controller
+#define DEVICENAME "/dev/ttyACM1" // Check which port is being used on your controller
                                   // ex) Windows: "COM1"   Linux: "/dev/ttyUSB0" Mac: "/dev/tty.usbserial-*"
 
 #define TORQUE_ENABLE 1                  // Value for enabling the torque
@@ -59,7 +60,7 @@
 #define MCY_MINIMUM_POSITION_VALUE -2000 // Mercury will rotate between this value
 #define MCY_MAXIMUM_POSITION_VALUE 2000  // and this value (note that the Mercury would not move when the position value is out of movable range. Check e-manual about the range of the Mercury you use.)
 #define MCY_MOVING_STATUS_THRESHOLD 20   // Mercury moving status threshold
-
+    
 #define ESC_ASCII_VALUE 0x1b
 
 int getch()
@@ -138,7 +139,6 @@ int main()
   // This should be chosen with the longest acknowledge response time in mind.
 
   const int rom_write_delay_ms = 1e06;
-  
 
   std::vector<mcy_servo> mcy_servos{{1, 0}, {2, 0}, {3, 0}};
  
@@ -168,7 +168,6 @@ int main()
   if (portHandler->setBaudRate(BAUDRATE))
   {
     // This is a rom write, so add a delay of 1s
-    //usleep(2e06);
     usleep(rom_write_delay_ms);
 
     printf("Succeeded to change the baudrate!\n");
@@ -186,7 +185,6 @@ int main()
   {
 
     printf("Synchronising Mercury#%d\n", servo.id);
-    //usleep(100000);
     usleep(acknowledge_response_delay_ms);
 
     mcy_comm_result = packetHandler->synchronise(portHandler, servo.id, &mcy_error);
@@ -206,7 +204,6 @@ int main()
 
   for (mcy_servo servo : mcy_servos)
   {
-    //usleep(1000);
     usleep(acknowledge_response_delay_ms);
     mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, servo.id, ADDR_MCY_TORQUE_ENABLE, TORQUE_ENABLE, &mcy_error);
     if (mcy_comm_result != COMM_SUCCESS)
@@ -225,6 +222,9 @@ int main()
  
   printf("**** Mercury servos are connected ****\n");
 
+  printf("**** Mercury servos are connected ****\n");
+
+
   printf("Press any key to continue! (or press ESC to quit!)\n");
   getch();
 
@@ -236,7 +236,6 @@ int main()
     if (mcy_addparam_result != true)
     {
       fprintf(stderr, "[ID:%03d] groupSyncRead addparam failed", servo.id);
-      //return 0;
     }
   }
 
@@ -314,29 +313,18 @@ int main()
         if (mcy_getdata_result != true)
         {
           fprintf(stderr, "[ID:%03d] groupSyncRead isAvailable failed \n", servo.id);
-          //return 0;
-          //continue;
         }
         else 
         {
           servo.mcy_present_position = groupSyncRead.getData(servo.id, ADDR_MCY_PRESENT_POSITION, LEN_MCY_PRESENT_POSITION);
-          //usleep(10000);
           printf("[ID:%03d] GoalPos1:%03d  PresPos:%03d ", (int)servo.id, mcy_goal_position[index], servo.mcy_present_position);
         }
       }
 
-      // for (mcy_servo& servo : mcy_servos)
-      // {
-
-      //   // Get Mercury#1 present position value
-      //   servo.mcy_present_position = groupSyncRead.getData(servo.id, ADDR_MCY_PRESENT_POSITION, LEN_MCY_PRESENT_POSITION);
-      //   usleep(10000);
-
-      //   printf("[ID:%03d] GoalPos1:%03d  PresPos:%03d ", (int)servo.id, mcy_goal_position[index], servo.mcy_present_position);
-      // }
       printf("\t\n");
 
-    } while ((abs(mcy_goal_position[index] - mcy_servos.at(0).mcy_present_position) > MCY_MOVING_STATUS_THRESHOLD)); 
+    } while (std::any_of(mcy_servos.begin(), mcy_servos.end(), [mcy_goal_position, index](mcy_servo servo) 
+          {return (abs(mcy_goal_position[index] - servo.mcy_present_position) > MCY_MOVING_STATUS_THRESHOLD);}));
 
     // Change goal position
     if (index == 0)
@@ -372,3 +360,9 @@ int main()
 
   return 0;
 }
+
+// static bool servosMoving(const int mcy_goal_position) 
+// {
+//   return std::all_of(mcy_servos.begin(), mcy_servos.end(),  { return mcy_goal_position > MCY_MOVING_STATUS_THRESHOLD });
+//   //(abs(mcy_goal_position[index] - mcy_servos.at(0).mcy_present_position) > MCY_MOVING_STATUS_THRESHOLD)); 
+// }
