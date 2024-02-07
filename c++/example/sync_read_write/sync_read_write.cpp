@@ -141,7 +141,7 @@ int main()
   const int rom_write_delay_ms = 1e06;
 
   std::vector<mcy_servo> mcy_servos{{1, 0}, {2, 0}, {3, 0}};
- 
+   
   int index = 0;
   int mcy_comm_result = COMM_TX_FAIL;                                                   // Communication result
   bool mcy_addparam_result = false;                                                    // addParam result
@@ -198,7 +198,7 @@ int main()
     } 
   }
 
-  printf("**** Mercury servos are synchronised ****\n");
+  printf("**** All Mercury servos are synchronised ****\n");
  
   printf("**** Connecting Mercury servos ****\n");
 
@@ -220,10 +220,7 @@ int main()
     }
   }
  
-  printf("**** Mercury servos are connected ****\n");
-
-  printf("**** Mercury servos are connected ****\n");
-
+  printf("**** All Mercury servos are connected ****\n");
 
   printf("Press any key to continue! (or press ESC to quit!)\n");
   getch();
