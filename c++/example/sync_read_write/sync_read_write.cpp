@@ -357,9 +357,3 @@ int main()
 
   return 0;
 }
-
-// static bool servosMoving(const int mcy_goal_position) 
-// {
-//   return std::all_of(mcy_servos.begin(), mcy_servos.end(),  { return mcy_goal_position > MCY_MOVING_STATUS_THRESHOLD });
-//   //(abs(mcy_goal_position[index] - mcy_servos.at(0).mcy_present_position) > MCY_MOVING_STATUS_THRESHOLD)); 
-// }
