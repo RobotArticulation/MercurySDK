@@ -38,6 +38,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <algorithm>
+#include <utility>
 #include <string>
 #include "../../include/mercury_sdk/mercury_sdk.h" // Uses Mercury SDK library
 
@@ -60,8 +61,136 @@
 #define MCY_MINIMUM_POSITION_VALUE -2000 // Mercury will rotate between this value
 #define MCY_MAXIMUM_POSITION_VALUE 2000  // and this value (note that the Mercury would not move when the position value is out of movable range. Check e-manual about the range of the Mercury you use.)
 #define MCY_MOVING_STATUS_THRESHOLD 20   // Mercury moving status threshold
-    
+
+#define ACKNOWLEDGE_RESPONSE_DELAY_MS 1000
+// This should be chosen with the longest acknowledge response time in mind.
+
 #define ESC_ASCII_VALUE 0x1b
+
+struct mcy_servo
+{
+  uint8_t id;
+  int32_t mcy_present_position;
+};
+
+bool do_synchronisation(std::vector<mcy_servo> *mcy_servos, mercury::PacketHandler *packetHandler, mercury::PortHandler *portHandler, uint8_t *mcy_comm_result);
+bool start_synchronisation(uint8_t id, mercury::PacketHandler *packetHandler, mercury::PortHandler *portHandler, uint8_t *mcy_comm_result);
+bool is_synchronised(uint8_t id, mercury::PacketHandler *packetHandler, mercury::PortHandler *portHandler, uint8_t *mcy_comm_result);
+
+bool do_synchronisation(std::vector<mcy_servo> *mcy_servos, mercury::PacketHandler *packetHandler, mercury::PortHandler *portHandler, uint8_t *mcy_comm_result)
+{
+  /*
+   * Check for any servos that have not been synced.
+  */
+  std::vector<uint8_t> unsynchronised_servos = {};
+  std::for_each(mcy_servos->begin(), mcy_servos->end(), [&](mcy_servo servo){
+
+    if (!is_synchronised(servo.id, packetHandler, portHandler, mcy_comm_result))
+    {
+      unsynchronised_servos.push_back(servo.id);
+    }
+    else if (*mcy_comm_result != COMM_SUCCESS)
+    {
+      printf("Mercury#%d: %s\n", servo.id, packetHandler->getTxRxResult(*mcy_comm_result));
+    }
+  });
+
+  if (unsynchronised_servos.size() == 0)
+  {
+    printf ("**** All Mercury servos are synchronised ****\n");
+    return true;
+  }
+  else if (*mcy_comm_result != COMM_SUCCESS)
+  {
+    return false;
+  }
+  
+  /*
+   * Start the synchronisation of the servos that haven't been synced.
+  */
+  if (std::all_of(unsynchronised_servos.begin(), unsynchronised_servos.end(), [=](uint8_t id) {
+        return start_synchronisation(id, packetHandler, portHandler, mcy_comm_result);
+    }) == false)
+  {
+    return false; // error occured.
+  }
+
+ /*
+  * Now monitor the servos being synced...
+ */
+  while (!std::all_of(unsynchronised_servos.begin(), unsynchronised_servos.end(), [&](uint8_t id) {
+      if (!is_synchronised(id, packetHandler, portHandler, mcy_comm_result))
+      {
+        return false;
+      }
+
+      auto it = std::find(unsynchronised_servos.begin(), unsynchronised_servos.end(), id); 
+      if (it != unsynchronised_servos.end()) 
+      {
+          unsynchronised_servos.erase(it); 
+      }
+
+      return true;
+      
+    }))
+  {
+    if (*mcy_comm_result != COMM_SUCCESS)
+      return false;
+
+    printf ("Synchronising...\n");
+    usleep(1e06);
+  }
+
+  return true;
+}
+
+bool start_synchronisation(uint8_t id, mercury::PacketHandler *packetHandler, mercury::PortHandler *portHandler, uint8_t *mcy_comm_result)
+{
+  bool success = false;
+
+  usleep(ACKNOWLEDGE_RESPONSE_DELAY_MS);
+  uint8_t mcy_error = 0;
+  *mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, id, ADDR_MCY_TORQUE_ENABLE, 0x02, &mcy_error);
+  if (*mcy_comm_result != COMM_SUCCESS)
+  {
+    printf("Mercury#%d: %s\n", id, packetHandler->getTxRxResult(*mcy_comm_result));
+  }
+  else if (mcy_error != 0)
+  {
+    printf("Mercury#%d synchronise start failed: %s\n", id, packetHandler->getRxPacketError(mcy_error));
+  }
+  else
+  {
+    printf("Starting sychronisation of Mercury#%d\n", id);
+    success = true;
+  }
+
+  return success;
+}
+
+bool is_synchronised(uint8_t id, mercury::PacketHandler *packetHandler, mercury::PortHandler *portHandler, uint8_t *mcy_comm_result)
+{
+  bool success = false;
+
+  usleep(ACKNOWLEDGE_RESPONSE_DELAY_MS);
+  uint8_t mcy_error = 0;
+  uint8_t data;
+  *mcy_comm_result = packetHandler->read1ByteTxRx(portHandler, id, 0x6b, &data, &mcy_error);
+  if (*mcy_comm_result != COMM_SUCCESS)
+  {
+    printf("Mercury#%d: %s\n", id, packetHandler->getTxRxResult(*mcy_comm_result));
+  }
+  else if (mcy_error != 0)
+  {
+    printf("Mercury#%d torque enabled failed: %s\n", id, packetHandler->getRxPacketError(mcy_error));
+  }
+  else
+  {
+    success = (data & 0x02) == 0;
+  }
+
+  return success;
+}
 
 int getch()
 {
@@ -129,21 +258,12 @@ int main()
   // Initialize Groupsyncread instance for Present Position
   mercury::GroupSyncRead groupSyncRead(portHandler, packetHandler, ADDR_MCY_PRESENT_POSITION, LEN_MCY_PRESENT_POSITION);
 
-  struct mcy_servo
-  {
-    uint8_t id;
-    int32_t mcy_present_position;
-  };
-
-  const int acknowledge_response_delay_ms = 1000; 
-  // This should be chosen with the longest acknowledge response time in mind.
-
   const int rom_write_delay_ms = 1e06;
 
-  std::vector<mcy_servo> mcy_servos{{1, 0}, {2, 0}, {3, 0}};
-   
+  std::vector<mcy_servo> mcy_servos{{1}, {2}, {3}};
+
   int index = 0;
-  int mcy_comm_result = COMM_TX_FAIL;                                                   // Communication result
+  int mcy_comm_result = COMM_TX_FAIL;                                                  // Communication result
   bool mcy_addparam_result = false;                                                    // addParam result
   bool mcy_getdata_result = false;                                                     // GetParam result
   int mcy_goal_position[2] = {MCY_MINIMUM_POSITION_VALUE, MCY_MAXIMUM_POSITION_VALUE}; // Goal position
@@ -153,7 +273,7 @@ int main()
 
   // Open port
   if (portHandler->openPort())
-  { 
+  {
     printf("Succeeded to open the port!\n");
   }
   else
@@ -164,7 +284,7 @@ int main()
     return 0;
   }
 
- // Set port baudrate
+  // Set port baudrate
   if (portHandler->setBaudRate(BAUDRATE))
   {
     // This is a rom write, so add a delay of 1s
@@ -180,31 +300,13 @@ int main()
     return 0;
   }
 
-  printf("**** Synchronising Mercury servos ****\n");
-  for (mcy_servo servo : mcy_servos)
-  {
+  do_synchronisation(&mcy_servos, packetHandler, portHandler, &mcy_error);
 
-    printf("Synchronising Mercury#%d\n", servo.id);
-    usleep(acknowledge_response_delay_ms);
-
-    mcy_comm_result = packetHandler->synchronise(portHandler, servo.id, &mcy_error);
-    if (mcy_comm_result != COMM_SUCCESS)
-    { 
-      printf("Mercury#%d: has failed to synchronise. Error: %s\n", servo.id, packetHandler->getTxRxResult(mcy_comm_result));
-    }
-    else
-    {
-      printf("Mercury#%d is synchronised\n", servo.id);
-    } 
-  }
-
-  printf("**** All Mercury servos are synchronised ****\n");
- 
   printf("**** Connecting Mercury servos ****\n");
 
   for (mcy_servo servo : mcy_servos)
   {
-    usleep(acknowledge_response_delay_ms);
+    usleep(ACKNOWLEDGE_RESPONSE_DELAY_MS);
     mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, servo.id, ADDR_MCY_TORQUE_ENABLE, TORQUE_ENABLE, &mcy_error);
     if (mcy_comm_result != COMM_SUCCESS)
     {
@@ -219,7 +321,7 @@ int main()
       printf("Mercury#%d has been successfully connected \n", servo.id);
     }
   }
- 
+
   printf("**** All Mercury servos are connected ****\n");
 
   printf("Press any key to continue! (or press ESC to quit!)\n");
@@ -227,7 +329,7 @@ int main()
 
   for (mcy_servo servo : mcy_servos)
   {
-    usleep(acknowledge_response_delay_ms);
+    usleep(ACKNOWLEDGE_RESPONSE_DELAY_MS);
     // Add parameter storage for Mercury#1 present position value
     mcy_addparam_result = groupSyncRead.addParam(servo.id);
     if (mcy_addparam_result != true)
@@ -243,7 +345,7 @@ int main()
     usleep(100000);
 #endif
 
-    if (kbhit()) 
+    if (kbhit())
     {
       int ch = getch();
       if (ch == ESC_ASCII_VALUE)
@@ -271,7 +373,7 @@ int main()
       }
     }
 
-    usleep(acknowledge_response_delay_ms);
+    usleep(ACKNOWLEDGE_RESPONSE_DELAY_MS);
     // Syncwrite goal position
     mcy_comm_result = groupSyncWrite.txPacket();
     if (mcy_comm_result != COMM_SUCCESS)
@@ -301,9 +403,9 @@ int main()
         }
       }
 
-      for (mcy_servo& servo : mcy_servos)
+      for (mcy_servo &servo : mcy_servos)
       {
-        usleep(acknowledge_response_delay_ms);
+        usleep(ACKNOWLEDGE_RESPONSE_DELAY_MS);
 
         // Check if groupsyncread data of Mercury#1 is available
         mcy_getdata_result = groupSyncRead.isAvailable(servo.id, ADDR_MCY_PRESENT_POSITION, LEN_MCY_PRESENT_POSITION);
@@ -311,7 +413,7 @@ int main()
         {
           fprintf(stderr, "[ID:%03d] groupSyncRead isAvailable failed \n", servo.id);
         }
-        else 
+        else
         {
           servo.mcy_present_position = groupSyncRead.getData(servo.id, ADDR_MCY_PRESENT_POSITION, LEN_MCY_PRESENT_POSITION);
           printf("[ID:%03d] GoalPos1:%03d  PresPos:%03d ", (int)servo.id, mcy_goal_position[index], servo.mcy_present_position);
@@ -320,8 +422,8 @@ int main()
 
       printf("\t\n");
 
-    } while (std::any_of(mcy_servos.begin(), mcy_servos.end(), [mcy_goal_position, index](mcy_servo servo) 
-          {return (abs(mcy_goal_position[index] - servo.mcy_present_position) > MCY_MOVING_STATUS_THRESHOLD);}));
+    } while (std::any_of(mcy_servos.begin(), mcy_servos.end(), [mcy_goal_position, index](mcy_servo servo)
+                         {  return (abs(mcy_goal_position[index] - servo.mcy_present_position) > MCY_MOVING_STATUS_THRESHOLD); }));
 
     // Change goal position
     if (index == 0)
@@ -336,7 +438,7 @@ int main()
 
   for (mcy_servo servo : mcy_servos)
   {
-    usleep(acknowledge_response_delay_ms);
+    usleep(ACKNOWLEDGE_RESPONSE_DELAY_MS);
     mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, servo.id, ADDR_MCY_TORQUE_ENABLE, TORQUE_DISABLE, &mcy_error);
     if (mcy_comm_result != COMM_SUCCESS)
     {
@@ -347,7 +449,7 @@ int main()
       printf("Mercury#%d torque disable failed: %s\n", servo.id, packetHandler->getRxPacketError(mcy_error));
     }
     else
-    { 
+    {
       printf("Mercury#%d has been successfully disconnected \n", servo.id);
     }
   }
