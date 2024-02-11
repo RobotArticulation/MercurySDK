@@ -42,8 +42,7 @@
 #include <stdio.h>
 
 #include "mercury_sdk/mercury_sdk.h"                                  // Uses Mercury SDK library
-
-bool synchroniseMotor(mercury::PortHandler *portHandler, mercury::PacketHandler *packetHandler);
+#include "../../include/mercury_sdk/synchronisation_helper.h"
 
 #define ADDR_MCY_TORQUE_ENABLE           0x30                // Mercury Control table register addresses
 #define ADDR_MCY_GOAL_POSITION           0x4e
@@ -58,9 +57,9 @@ bool synchroniseMotor(mercury::PortHandler *portHandler, mercury::PacketHandler 
 
 #define TORQUE_ENABLE                   1                   // Value for enabling the torque
 #define TORQUE_DISABLE                  0                   // Value for disabling the torque
-#define MCY_MINIMUM_POSITION_VALUE      100                 // Mercury will rotate between this value
+#define MCY_MINIMUM_POSITION_VALUE      -1000                 // Mercury will rotate between this value
 #define MCY_MAXIMUM_POSITION_VALUE      1000                // and this value (note that the Mercury would not move when the position value is out of movable range. Check e-manual about the range of the Mercury you use.)
-#define MCY_MOVING_STATUS_THRESHOLD     2                  // Mercury moving status threshold
+#define MCY_MOVING_STATUS_THRESHOLD     0                  // Mercury moving status threshold
 
 #define ESC_ASCII_VALUE                 0x1b
 
@@ -157,8 +156,9 @@ int main()
     return 0;
   }
 
-  if (!synchroniseMotor(portHandler, packetHandler))
-    return 0;
+  std::vector<uint8_t> mcy_servos = {MCY_ID};
+
+  do_synchronisation(&mcy_servos, packetHandler, portHandler, &mcy_error);
 
   // Enable Mercury Torque
   mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_MCY_TORQUE_ENABLE, TORQUE_ENABLE, &mcy_error);
@@ -239,62 +239,4 @@ int main()
   portHandler->closePort();
 
   return 0;
-}
-
-bool synchroniseMotor(mercury::PortHandler *portHandler, mercury::PacketHandler *packetHandler) {
-
- // read the hardware status register to confirm
-  const uint8_t synchronise_enable  = 0x02;
-  const uint8_t ADDR_MCY_HARDWARE_STATUS_L = 0x6b;
-
-  uint8_t mcy_hardware_status = 0;
-  uint8_t mcy_error_l = 0;                          // Mercury error
-  int mcy_comm_result_l = COMM_TX_FAIL;             // Communication result
-
-  bool is_synchronising = false;
-  do {
-    
-    mcy_comm_result_l = packetHandler->read1ByteTxRx(portHandler, MCY_ID, ADDR_MCY_HARDWARE_STATUS_L, &mcy_hardware_status, &mcy_error_l);
-
-    if (mcy_comm_result_l != COMM_SUCCESS)
-    {
-      printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result_l));
-      return 0;
-    }
-    else if (mcy_error_l != 0)
-    {
-      printf("%s\n", packetHandler->getRxPacketError(mcy_error_l));
-    }
-    else {
-      if (mcy_hardware_status & 0x02) { // motor not synchronised
-        if (is_synchronising) {
-          printf("Mercury is synchronising... \n");
-
-  #if defined(__linux__)
-          usleep(1000000);
-  #endif
-          continue;
-        }
-
-        mcy_comm_result_l = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_MCY_TORQUE_ENABLE, synchronise_enable, &mcy_error_l);
-        if (mcy_comm_result_l != COMM_SUCCESS)
-        {
-          printf("%s\n", packetHandler->getTxRxResult(mcy_comm_result_l));
-          return 0;
-        }
-        else if (mcy_error_l != 0)
-        {
-          printf("%s\n", packetHandler->getRxPacketError(mcy_error_l));
-          return 0;
-        }
-        else
-        {
-          printf("Mercury has been successfully connected \n");
-          is_synchronising = true;
-        }
-      }
-    }
-  } while (mcy_hardware_status & synchronise_enable);
-
-  return 1;
 }
