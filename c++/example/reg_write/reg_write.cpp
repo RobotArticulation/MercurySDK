@@ -40,16 +40,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "mercury_sdk.h"                                 // Uses Mercury SDK library
+#include "../../include/mercury_sdk/mercury_sdk.h"                                // Uses Mercury SDK library
 
 #define ADDR_MX_TORQUE_ENABLE           0x30                // Mercury Control table register addresses
 #define ADDR_MX_GOAL_POSITION           0x4e
 #define ADDR_MX_PRESENT_POSITION        0x56
 
 // Default setting
-#define MCY_ID                          1                   // Mercury ID: 1
+#define MCY_ID                          1                  // Mercury ID: 1
 #define BAUDRATE                        1000000
-#define DEVICENAME                      "/dev/ttyACM0"      // Check which port is being used on your controller
+#define DEVICENAME                      "/dev/ttyACM1"      // Check which port is being used on your controller
                                                             // ex) Windows: "COM1"   Linux: "/dev/ttyUSB0" Mac: "/dev/tty.usbserial-*"
 
 #define TORQUE_ENABLE                   1                   // Value for enabling the torque

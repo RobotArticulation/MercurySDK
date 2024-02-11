@@ -42,7 +42,7 @@
 #include <stdio.h>
 
 #include "mercury_sdk/mercury_sdk.h"                                  // Uses Mercury SDK library
-#include "../../include/mercury_sdk/synchronisation_helper.h"
+#include "mercury_sdk/synchronisation_helper.h"
 
 #define ADDR_MCY_TORQUE_ENABLE           0x30                // Mercury Control table register addresses
 #define ADDR_MCY_GOAL_POSITION           0x4e
@@ -124,6 +124,7 @@ int main()
   mercury::PacketHandler *packetHandler = mercury::PacketHandler::getPacketHandler();
 
   int index = 0;
+  std::vector<uint8_t> mcy_servos = {MCY_ID};
   int mcy_comm_result = COMM_TX_FAIL;             // Communication result
   int mcy_goal_position[2] = {MCY_MINIMUM_POSITION_VALUE, MCY_MAXIMUM_POSITION_VALUE};         // Goal position
 
@@ -155,8 +156,6 @@ int main()
     getch();
     return 0;
   }
-
-  std::vector<uint8_t> mcy_servos = {MCY_ID};
 
   do_synchronisation(&mcy_servos, packetHandler, portHandler, &mcy_error);
 

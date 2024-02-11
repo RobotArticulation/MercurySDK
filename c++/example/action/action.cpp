@@ -40,14 +40,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "mercury_sdk.h"                                  // Uses Mercury SDK library
+#include "../../include/mercury_sdk/mercury_sdk.h"                                  // Uses Mercury SDK library
+#include "../../include/mercury_sdk/synchronisation_helper.h"
 
 #define ADDR_MX_TORQUE_ENABLE           0x30                // Mercury Control table register addresses
 
 // Default setting
 #define MCY_ID                          1                   // Mercury ID: 1
 #define BAUDRATE                        1000000
-#define DEVICENAME                      "/dev/ttyACM0"      // Check which port is being used on your controller
+#define DEVICENAME                      "/dev/ttyACM1"      // Check which port is being used on your controller
                                                             // ex) Windows: "COM1"   Linux: "/dev/ttyUSB0" Mac: "/dev/tty.usbserial-*"
 
 #define TORQUE_ENABLE                   1                   // Value for enabling the torque
@@ -115,6 +116,7 @@ int main()
   // Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
   mercury::PacketHandler *packetHandler = mercury::PacketHandler::getPacketHandler();
 
+  std::vector<uint8_t> mcy_servos = {MCY_ID};
   int mcy_comm_result = COMM_TX_FAIL;             // Communication result
 
   uint8_t mcy_error = 0;                          // Mercury error
@@ -145,6 +147,8 @@ int main()
     return 0;
   }
 
+  do_synchronisation(&mcy_servos, packetHandler, portHandler, &mcy_error);
+
   // Enable Mercury Torque
   mcy_comm_result = packetHandler->write1ByteTxRx(portHandler, MCY_ID, ADDR_MX_TORQUE_ENABLE, TORQUE_ENABLE, &mcy_error);
   if (mcy_comm_result != COMM_SUCCESS)
@@ -168,6 +172,10 @@ int main()
   else if (mcy_error != 0)
   {
     printf("%s\n", packetHandler->getRxPacketError(mcy_error));
+  }
+  else
+  {
+    printf("Action has been executed \n");
   }
 
   // Close port

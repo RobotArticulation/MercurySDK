@@ -1,0 +1,12 @@
+{
+    "makefile.makefilePath": "./linux64",
+    "makefile.makeDirectory": "./linux64",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "${workspaceRoot}/linux64",
+            "binaryPath": "${workspaceRoot}/linux64/action",
+            "binaryArgs": []
+        }
+    ],
+    "C_Cpp.errorSquiggles": "enabled"
+}
