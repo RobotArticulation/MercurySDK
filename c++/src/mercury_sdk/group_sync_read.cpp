@@ -195,5 +195,5 @@ uint32_t GroupSyncRead::getData(uint8_t id, uint16_t address, uint16_t data_leng
 
 bool GroupSyncRead::getError(uint8_t id, uint8_t* error)
 {
-  return error[0] = error_list_[id][0];
+  return (error[0] = error_list_[id][0]);
 }

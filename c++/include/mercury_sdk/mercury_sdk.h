@@ -21,6 +21,5 @@
 #include "group_sync_write.h"
 #include "packet_handler.h"
 #include "port_handler.h"
-#include "mercury_defs.h"
 
 #endif /* INCLUDE_MERCURY_SDK_MERCURYSDK_H_ */	

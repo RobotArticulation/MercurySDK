@@ -7,5 +7,6 @@
             "binaryPath": "${workspaceRoot}/linux64/sync_read_write",
             "binaryArgs": []
         }
-    ]
+    ],
+    "C_Cpp.errorSquiggles": "enabled"
 }

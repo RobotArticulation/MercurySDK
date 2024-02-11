@@ -15,21 +15,21 @@
 #define ADDR_MCY_TORQUE_ENABLE 0x30
 #define ACKNOWLEDGE_RESPONSE_DELAY_MS 1000
 
-bool do_synchronisation(std::vector<mcy_servo> *mcy_servos, mercury::PacketHandler *packetHandler, mercury::PortHandler *portHandler, uint8_t *mcy_comm_result)
+bool do_synchronisation(std::vector<uint8_t> *servo_ids, mercury::PacketHandler *packetHandler, mercury::PortHandler *portHandler, uint8_t *mcy_comm_result)
 {
   /*
    * Check for any servos that have not been synced.
   */
   std::vector<uint8_t> unsynchronised_servos = {};
-  std::for_each(mcy_servos->begin(), mcy_servos->end(), [&](mcy_servo servo){
+  std::for_each(servo_ids->begin(), servo_ids->end(), [&](uint8_t id){
 
-    if (!is_synchronised(servo.id, packetHandler, portHandler, mcy_comm_result))
+    if (!is_synchronised(id, packetHandler, portHandler, mcy_comm_result))
     {
-      unsynchronised_servos.push_back(servo.id);
+      unsynchronised_servos.push_back(id);
     }
     else if (*mcy_comm_result != COMM_SUCCESS)
     {
-      printf("Mercury#%d: %s\n", servo.id, packetHandler->getTxRxResult(*mcy_comm_result));
+      printf("Mercury#%d: %s\n", id, packetHandler->getTxRxResult(*mcy_comm_result));
     }
   });
 
